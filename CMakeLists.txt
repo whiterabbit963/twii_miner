@@ -14,6 +14,8 @@ target_sources(twii_miner PRIVATE
     "src/main.cpp"
     "src/xml_loader.cpp"
     "src/skill_loader.cpp"
+    "src/skill_input.cpp"
+    "src/skill_output.cpp"
 )
 target_include_directories(twii_miner PRIVATE
     "src"
@@ -23,12 +25,12 @@ target_compile_definitions(twii_miner PUBLIC
     "WIN32_LEAN_AND_MEAN"
     "UNICODE" "_UNICODE"
     "NOMINMAX"
-#    "TOML_EXCEPTIONS=0"
-#    "TOML_HEADER_ONLY=0"
+    "TOML_EXCEPTIONS=0"
+    "TOML_HEADER_ONLY=0"
 )
 
-#target_include_directories(twii_miner PUBLIC
-#    "../tomlplusplus/include")
+target_include_directories(twii_miner PUBLIC
+   "../tomlplusplus/include")
 
 # vcpkg used for lib fmt
 target_link_libraries(twii_miner PUBLIC
