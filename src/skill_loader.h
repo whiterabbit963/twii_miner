@@ -73,17 +73,17 @@ struct Skill
     uint32_t itemId{0};
     LCLabel name;
     std::unique_ptr<LCLabel> desc;
-    LCLabel label; // dev-input
-    MapList mapList; // dev-input
-    std::vector<uint32_t> overlapIds; // dev-input
-    std::string tag; // dev-input; generally empty
+    LCLabel label; // input
+    MapList mapList; // input
+    std::vector<uint32_t> overlapIds; // input
+    std::string tag; // input; generally empty
     uint32_t factionId{0}; // parse
     unsigned factionRank{0}; // parse
     unsigned minLevel{0}; // parse
-    float sortLevel{0}; // dev-input
-    bool storeLP{false}; // dev-input; adds acquired entry
-    bool autoRep{false}; // dev-input; parseable??? adds acquired entry
-    bool autoLevel{false}; // dev-input; parseable??? acquired on minLevel for the class
+    std::string sortLevel; // input
+    bool storeLP{false}; // input; adds acquired entry
+    bool autoRep{false}; // input; parseable??? adds acquired entry
+    bool autoLevel{false}; // input; parseable??? acquired on minLevel for the class
 
     SkillCategory cat;
     std::string descKey;

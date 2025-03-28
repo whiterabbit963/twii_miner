@@ -22,8 +22,29 @@ string_view getGroupName(Skill::Type type)
     case Skill::Type::Mariner: return "mariner";
     case Skill::Type::Gen: return "gen";
     case Skill::Type::Rep: return "rep";
+    case Skill::Type::Creep: return "creep";
+    case Skill::Type::Racial: return "racial";
     default: return "UNKNOWN";
     }
+}
+
+Skill::Type getSkillType(string_view name)
+{
+    if(name == "hunter")
+        return Skill::Type::Hunter;
+    if(name == "warden")
+        return Skill::Type::Warden;
+    if(name == "mariner")
+        return Skill::Type::Mariner;
+    if(name == "gen")
+        return Skill::Type::Gen;
+    if(name == "rep")
+        return Skill::Type::Rep;
+    if(name == "racial")
+        return Skill::Type::Racial;
+    if(name == "creep")
+        return Skill::Type::Creep;
+    return Skill::Type::Unknown;
 }
 
 void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill, TravelOutputState &state)

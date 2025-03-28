@@ -32,7 +32,7 @@ Skill::Type getGroupTypeFromName(string_view name)
         return Skill::Type::Warden;
     if(name == "Hunter"sv)
         return Skill::Type::Hunter;
-    if(name == "Mariner"sv)
+    if(name == "Mariner"sv || name == "Corsair"sv)
         return Skill::Type::Mariner;
     return Skill::Type::Unknown;
 }
