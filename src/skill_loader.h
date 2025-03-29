@@ -19,12 +19,12 @@
 
 using namespace std::literals;
 
-constexpr auto EN = "en"sv;
-constexpr auto DE = "de"sv;
-constexpr auto FR = "fr"sv;
-constexpr auto RU = "ru"sv;
+constexpr auto EN = "en";
+constexpr auto DE = "de";
+constexpr auto FR = "fr";
+constexpr auto RU = "ru";
 
-using LCLabel = std::map<std::string_view, std::string>;
+using LCLabel = std::map<std::string, std::string, std::less<>>;
 
 struct MapLoc
 {
@@ -106,6 +106,7 @@ struct Currency
 
 struct TravelInfo
 {
+    std::map<Skill::Type, LCLabel> labelTags;
     std::vector<Skill> skills;
     std::vector<Currency> currencies;
     std::vector<Faction> factions;
@@ -124,15 +125,15 @@ public:
     std::vector<Faction> getFactions();
 
     bool getSkillNames(std::vector<Skill> &skills);
-    bool getSkillNames(std::string_view locale, std::vector<Skill> &skills);
-    bool getSkillDesc(std::string_view locale, std::vector<Skill> &skills);
+    bool getSkillNames(const std::string &locale, std::vector<Skill> &skills);
+    bool getSkillDesc(const std::string &locale, std::vector<Skill> &skills);
     bool getSkillItems(std::vector<Skill> &skills);
 
     bool getFactionLabels(FactionLabels &labels);
-    bool getFactionLabel(std::string_view locale, FactionLabels &labels);
+    bool getFactionLabel(const std::string &locale, FactionLabels &labels);
 
     bool getCurrencyLabels(CurrencyLabels &labels);
-    bool getCurrencyLabel(std::string_view locale, CurrencyLabels &labels);
+    bool getCurrencyLabel(const std::string &locale, CurrencyLabels &labels);
 
 private:
     std::string m_path;

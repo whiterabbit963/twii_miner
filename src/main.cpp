@@ -58,7 +58,7 @@ int main(int argc, const char **argv)
     TravelInfo info;
     SkillLoader loader("C:\\projects"); // TODO: make an input arg
     info.skills = loader.getSkills();
-    if(!mergeSkillInputs(info.skills))
+    if(!mergeSkillInputs(info))
     {
         return -1;
     }

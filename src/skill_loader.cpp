@@ -132,7 +132,7 @@ bool SkillLoader::getSkillNames(vector<Skill> &skills)
     return true;
 }
 
-bool SkillLoader::getSkillNames(string_view locale, vector<Skill> &skills)
+bool SkillLoader::getSkillNames(const string &locale, vector<Skill> &skills)
 {
     string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\skills.xml", m_path, locale);
     if(!m_xml.load(fp))
@@ -190,7 +190,7 @@ bool SkillLoader::getSkillNames(string_view locale, vector<Skill> &skills)
     return true;
 }
 
-bool SkillLoader::getSkillDesc(string_view locale, vector<Skill> &skills)
+bool SkillLoader::getSkillDesc(const string &locale, vector<Skill> &skills)
 {
     string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\skills.xml", m_path, locale);
     if(!m_xml.load(fp))
@@ -322,7 +322,7 @@ bool SkillLoader::getFactionLabels(FactionLabels &labels)
     return true;
 }
 
-bool SkillLoader::getFactionLabel(std::string_view locale, FactionLabels &labels)
+bool SkillLoader::getFactionLabel(const std::string &locale, FactionLabels &labels)
 {
     string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\factions.xml", m_path, locale);
     if(!m_xml.load(fp))
@@ -426,7 +426,7 @@ bool SkillLoader::getCurrencyLabels(CurrencyLabels &labels)
     return true;
 }
 
-bool SkillLoader::getCurrencyLabel(string_view locale, CurrencyLabels &labels)
+bool SkillLoader::getCurrencyLabel(const string &locale, CurrencyLabels &labels)
 {
     string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\items.xml", m_path, locale);
     if(!m_xml.load(fp))

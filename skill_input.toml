@@ -1,3 +1,10 @@
+[labels]
+    hunter={EN="Guide", DE="Führer", FR="Guide", RU="Путь" }
+    warden={EN="Muster", DE="Appell", FR="Rassemblement", RU="Сбор" }
+    mariner={EN="Sail", DE="Segeln", FR="Naviguer", RU="Плаванье" }
+    racials={EN="Racial", DE="Rasse", FR="Race", RU="Расовые" }
+    rep={EN="Rep", DE="Ruf", FR="Rep", RU="Репутация" }
+
 [[hunter]]
     id="0x7000A2C1"
     name="Return to Camp"
@@ -725,7 +732,6 @@
     level=150.5
 
 
-# self.warden:AddLabelTag({EN="Muster", DE="Appell", FR="Rassemblement", RU="Сбор" })
 [[warden]]
     id="0x70064F4D"
     EN={ name="Muster at Clegur",       label="Clegur", zone="Swanfleet" }
@@ -1383,7 +1389,7 @@
     #minLevel=150,
     level=150.5
 
-#self.mariner:AddLabelTag({EN="Sail", DE="Segeln", FR="Naviguer", RU="Плаванье" })
+
 [[mariner]]
     id="0x70066100"
     EN={ name="Sail to Celondim",       label="Celondim", zone="Ered Luin" }
@@ -1647,7 +1653,6 @@
     level=150.4
 
 
-#self.racials:AddLabelTag({EN="Racial", DE="Rasse", FR="Race", RU="Расовые" 
 [[racials]]
     # man
     id="0x700062F6"
@@ -1922,7 +1927,7 @@
     #minLevel=1,
     level=1
 
-#self.rep:AddLabelTag({EN="Rep", DE="Ruf", FR="Rep", RU="Репутация" 
+
 [[rep]]
     id="0x70023262"
     EN={ name="Return to Michel Delving",  label="Michel Delving", tag="Store", zone="Shire" }

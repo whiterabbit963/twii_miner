@@ -3,6 +3,7 @@
 
 #include "skill_loader.h"
 
-bool mergeSkillInputs(std::vector<Skill> &skills);
+class TravelInfo;
+bool mergeSkillInputs(TravelInfo &info);
 
 #endif // SKILL_INPUT_H
