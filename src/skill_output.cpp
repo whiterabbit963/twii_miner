@@ -85,6 +85,21 @@ static string outputMapList(const vector<MapLoc> &locs)
     return fmt::format("{{{}}}", output);
 }
 
+static string outputOverlapIds(const vector<uint32_t> &ids)
+{
+    string out;
+    string inner;
+    for(auto it = ids.begin(); it != ids.end(); ++it)
+    {
+        if(std::next(it) == ids.end())
+            fmt::format_to(std::back_inserter(inner), "\"0x{:08X}\"", *it);
+        else
+            fmt::format_to(std::back_inserter(inner), "\"0x{:08X}\", ", *it);
+    }
+    fmt::format_to(std::back_inserter(out), "{{{}}}", inner);
+    return out;
+}
+
 static string outputLabelTag(const LCLabel &tag)
 {
     return fmt::format("{{EN=\"{}\", DE=\"{}\", FR=\"{}\", RU=\"{}\" }}",
@@ -101,6 +116,10 @@ void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill, Trave
     fmt::println(out, "        FR={{ name=\"{}\", }},", skill.name.at(FR));
     fmt::println(out, "        RU={{ name=\"{}\", }},", skill.name.at(RU));
     fmt::println(out, "        map={},", outputMapList(skill.mapList));
+    if(!skill.overlapIds.empty())
+    {
+        fmt::println(out, "        overlap={},", outputOverlapIds(skill.overlapIds));
+    }
     if(skill.minLevel)
         fmt::println(out, "        minLevel={},", skill.minLevel);
     fmt::println(out, "        level={}", skill.sortLevel);
@@ -133,8 +152,10 @@ void outputSkillDataFile(const TravelInfo &info)
         auto tagIt = info.labelTags.find(group);
         fmt::println(out, "    -- add the {} locations", groupName);
         if(tagIt != info.labelTags.end())
+        {
             fmt::println(out, "    self.{}:AddLabelTag({})",
                          groupName, outputLabelTag(tagIt->second));
+        }
         for(auto &skill : info.skills)
         {
             if(skill.group != group)

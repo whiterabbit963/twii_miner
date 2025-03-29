@@ -94,7 +94,7 @@ std::optional<std::vector<uint32_t>> loadOverlaps(toml::array *arr)
         if(!strId)
             return std::nullopt;
 
-        overlaps.push_back(atoi(strId->get().c_str()));
+        overlaps.push_back(strtoul(strId->get().c_str(), nullptr, 16));
     }
     return overlaps;
 }
