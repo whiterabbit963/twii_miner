@@ -29,6 +29,12 @@ target_compile_definitions(twii_miner PUBLIC
     "TOML_HEADER_ONLY=0"
 )
 
+if(CMAKE_BUILD_TYPE MATCHES DEBUG)
+    target_compile_definitions(twii_miner PUBLIC
+        "_ITERATOR_DEBUG_LEVEL=2"
+    )
+endif()
+
 target_include_directories(twii_miner PUBLIC
    "../tomlplusplus/include")
 

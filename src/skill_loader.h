@@ -5,15 +5,16 @@
 #include <vector>
 #include <string>
 
-#ifdef _DEBUG
-#undef _ITERATOR_DEBUG_LEVEL
-#endif
+// #ifdef _DEBUG
+// #undef _ITERATOR_DEBUG_LEVEL
+// #endif
 
 #include <map>
+#include <unordered_map>
 
-#ifdef _DEBUG
-#define _ITERATOR_DEBUG_LEVEL 2
-#endif
+// #ifdef _DEBUG
+// #define _ITERATOR_DEBUG_LEVEL 2
+// #endif
 
 #include "xml_loader.h"
 
@@ -92,6 +93,7 @@ struct Skill
 struct Faction
 {
     uint32_t id{0};
+    std::string keyName; // in caps; use for LUA tag
     LCLabel name;
     std::map<unsigned, LCLabel> ranks;
     bool used{false};
@@ -104,16 +106,18 @@ struct Currency
     bool used{false};
 };
 
+using FactionLabels = std::map<std::string, LCLabel, std::less<>>;
+using CurrencyLabels = std::map<std::string, LCLabel, std::less<>>;
+
 struct TravelInfo
 {
     std::map<Skill::Type, LCLabel> labelTags;
     std::vector<Skill> skills;
     std::vector<Currency> currencies;
     std::vector<Faction> factions;
+    CurrencyLabels currencyLabels;
 };
 
-using FactionLabels = std::map<std::string, LCLabel, std::less<>>;
-using CurrencyLabels = std::map<std::string, LCLabel, std::less<>>;
 
 class SkillLoader
 {
@@ -121,7 +125,7 @@ public:
     SkillLoader(std::string_view root);
 
     std::vector<Skill> getSkills();
-    std::vector<Currency> getCurrencies();
+    std::vector<Currency> getCurrencies(CurrencyLabels &labels);
     std::vector<Faction> getFactions();
 
     bool getSkillNames(std::vector<Skill> &skills);

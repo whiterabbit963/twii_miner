@@ -383,11 +383,16 @@ std::vector<Faction> SkillLoader::getFactions()
         string_view factionId = attr->value();
         faction.id = atoi(factionId.data());
 
+        attr = node->first_attribute("key");
+        if(!attr)
+            continue;
+        faction.keyName = attr->value();
+
         attr = node->first_attribute("name");
         if(!attr)
             continue;
         string_view name = attr->value();
-        auto nameLabels = factionLabels.find(string{factionId});
+        auto nameLabels = factionLabels.find(factionId);
         if(nameLabels == factionLabels.end())
             continue;
         faction.name = nameLabels->second;
@@ -443,20 +448,25 @@ bool SkillLoader::getCurrencyLabel(const string &locale, CurrencyLabels &labels)
         if(!attr)
             continue;
         string_view key = attr->value();
+        if(key.starts_with("key"sv))
+            continue;
         attr = node->first_attribute("value");
         if(!attr)
             continue;
-        auto &lcItem = labels.insert({string{key}, {}}).first->second;
+        //string keyId = atoi(key.data());
+        auto it = labels.find(key);
+        if(it == labels.end())
+            it = labels.insert({string{key}, {}}).first;
+        auto &lcItem = it->second;
         lcItem.insert({locale, attr->value()});
     }
     return true;
 }
 
 // <paperItem identifier="1879416779" name="Silver Coin of Gundabad" itemClass="27" category="15" free="true" iconId="1092667064" cap="500"/>
-std::vector<Currency> SkillLoader::getCurrencies()
+std::vector<Currency> SkillLoader::getCurrencies(CurrencyLabels &currencyLabels)
 {
     std::vector<Currency> currency;
-    CurrencyLabels currencyLabels;
     if(!getCurrencyLabels(currencyLabels))
         return {};
 
