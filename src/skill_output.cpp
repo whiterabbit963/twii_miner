@@ -84,6 +84,7 @@ void replaceUtf8(string &in, const Utf8Map &strip)
         }
         else if(s != in.end())
         {
+            string_view value{};
             auto stripIt = strip.find(string_view{s, it});
             if(stripIt == strip.end())
             {
@@ -93,7 +94,11 @@ void replaceUtf8(string &in, const Utf8Map &strip)
                     fmt::println("REPLACE UTF8 {}", string_view{s, it});
                 }
             }
-            in.replace(s, it, stripIt->second);
+            else
+            {
+                value = stripIt->second;
+            }
+            in.replace(s, it, value);
             it = s;
             s = in.end();
         }
