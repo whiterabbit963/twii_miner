@@ -4,13 +4,13 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <set>
 
 // #ifdef _DEBUG
 // #undef _ITERATOR_DEBUG_LEVEL
 // #endif
 
 #include <map>
-#include <unordered_map>
 
 // #ifdef _DEBUG
 // #define _ITERATOR_DEBUG_LEVEL 2
@@ -93,7 +93,6 @@ struct Skill
 struct Faction
 {
     uint32_t id{0};
-    std::string keyName; // in caps; use for LUA tag
     LCLabel name;
     std::map<unsigned, LCLabel> ranks;
     bool used{false};
@@ -108,6 +107,7 @@ struct Currency
 
 using FactionLabels = std::map<std::string, LCLabel, std::less<>>;
 using CurrencyLabels = std::map<std::string, LCLabel, std::less<>>;
+using Utf8Map = std::map<std::string_view, std::string_view>;
 
 struct TravelInfo
 {
@@ -116,6 +116,7 @@ struct TravelInfo
     std::vector<Currency> currencies;
     std::vector<Faction> factions;
     CurrencyLabels currencyLabels;
+    Utf8Map strip{{"á", "a"}, {"â", "a"}, {"ê", "e"}, {"ú", "u"}};
 };
 
 

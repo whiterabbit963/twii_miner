@@ -2,6 +2,8 @@
 #include "skill_loader.h"
 
 #include <fstream>
+#include <regex>
+#include <set>
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 
@@ -67,6 +69,49 @@ std::string_view getRegionText(MapLoc::Region region)
     }
 }
 
+void replaceUtf8(string &in, const Utf8Map &strip)
+{
+    static std::set<std::string> s_utf8chars;
+    auto s = in.end();
+    for(auto it = in.begin(); it != in.end(); ++it)
+    {
+        if(*it & 0x80)
+        {
+            if(s == in.end())
+            {
+                s = it;
+            }
+        }
+        else if(s != in.end())
+        {
+            auto stripIt = strip.find(string_view{s, it});
+            if(stripIt == strip.end())
+            {
+                auto [_, success] = s_utf8chars.insert(string{s, it});
+                if(success)
+                {
+                    fmt::println("REPLACE UTF8 {}", string_view{s, it});
+                }
+            }
+            in.replace(s, it, stripIt->second);
+            it = s;
+            s = in.end();
+        }
+    }
+}
+
+string convertToLuaGVarName(const string &in, const Utf8Map &strip)
+{
+    string out = in;
+    replaceUtf8(out, strip);
+    std::replace(out.begin(), out.end(), ' ', '_');
+    std::replace(out.begin(), out.end(), '-', '_');
+    std::transform(out.begin(), out.end(), out.begin(), ::toupper);
+    std::erase_if(out, [](int c) { return c != '_' && !::isalnum(c); });
+    out = std::regex_replace(out, std::regex("THE_"), "");
+    return out;
+}
+
 static string outputMapLoc(const MapLoc &loc)
 {
     return fmt::format("{{MapType.{}, {}, {}}}", getRegionText(loc.region), loc.x, loc.y);
@@ -100,6 +145,28 @@ static string outputOverlapIds(const vector<uint32_t> &ids)
     return out;
 }
 
+static string outputReputation(const Skill &skill, const TravelInfo &info)
+{
+    string s;
+    auto factionIt = std::ranges::find(info.factions, skill.factionId, &Faction::id);
+    if(factionIt == info.factions.end())
+    {
+        fmt::println("MISSING FACTION {}", skill.factionId);
+        return s;
+    }
+    auto rankIt = factionIt->ranks.find(skill.factionRank);
+    if(rankIt == factionIt->ranks.end())
+    {
+        fmt::println("MISSING FACTION RANK {}", skill.factionRank);
+        return s;
+    }
+    string factionTitle = convertToLuaGVarName(factionIt->name.at(EN), info.strip);
+    string rankTitle = convertToLuaGVarName(rankIt->second.at(EN), info.strip);
+    s = fmt::format("rep=LC.rep.{}, repLevel=LC.repLevel.{},",
+                    factionTitle, rankTitle);
+    return s;
+}
+
 static string outputLabelTag(const LCLabel &tag)
 {
     return fmt::format("{{EN=\"{}\", DE=\"{}\", FR=\"{}\", RU=\"{}\" }}",
@@ -116,6 +183,10 @@ void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill, Trave
     fmt::println(out, "        FR={{ name=\"{}\", }},", skill.name.at(FR));
     fmt::println(out, "        RU={{ name=\"{}\", }},", skill.name.at(RU));
     fmt::println(out, "        map={},", outputMapList(skill.mapList));
+    if(skill.factionId)
+    {
+        fmt::println(out, "        {}", outputReputation(skill, info));
+    }
     if(!skill.overlapIds.empty())
     {
         fmt::println(out, "        overlap={},", outputOverlapIds(skill.overlapIds));
@@ -135,13 +206,7 @@ void outputSkillDataFile(const TravelInfo &info)
         return;
     }
 
-#if 1 // TODO: after initial commit replace these top lines
-    fmt::println(out, "---[[ travel skills ]] --");
-    fmt::println(out, "--[[ Add all the travel skills ]] --");
-    fmt::println(out, "-- add the data to custom dictionaries to maintain the order");
-#else
-    fmt::println(out, "---[[ auto-generated travel skills ]] --");
-#endif
+    fmt::println(out, "---[[ auto-generated travel skills ]] --\n\n");
     fmt::println(out, "function TravelDictionary:CreateDictionaries()");
     TravelOutputState state;
     auto groups = {Skill::Type::Hunter, Skill::Type::Warden, Skill::Type::Mariner,
