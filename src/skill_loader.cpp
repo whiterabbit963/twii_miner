@@ -280,7 +280,6 @@ bool SkillLoader::getSkillItems(std::vector<Skill> &skills)
             string_view words{attr->value()};
             for(const auto word : std::ranges::split_view(words, ";"sv))
             {
-                // TODO: add method to lookup factionId's and ranks
                 switch(i)
                 {
                 case 0: skill.factionId = atoi(word.data()); break;
@@ -382,11 +381,6 @@ std::vector<Faction> SkillLoader::getFactions()
             continue;
         string_view factionId = attr->value();
         faction.id = atoi(factionId.data());
-
-        attr = node->first_attribute("key");
-        if(!attr)
-            continue;
-        faction.keyName = attr->value();
 
         attr = node->first_attribute("name");
         if(!attr)
