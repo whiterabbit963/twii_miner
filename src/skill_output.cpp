@@ -178,15 +178,43 @@ static string outputLabelTag(const LCLabel &tag)
                        tag.at(EN), tag.at(DE), tag.at(FR), tag.at(RU));
 }
 
+static string outputLabelField(const LCLabel *labels,
+                               std::string_view locale,
+                               std::string_view name)
+{
+    if(labels)
+    {
+        auto it = labels->find(locale);
+        if(it != labels->end())
+            return fmt::format("{} {}=\"{}\"", name == "name" ? "" : ",", name, it->second);
+    }
+    return {};
+}
+
+static string outputLabelFields(const Skill &skill, std::string_view locale)
+{
+    string lc;
+    std::transform(locale.begin(), locale.end(), std::back_inserter(lc), ::tolower);
+    if(skill.group == Skill::Type::Creep)
+    {
+        return fmt::format("{}", outputLabelField(&skill.name, lc, "name"));
+    }
+    return fmt::format("{}{}{}{}{}",
+                       outputLabelField(&skill.name, lc, "name"),
+                       outputLabelField(skill.desc.get(), lc, "desc"),
+                       outputLabelField(skill.label.get(), lc, "label"),
+                       outputLabelField(skill.zlabel.get(), lc, "zlabel"),
+                       outputLabelField(skill.zone.get(), lc, "zone"));
+}
+
 void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill, TravelOutputState &state)
 {
-    //auto [sortIt, res] = state.sortLevelNext.insert({skill.sortLevel, 0});
     fmt::println(out, "    self.{}:AddSkill({{", getGroupName(skill.group));
     fmt::println(out, "        id=\"0x{:08X}\",", skill.id);
-    fmt::println(out, "        EN={{ name=\"{}\", }},", skill.name.at(EN));
-    fmt::println(out, "        DE={{ name=\"{}\", }},", skill.name.at(DE));
-    fmt::println(out, "        FR={{ name=\"{}\", }},", skill.name.at(FR));
-    fmt::println(out, "        RU={{ name=\"{}\", }},", skill.name.at(RU));
+    fmt::println(out, "        EN={{{} }},", outputLabelFields(skill, EN));
+    fmt::println(out, "        DE={{{} }},", outputLabelFields(skill, DE));
+    fmt::println(out, "        FR={{{} }},", outputLabelFields(skill, FR));
+    fmt::println(out, "        RU={{{} }},", outputLabelFields(skill, RU));
     fmt::println(out, "        map={},", outputMapList(skill.mapList));
     if(skill.factionId)
     {

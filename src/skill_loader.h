@@ -74,7 +74,10 @@ struct Skill
     uint32_t itemId{0};
     LCLabel name;
     std::unique_ptr<LCLabel> desc;
-    LCLabel label; // input
+    std::unique_ptr<LCLabel> label; // input
+    std::unique_ptr<LCLabel> zone; // input
+    std::unique_ptr<LCLabel> zlabel; // input
+    std::unique_ptr<LCLabel> detail; // input
     MapList mapList; // input
     std::vector<uint32_t> overlapIds; // input
     std::string tag; // input; generally empty

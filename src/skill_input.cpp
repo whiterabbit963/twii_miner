@@ -1,5 +1,8 @@
 #include "skill_input.h"
 
+#include <algorithm>
+#include <cctype>
+
 #define TOML_IMPLEMENTATION
 #include <toml++/toml.hpp>
 #include <fmt/format.h>
@@ -23,6 +26,13 @@ MapLoc::Region getMapLocRegion(std::string_view name)
     if(name == "NONE"sv)
         return MapLoc::Region::None;
     return MapLoc::Region::Invalid;
+}
+
+bool validLocaleLabel(std::string_view locale)
+{
+    if(locale == EN || locale == DE || locale == FR || locale == RU)
+        return true;
+    return false;
 }
 
 std::optional<MapList> loadMapInput(toml::array *arr)
@@ -107,7 +117,8 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
     }
     for(auto &item : *itemTable)
     {
-        if(item.first == "id")
+        std::string_view name = item.first;
+        if(name == "id")
         {
             auto value = item.second.as_string();
             if(!value)
@@ -115,63 +126,90 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
 
             skill.id = strtol((*value)->c_str(), nullptr, 16);
         }
-        else if(item.first == "map")
+        else if(name == "map")
         {
             auto mapList = loadMapInput(item.second.as_array());
             if(!mapList)
                 return false;
             skill.mapList = std::move(*mapList);
         }
-        else if(item.first == "level")
+        else if(name == "level")
         {
             auto value = item.second.value<double>();
             if(!value.has_value())
                 return false;
             skill.sortLevel = fmt::format("{}", value.value());
         }
-        else if(item.first == "overlap")
+        else if(name == "overlap")
         {
             auto overlaps = loadOverlaps(item.second.as_array());
             if(!overlaps)
                 return false;
             skill.overlapIds = std::move(*overlaps);
         }
-        else if(item.first == "tag")
+        else if(name == "tag")
         {
             auto value = item.second.as_string();
             if(!value)
                 return false;
             skill.tag = value->get();
         }
-        else if(item.first == "autoLevel")
+        else if(name == "autoLevel")
         {
             auto value = item.second.as_boolean();
             if(!value)
                 return false;
             skill.autoLevel = value->get();
         }
-        else if(item.first == "store")
+        else if(name == "store")
         {
             auto value = item.second.as_boolean();
             if(!value)
                 return false;
             skill.storeLP = value->get();
         }
+        else if(name == "EN" || name == "DE" || name == "FR" || name == "RU")
+        {
+            auto value = item.second.as_table();
+            if(!value)
+                return false;
+            for(auto &label : *value)
+            {
+                auto &lblName = label.first;
+                auto lblValue = label.second.value<std::string_view>();
+                if(!lblValue.has_value())
+                    return false;
+
+                std::unique_ptr<LCLabel> *lclPtr = nullptr;
+                if(lblName == "label")
+                {
+                    lclPtr = &skill.label;
+                }
+                else if(lblName == "zone")
+                {
+                    lclPtr = &skill.zone;
+                }
+                else if(lblName == "zlabel")
+                {
+                    lclPtr = &skill.zlabel;
+                }
+                else if(lblName == "detail")
+                {
+                    lclPtr = &skill.detail;
+                }
+                if(lclPtr)
+                {
+                    std::string locale;
+                    std::transform(name.begin(), name.end(), std::back_inserter(locale), ::tolower);
+                    if(!*lclPtr)
+                        (*lclPtr) = std::make_unique<LCLabel>();
+                    auto &lcl = *lclPtr;
+                    lcl->insert({locale, std::string{lblValue.value()}});
+                }
+            }
+        }
     }
     return true;
-}
-
-std::string getLocaleLabel(std::string_view locale)
-{
-    if(locale == "EN"sv)
-        return EN;
-    if(locale == "DE"sv)
-        return DE;
-    if(locale == "FR"sv)
-        return FR;
-    if(locale == "RU"sv)
-        return RU;
-    return nullptr;
 }
 
 bool mergeSkillInputs(TravelInfo &info)
@@ -219,13 +257,14 @@ bool mergeSkillInputs(TravelInfo &info)
                 LCLabel tags;
                 for(auto &label : *labelTable)
                 {
-                    std::string name = getLocaleLabel(label.first.str());
-                    if(name.empty())
+                    std::string locale = std::string{label.first.str()};
+                    std::transform(locale.begin(), locale.end(), locale.begin(), ::tolower);
+                    if(!validLocaleLabel(locale))
                         return false;
                     auto tag = label.second.value<std::string>();
                     if(!tag)
                         return false;
-                    tags[name] = *tag;
+                    tags.insert({std::string{locale}, *tag});
                 }
                 info.labelTags.insert({type, tags});
             }
@@ -252,6 +291,10 @@ bool mergeSkillInputs(TravelInfo &info)
             it->mapList = skillInput.mapList;
             it->overlapIds = skillInput.overlapIds;
             it->sortLevel = skillInput.sortLevel;
+            it->label = std::move(skillInput.label);
+            it->zone = std::move(skillInput.zone);
+            it->zlabel = std::move(skillInput.zlabel);
+            it->detail = std::move(skillInput.detail);
             // TODO: copy other skill input values
         }
         info.skills.push_back(std::move(*it));
