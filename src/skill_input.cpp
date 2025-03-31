@@ -180,7 +180,7 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
                 if(!lblValue.has_value())
                     return false;
 
-                std::unique_ptr<LCLabel> *lclPtr = nullptr;
+                std::optional<LCLabel> *lclPtr = nullptr;
                 if(lblName == "label")
                 {
                     lclPtr = &skill.label;
@@ -202,7 +202,7 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
                     std::string locale;
                     std::transform(name.begin(), name.end(), std::back_inserter(locale), ::tolower);
                     if(!*lclPtr)
-                        (*lclPtr) = std::make_unique<LCLabel>();
+                        (*lclPtr) = std::make_optional<LCLabel>();
                     auto &lcl = *lclPtr;
                     lcl->insert({locale, std::string{lblValue.value()}});
                 }
@@ -291,10 +291,10 @@ bool mergeSkillInputs(TravelInfo &info)
             it->mapList = skillInput.mapList;
             it->overlapIds = skillInput.overlapIds;
             it->sortLevel = skillInput.sortLevel;
-            it->label = std::move(skillInput.label);
-            it->zone = std::move(skillInput.zone);
-            it->zlabel = std::move(skillInput.zlabel);
-            it->detail = std::move(skillInput.detail);
+            it->label = skillInput.label;
+            it->zone = skillInput.zone;
+            it->zlabel = skillInput.zlabel;
+            it->detail = skillInput.detail;
             // TODO: copy other skill input values
         }
         info.skills.push_back(std::move(*it));

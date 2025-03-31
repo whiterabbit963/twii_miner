@@ -178,14 +178,15 @@ static string outputLabelTag(const LCLabel &tag)
                        tag.at(EN), tag.at(DE), tag.at(FR), tag.at(RU));
 }
 
-static string outputLabelField(const LCLabel *labels,
+static string outputLabelField(std::optional<std::reference_wrapper<const LCLabel>> labelsRef,
                                std::string_view locale,
                                std::string_view name)
 {
-    if(labels)
+    if(labelsRef.has_value())
     {
-        auto it = labels->find(locale);
-        if(it != labels->end())
+        auto &labels = labelsRef.value().get();
+        auto it = labels.find(locale);
+        if(it != labels.end())
             return fmt::format("{} {}=\"{}\"", name == "name" ? "" : ",", name, it->second);
     }
     return {};
@@ -197,14 +198,14 @@ static string outputLabelFields(const Skill &skill, std::string_view locale)
     std::transform(locale.begin(), locale.end(), std::back_inserter(lc), ::tolower);
     if(skill.group == Skill::Type::Creep)
     {
-        return fmt::format("{}", outputLabelField(&skill.name, lc, "name"));
+        return fmt::format("{}", outputLabelField(skill.name, lc, "name"));
     }
     return fmt::format("{}{}{}{}{}",
-                       outputLabelField(&skill.name, lc, "name"),
-                       outputLabelField(skill.desc.get(), lc, "desc"),
-                       outputLabelField(skill.label.get(), lc, "label"),
-                       outputLabelField(skill.zlabel.get(), lc, "zlabel"),
-                       outputLabelField(skill.zone.get(), lc, "zone"));
+                       outputLabelField(skill.name, lc, "name"),
+                       outputLabelField(skill.desc, lc, "desc"),
+                       outputLabelField(skill.label, lc, "label"),
+                       outputLabelField(skill.zlabel, lc, "zlabel"),
+                       outputLabelField(skill.zone, lc, "zone"));
 }
 
 void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill, TravelOutputState &state)

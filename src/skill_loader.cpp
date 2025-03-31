@@ -180,10 +180,10 @@ bool SkillLoader::getSkillNames(const string &locale, vector<Skill> &skills)
 
         if(!it->desc)
         {
-            it->desc = std::make_unique<LCLabel>();
+            it->desc = std::make_optional<LCLabel>();
             //fmt::println("{:08X} {}", it->id, it->name[locale]);
         }
-        skill.desc = std::make_unique<LCLabel>();
+        skill.desc = std::make_optional<LCLabel>();
         //fmt::println("{:08X} {}", skill.id, skill.name[locale]);
     }
 

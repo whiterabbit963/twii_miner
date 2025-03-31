@@ -1,10 +1,9 @@
 #ifndef SKILL_LOADER_H
 #define SKILL_LOADER_H
 
-#include <memory>
+#include <optional>
 #include <vector>
 #include <string>
-#include <set>
 
 // #ifdef _DEBUG
 // #undef _ITERATOR_DEBUG_LEVEL
@@ -73,11 +72,11 @@ struct Skill
     Type group{Type::Unknown}; // parseable?
     uint32_t itemId{0};
     LCLabel name;
-    std::unique_ptr<LCLabel> desc;
-    std::unique_ptr<LCLabel> label; // input
-    std::unique_ptr<LCLabel> zone; // input
-    std::unique_ptr<LCLabel> zlabel; // input
-    std::unique_ptr<LCLabel> detail; // input
+    std::optional<LCLabel> desc;
+    std::optional<LCLabel> label; // input
+    std::optional<LCLabel> zone; // input
+    std::optional<LCLabel> zlabel; // input
+    std::optional<LCLabel> detail; // input
     MapList mapList; // input
     std::vector<uint32_t> overlapIds; // input
     std::string tag; // input; generally empty
