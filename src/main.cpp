@@ -62,10 +62,14 @@ int main(int argc, const char **argv)
     {
         return -1;
     }
-    info.currencies = loader.getCurrencies(info.currencyLabels);
+    if(!loader.getCurrencies(info))
+    {
+        return -1;
+    }
     info.factions = loader.getFactions();
 
     printNewSkills(info.skills);
     outputSkillDataFile(info);
+    outputLocaleDataFile(info);
     return 0;
 }

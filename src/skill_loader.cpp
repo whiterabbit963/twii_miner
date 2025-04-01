@@ -7,13 +7,6 @@
 using namespace std;
 using namespace rapidxml;
 
-// <barterProfile profileId="1879297432" name="Cosmetic Cloaks">
-//  <barterEntry>
-//   <give id="1879255991" name="Mithril Coin" quantity="30"/>
-//   <receive id="1879188485" name="Guide to Ost Guruth"/>
-//  </barterEntry>
-// </barterProfile>
-constexpr string_view s_bartersFn = "barters.xml";
 constexpr string_view s_skillsDetailsFn = "skillsDetails.xml";
 
 // <trait identifier="1879180386" name="Travel to Ost Guruth" iconId="1091404797" minLevel="25" category="29" nature="1" tooltip="key:620858129:191029568" description="key:620858129:54354734">
@@ -269,7 +262,8 @@ bool SkillLoader::getSkillItems(std::vector<Skill> &skills)
             continue;
 
         auto &skill = *it;
-        skill.itemId = key;
+        skill.itemId = atoi(itemKey.data());
+
         if(attr = node->first_attribute("minLevel"); attr)
             skill.minLevel = atoi(attr->value());
         if(attr = node->first_attribute("requiredClass"); attr)
@@ -412,20 +406,20 @@ std::vector<Faction> SkillLoader::getFactions()
     return factions;
 }
 
-bool SkillLoader::getCurrencyLabels(CurrencyLabels &labels)
+bool SkillLoader::getCurrencyLabels(TravelInfo &info)
 {
-    if(!getCurrencyLabel(EN, labels))
+    if(!getCurrencyLabel(EN, info))
         return false;
-    if(!getCurrencyLabel(DE, labels))
+    if(!getCurrencyLabel(DE, info))
         return false;
-    if(!getCurrencyLabel(FR, labels))
+    if(!getCurrencyLabel(FR, info))
         return false;
-    if(!getCurrencyLabel(RU, labels))
+    if(!getCurrencyLabel(RU, info))
         return false;
     return true;
 }
 
-bool SkillLoader::getCurrencyLabel(const string &locale, CurrencyLabels &labels)
+bool SkillLoader::getCurrencyLabel(const string &locale, TravelInfo &info)
 {
     string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\items.xml", m_path, locale);
     if(!m_xml.load(fp))
@@ -436,7 +430,7 @@ bool SkillLoader::getCurrencyLabel(const string &locale, CurrencyLabels &labels)
         return false;
 
     for(xml_node<> *node = root->first_node("label");
-         node; node = node->next_sibling("label"))
+            node; node = node->next_sibling("label"))
     {
         xml_attribute<> *attr = node->first_attribute("key");
         if(!attr)
@@ -447,30 +441,30 @@ bool SkillLoader::getCurrencyLabel(const string &locale, CurrencyLabels &labels)
         attr = node->first_attribute("value");
         if(!attr)
             continue;
-        //string keyId = atoi(key.data());
-        auto it = labels.find(key);
-        if(it == labels.end())
-            it = labels.insert({string{key}, {}}).first;
-        auto &lcItem = it->second;
-        lcItem.insert({locale, attr->value()});
+
+        uint32_t tokenId = atoi(key.data());
+        for(auto &skill : info.skills)
+        {
+            auto tokenIt = ranges::find(skill.currency, tokenId, &Token::id);
+            if(tokenIt != skill.currency.end())
+            {
+                tokenIt->name[locale] = attr->value();
+            }
+        }
     }
     return true;
 }
 
 // <paperItem identifier="1879416779" name="Silver Coin of Gundabad" itemClass="27" category="15" free="true" iconId="1092667064" cap="500"/>
-std::vector<Currency> SkillLoader::getCurrencies(CurrencyLabels &currencyLabels)
+bool SkillLoader::getCurrencies(TravelInfo &info)
 {
-    std::vector<Currency> currency;
-    if(!getCurrencyLabels(currencyLabels))
-        return {};
-
     string fp = fmt::format("{}\\lotro-data\\lore\\paperItems.xml", m_path);
     if(!m_xml.load(fp))
-        return {};
+        return false;
 
     xml_node<> *root = m_xml.doc().first_node("paperItems");
     if(!root)
-        return {};
+        return false;
 
     for(xml_node<> *node = root->first_node("paperItem");
             node; node = node->next_sibling("paperItem"))
@@ -481,13 +475,81 @@ std::vector<Currency> SkillLoader::getCurrencies(CurrencyLabels &currencyLabels)
             continue;
         string_view key = attr->value();
         token.id = atoi(key.data());
-
-        auto lcLabel = currencyLabels.find(key);
-        if(lcLabel == currencyLabels.end())
-            continue;
-        token.name = lcLabel->second;
-        currency.push_back(token);
+        info.currencies.push_back(token);
     }
 
-    return currency;
+    if(!getBarters(info))
+        return false;
+
+    if(!getCurrencyLabels(info))
+       return false;
+
+    return true;
+}
+
+// <barterProfile profileId="1879501119" name="Temple of Utug-bûr Rewards">
+// ...
+// <barterEntry>
+// <give id="1879496354" name="Cold-iron Token"/>
+// <receive id="1879501345" name="Muster at Utug-bûr"/>
+// </barterEntry>
+// ...
+// </barterProfile>
+bool SkillLoader::getBarters(TravelInfo &info)
+{
+    string fp = fmt::format("{}\\lotro-data\\lore\\barters.xml", m_path);
+    if(!m_xml.load(fp))
+        return false;
+
+    xml_node<> *root = m_xml.doc().first_node("barterers");
+    if(!root)
+        return false;
+
+    auto currencies = std::move(info.currencies);
+    info.currencies = std::vector<Currency>{};
+    info.currencies.reserve(currencies.size());
+    for(xml_node<> *proNode = root->first_node("barterProfile");
+            proNode; proNode = proNode->next_sibling("barterProfile"))
+    {
+        for(xml_node<> *brtrNode = proNode->first_node("barterEntry");
+                brtrNode; brtrNode = brtrNode->next_sibling("barterEntry"))
+        {
+            for(xml_node<> *recvNode = brtrNode->first_node("receive");
+                    recvNode; recvNode = recvNode->next_sibling("receive"))
+            {
+                xml_attribute<> *recvAttr = recvNode->first_attribute("id");
+                if(!recvAttr)
+                    continue;
+                uint32_t itemId = atoi(recvAttr->value());
+                auto skillIt = ranges::find(info.skills, itemId, &Skill::itemId);
+                if(skillIt == info.skills.end())
+                    continue;
+
+                for(xml_node<> *giveNode = brtrNode->first_node("give");
+                        giveNode; giveNode = giveNode->next_sibling("give"))
+                {
+                    xml_attribute<> *giveAttr = giveNode->first_attribute("id");
+                    if(!giveAttr)
+                        continue;
+                    Token token;
+                    token.amt = 1;
+                    token.id = atoi(giveAttr->value());
+                    giveAttr = giveNode->first_attribute("quantity");
+                    if(giveAttr)
+                    {
+                        token.amt = atoi(giveAttr->value());
+                    }
+                    skillIt->currency.push_back(token);
+
+                    auto tokenIt = ranges::find(currencies, token.id, &Currency::id);
+                    if(tokenIt != currencies.end())
+                    {
+                        info.currencies.push_back(*tokenIt);
+                        currencies.erase(tokenIt);
+                    }
+                }
+            }
+        }
+    }
+    return true;
 }

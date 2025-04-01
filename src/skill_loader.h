@@ -46,6 +46,13 @@ enum class SkillCategory : uint32_t
     Travel = 102,
 };
 
+struct Token
+{
+    uint32_t id{0};
+    unsigned amt{0};
+    LCLabel name;
+};
+
 struct Skill
 {
     enum class SearchStatus
@@ -70,9 +77,9 @@ struct Skill
     uint32_t id;
     SearchStatus status{SearchStatus::NotFound};
     Type group{Type::Unknown}; // parseable?
-    uint32_t itemId{0};
-    LCLabel name;
-    std::optional<LCLabel> desc;
+    uint32_t itemId{0}; // parse
+    LCLabel name; // parse
+    std::optional<LCLabel> desc; // parse
     std::optional<LCLabel> label; // input
     std::optional<LCLabel> zone; // input
     std::optional<LCLabel> zlabel; // input
@@ -80,6 +87,7 @@ struct Skill
     MapList mapList; // input
     std::vector<uint32_t> overlapIds; // input
     std::string tag; // input; generally empty
+    std::vector<Token> currency; // parse
     uint32_t factionId{0}; // parse
     unsigned factionRank{0}; // parse
     unsigned minLevel{0}; // parse
@@ -97,18 +105,15 @@ struct Faction
     uint32_t id{0};
     LCLabel name;
     std::map<unsigned, LCLabel> ranks;
-    bool used{false};
 };
 
 struct Currency
 {
     uint32_t id{0};
-    LCLabel name;
-    bool used{false};
+    //LCLabel name;
 };
 
 using FactionLabels = std::map<std::string, LCLabel, std::less<>>;
-using CurrencyLabels = std::map<std::string, LCLabel, std::less<>>;
 using Utf8Map = std::map<std::string_view, std::string_view>;
 
 struct TravelInfo
@@ -117,8 +122,8 @@ struct TravelInfo
     std::vector<Skill> skills;
     std::vector<Currency> currencies;
     std::vector<Faction> factions;
-    CurrencyLabels currencyLabels;
-    Utf8Map strip{{"á", "a"}, {"â", "a"}, {"ê", "e"}, {"ú", "u"}};
+    Utf8Map strip{{"á", "a"}, {"â", "a"}, {"ê", "e"}, {"ú", "u"},
+                  {"é", "e"}, {"ó", "o"}};
 };
 
 
@@ -128,8 +133,8 @@ public:
     SkillLoader(std::string_view root);
 
     std::vector<Skill> getSkills();
-    std::vector<Currency> getCurrencies(CurrencyLabels &labels);
     std::vector<Faction> getFactions();
+    bool getCurrencies(TravelInfo &info);
 
     bool getSkillNames(std::vector<Skill> &skills);
     bool getSkillNames(const std::string &locale, std::vector<Skill> &skills);
@@ -139,8 +144,10 @@ public:
     bool getFactionLabels(FactionLabels &labels);
     bool getFactionLabel(const std::string &locale, FactionLabels &labels);
 
-    bool getCurrencyLabels(CurrencyLabels &labels);
-    bool getCurrencyLabel(const std::string &locale, CurrencyLabels &labels);
+    bool getCurrencyLabels(TravelInfo &info);
+    bool getCurrencyLabel(const std::string &locale, TravelInfo &info);
+
+    bool getBarters(TravelInfo &info);
 
 private:
     std::string m_path;
