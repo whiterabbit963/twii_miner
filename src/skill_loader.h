@@ -50,7 +50,6 @@ struct Token
 {
     uint32_t id{0};
     unsigned amt{0};
-    LCLabel name;
 };
 
 struct Skill
@@ -102,15 +101,21 @@ struct Skill
 
 struct Faction
 {
+    struct Rank
+    {
+        std::string key;
+        LCLabel name;
+    };
+
     uint32_t id{0};
     LCLabel name;
-    std::map<unsigned, LCLabel> ranks;
+    std::map<unsigned, Rank> ranks;
 };
 
 struct Currency
 {
     uint32_t id{0};
-    //LCLabel name;
+    LCLabel name;
 };
 
 using FactionLabels = std::map<std::string, LCLabel, std::less<>>;
@@ -123,7 +128,7 @@ struct TravelInfo
     std::vector<Currency> currencies;
     std::vector<Faction> factions;
     Utf8Map strip{{"á", "a"}, {"â", "a"}, {"ê", "e"}, {"ú", "u"},
-                  {"é", "e"}, {"ó", "o"}};
+                  {"é", "e"}, {"ó", "o"}, {"í", "i"}};
 };
 
 
@@ -133,7 +138,7 @@ public:
     SkillLoader(std::string_view root);
 
     std::vector<Skill> getSkills();
-    std::vector<Faction> getFactions();
+    bool getFactions(TravelInfo &info);
     bool getCurrencies(TravelInfo &info);
 
     bool getSkillNames(std::vector<Skill> &skills);
@@ -141,8 +146,8 @@ public:
     bool getSkillDesc(const std::string &locale, std::vector<Skill> &skills);
     bool getSkillItems(std::vector<Skill> &skills);
 
-    bool getFactionLabels(FactionLabels &labels);
-    bool getFactionLabel(const std::string &locale, FactionLabels &labels);
+    bool getFactionLabels(TravelInfo &info);
+    bool getFactionLabel(const std::string &locale, TravelInfo &info);
 
     bool getCurrencyLabels(TravelInfo &info);
     bool getCurrencyLabel(const std::string &locale, TravelInfo &info);

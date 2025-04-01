@@ -302,20 +302,20 @@ bool SkillLoader::getSkillItems(std::vector<Skill> &skills)
 }
 
 
-bool SkillLoader::getFactionLabels(FactionLabels &labels)
+bool SkillLoader::getFactionLabels(TravelInfo &info)
 {
-    if(!getFactionLabel(EN, labels))
+    if(!getFactionLabel(EN, info))
         return false;
-    if(!getFactionLabel(DE, labels))
+    if(!getFactionLabel(DE, info))
         return false;
-    if(!getFactionLabel(FR, labels))
+    if(!getFactionLabel(FR, info))
         return false;
-    if(!getFactionLabel(RU, labels))
+    if(!getFactionLabel(RU, info))
         return false;
     return true;
 }
 
-bool SkillLoader::getFactionLabel(const std::string &locale, FactionLabels &labels)
+bool SkillLoader::getFactionLabel(const std::string &locale, TravelInfo &info)
 {
     string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\factions.xml", m_path, locale);
     if(!m_xml.load(fp))
@@ -335,8 +335,33 @@ bool SkillLoader::getFactionLabel(const std::string &locale, FactionLabels &labe
         attr = node->first_attribute("value");
         if(!attr)
             continue;
-        auto &lcItem = labels.insert({string{key}, {}}).first->second;
-        lcItem.insert({locale, attr->value()});
+
+        attr = node->first_attribute("value");
+        if(!attr)
+            continue;
+
+        string_view value = attr->value();
+        if(key.starts_with("key"))
+        {
+            for(auto &faction : info.factions)
+            {
+                for(auto &rankPair : faction.ranks)
+                {
+                    auto &rank = rankPair.second;
+                    if(rank.key == key)
+                        rank.name[locale] = value;
+                }
+            }
+        }
+        else
+        {
+            uint32_t factionId = atoi(key.data());
+            auto it = ranges::find(info.factions, factionId, &Faction::id);
+            if(it != info.factions.end())
+            {
+                it->name[locale] = attr->value();
+            }
+        }
     }
     return true;
 }
@@ -351,39 +376,29 @@ bool SkillLoader::getFactionLabel(const std::string &locale, FactionLabels &labe
 //     <level tier="6" key="ALLY" name="key:620879993:74285334" lotroPoints="15" requiredReputation="75000" deedKey="Ally_of_the_Mathom_Society"/>
 //     <level tier="7" key="KINDRED" name="key:620879993:74285335" lotroPoints="20" requiredReputation="105000" deedKey="Kindred_with_the_Mathom_Society"/>
 // </faction>
-std::vector<Faction> SkillLoader::getFactions()
+bool SkillLoader::getFactions(TravelInfo &info)
 {
-    std::vector<Faction> factions;
-    FactionLabels factionLabels;
-    if(!getFactionLabels(factionLabels))
-        return {};
-
     string fp = fmt::format("{}\\lotro-data\\lore\\factions.xml", m_path);
     if(!m_xml.load(fp))
-        return {};
+        return false;
 
     xml_node<> *root = m_xml.doc().first_node("factions");
     if(!root)
-        return {};
+        return false;
 
     for(xml_node<> *node = root->first_node("faction");
             node; node = node->next_sibling("faction"))
     {
-        Faction faction;
         xml_attribute<> *attr = node->first_attribute("id");
         if(!attr)
             continue;
+
+        Faction faction;
         string_view factionId = attr->value();
         faction.id = atoi(factionId.data());
-
-        attr = node->first_attribute("name");
-        if(!attr)
+        auto it = std::ranges::find(info.skills, faction.id, &Skill::factionId);
+        if(it == info.skills.end())
             continue;
-        string_view name = attr->value();
-        auto nameLabels = factionLabels.find(factionId);
-        if(nameLabels == factionLabels.end())
-            continue;
-        faction.name = nameLabels->second;
 
         for(xml_node<> *level = node->first_node("level");
                 level; level = level->next_sibling("level"))
@@ -396,14 +411,15 @@ std::vector<Faction> SkillLoader::getFactions()
             if(!attr)
                 continue;
             string_view labelKey = attr->value();
-            auto tierLabels = factionLabels.find(labelKey);
-            if(tierLabels == factionLabels.end())
-                continue;
-            faction.ranks.insert({rank, tierLabels->second});
+            faction.ranks.insert({rank, {string{labelKey}, {}}});
         }
-        factions.push_back(faction);
+        info.factions.push_back(faction);
     }
-    return factions;
+
+    if(!getFactionLabels(info))
+        return false;
+
+    return true;
 }
 
 bool SkillLoader::getCurrencyLabels(TravelInfo &info)
@@ -443,13 +459,10 @@ bool SkillLoader::getCurrencyLabel(const string &locale, TravelInfo &info)
             continue;
 
         uint32_t tokenId = atoi(key.data());
-        for(auto &skill : info.skills)
+        auto tokenIt = ranges::find(info.currencies, tokenId, &Currency::id);
+        if(tokenIt != info.currencies.end())
         {
-            auto tokenIt = ranges::find(skill.currency, tokenId, &Token::id);
-            if(tokenIt != skill.currency.end())
-            {
-                tokenIt->name[locale] = attr->value();
-            }
+            tokenIt->name[locale] = attr->value();
         }
     }
     return true;
@@ -539,6 +552,7 @@ bool SkillLoader::getBarters(TravelInfo &info)
                     {
                         token.amt = atoi(giveAttr->value());
                     }
+                    // TODO: make list of list tokens
                     skillIt->currency.push_back(token);
 
                     auto tokenIt = ranges::find(currencies, token.id, &Currency::id);

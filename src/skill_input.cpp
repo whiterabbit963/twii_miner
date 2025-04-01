@@ -302,16 +302,6 @@ bool mergeSkillInputs(TravelInfo &info)
         info.skills.push_back(std::move(*it));
     }
 
-    auto factions = std::move(info.factions);
-    info.factions = std::vector<Faction>{};
-    info.factions.reserve(factions.size());
-    for(auto &faction : factions)
-    {
-        auto it = std::ranges::find(info.skills, faction.id, &Skill::factionId);
-        if(it != info.skills.end())
-            info.factions.push_back(faction);
-    }
-
     // TODO: verify overlaps against rep skills
     return true;
 }

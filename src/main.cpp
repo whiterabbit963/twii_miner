@@ -66,7 +66,10 @@ int main(int argc, const char **argv)
     {
         return -1;
     }
-    info.factions = loader.getFactions();
+    if(!loader.getFactions(info))
+    {
+        return -1;
+    }
 
     printNewSkills(info.skills);
     outputSkillDataFile(info);
