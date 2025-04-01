@@ -5,6 +5,8 @@
 
 struct TravelInfo;
 void outputSkillDataFile(const TravelInfo &info);
+void outputLocaleDataFile(const TravelInfo &info);
+
 std::string_view getGroupName(Skill::Type type);
 Skill::Type getSkillType(std::string_view name);
 

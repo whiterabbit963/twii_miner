@@ -114,6 +114,7 @@ string convertToLuaGVarName(const string &in, const Utf8Map &strip)
     std::transform(out.begin(), out.end(), out.begin(), ::toupper);
     std::erase_if(out, [](int c) { return c != '_' && !::isalnum(c); });
     out = std::regex_replace(out, std::regex("THE_"), "");
+    out = std::regex_replace(out, std::regex("__"), "_");
     return out;
 }
 
@@ -166,7 +167,7 @@ static string outputReputation(const Skill &skill, const TravelInfo &info)
         return s;
     }
     string factionTitle = convertToLuaGVarName(factionIt->name.at(EN), info.strip);
-    string rankTitle = convertToLuaGVarName(rankIt->second.at(EN), info.strip);
+    string rankTitle = convertToLuaGVarName(rankIt->second.name.at(EN), info.strip);
     s = fmt::format("rep=LC.rep.{}, repLevel=LC.repLevel.{},",
                     factionTitle, rankTitle);
     return s;
@@ -262,5 +263,33 @@ void outputSkillDataFile(const TravelInfo &info)
 
             outputSkill(out, info, skill, state);
         }
+    }
+}
+
+void outputLocaleDataFile(const TravelInfo &info)
+{
+    std::ofstream out("LocaleData.lua", ios::out);
+    if(!out.is_open())
+    {
+        fmt::println("Failed to create LocaleData.lua");
+        return;
+    }
+
+    fmt::println(out, "---[[ auto-generated travel skill locale data ]] --\n\n");
+
+    fmt::println(out, "LC_EN.rep = {{}}");
+    fmt::println(out, "LC_DE.rep = {{}}");
+    fmt::println(out, "LC_FR.rep = {{}}");
+    fmt::println(out, "LC_RU.rep = {{}}");
+    fmt::println(out, "");
+
+    for(const auto &faction : info.factions)
+    {
+        auto title = convertToLuaGVarName(faction.name.at(EN), info.strip);
+        fmt::println(out, "LC_EN.rep.{} = \"{}\"", title, faction.name.at(EN));
+        fmt::println(out, "LC_DE.rep.{} = \"{}\"", title, faction.name.at(DE));
+        fmt::println(out, "LC_FR.rep.{} = \"{}\"", title, faction.name.at(FR));
+        fmt::println(out, "LC_RU.rep.{} = \"{}\"", title, faction.name.at(RU));
+        fmt::println(out, "");
     }
 }
