@@ -114,7 +114,7 @@ string convertToLuaGVarName(const string &in, const Utf8Map &strip)
     std::transform(out.begin(), out.end(), out.begin(), ::toupper);
     std::erase_if(out, [](int c) { return c != '_' && !::isalnum(c); });
     out = std::regex_replace(out, std::regex("THE_"), "");
-    out = std::regex_replace(out, std::regex("__"), "_");
+    out = std::regex_replace(out, std::regex("___"), "_");
     return out;
 }
 
@@ -290,6 +290,21 @@ void outputLocaleDataFile(const TravelInfo &info)
         fmt::println(out, "LC_DE.rep.{} = \"{}\"", title, faction.name.at(DE));
         fmt::println(out, "LC_FR.rep.{} = \"{}\"", title, faction.name.at(FR));
         fmt::println(out, "LC_RU.rep.{} = \"{}\"", title, faction.name.at(RU));
+        fmt::println(out, "");
+    }
+
+    fmt::println(out, "LC_EN.token = {{}}");
+    fmt::println(out, "LC_DE.token = {{}}");
+    fmt::println(out, "LC_FR.token = {{}}");
+    fmt::println(out, "LC_RU.token = {{}}");
+    fmt::println(out, "");
+    for(const auto &currency : info.currencies)
+    {
+        auto title = convertToLuaGVarName(currency.name.at(EN), info.strip);
+        fmt::println(out, "LC_EN.token.{} = \"{}\"", title, currency.name.at(EN));
+        fmt::println(out, "LC_DE.token.{} = \"{}\"", title, currency.name.at(DE));
+        fmt::println(out, "LC_FR.token.{} = \"{}\"", title, currency.name.at(FR));
+        fmt::println(out, "LC_RU.token.{} = \"{}\"", title, currency.name.at(RU));
         fmt::println(out, "");
     }
 }

@@ -52,6 +52,12 @@ struct Token
     unsigned amt{0};
 };
 
+struct Acquire
+{
+    uint32_t itemId;
+    std::vector<Token> currency;
+};
+
 struct Skill
 {
     enum class SearchStatus
@@ -76,7 +82,6 @@ struct Skill
     uint32_t id;
     SearchStatus status{SearchStatus::NotFound};
     Type group{Type::Unknown}; // parseable?
-    uint32_t itemId{0}; // parse
     LCLabel name; // parse
     std::optional<LCLabel> desc; // parse
     std::optional<LCLabel> label; // input
@@ -86,7 +91,7 @@ struct Skill
     MapList mapList; // input
     std::vector<uint32_t> overlapIds; // input
     std::string tag; // input; generally empty
-    std::vector<Token> currency; // parse
+    std::vector<Acquire> acquire; // parse
     uint32_t factionId{0}; // parse
     unsigned factionRank{0}; // parse
     unsigned minLevel{0}; // parse
@@ -153,6 +158,11 @@ public:
     bool getCurrencyLabel(const std::string &locale, TravelInfo &info);
 
     bool getBarters(TravelInfo &info);
+
+#if 0
+    bool getBarterLabels(TravelInfo &info);
+    bool getBarterLabel(const std::string &locale, TravelInfo &info);
+#endif
 
 private:
     std::string m_path;
