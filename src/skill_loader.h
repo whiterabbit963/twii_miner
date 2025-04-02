@@ -95,6 +95,7 @@ struct Skill
     uint32_t factionId{0}; // parse
     unsigned factionRank{0}; // parse
     unsigned minLevel{0}; // parse
+    unsigned minLevelInput{0}; // input
     std::string sortLevel; // input
     bool storeLP{false}; // input; adds acquired entry
     bool autoRep{false}; // input; parseable??? adds acquired entry

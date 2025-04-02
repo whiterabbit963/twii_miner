@@ -154,6 +154,13 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
                 return false;
             skill.tag = value->get();
         }
+        else if(name == "minLevel")
+        {
+            auto value = item.second.value<int>();
+            if(!value)
+                return false;
+            skill.minLevelInput = value.value();
+        }
         else if(name == "autoLevel")
         {
             auto value = item.second.as_boolean();
@@ -290,6 +297,7 @@ bool mergeSkillInputs(TravelInfo &info)
                 it->status = Skill::SearchStatus::MultiFound;
             if(it->group == Skill::Type::Unknown)
                 it->group = skillInput.group;
+            it->minLevelInput = skillInput.minLevelInput;
             it->mapList = skillInput.mapList;
             it->overlapIds = skillInput.overlapIds;
             it->sortLevel = skillInput.sortLevel;

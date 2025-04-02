@@ -249,7 +249,13 @@ void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill, Trave
         fmt::println(out, "        overlap={},", outputOverlapIds(skill.overlapIds));
     }
     if(skill.minLevel)
+    {
         fmt::println(out, "        minLevel={},", skill.minLevel);
+    }
+    else if(skill.minLevelInput)
+    {
+        fmt::println(out, "        minLevel={}, -- config", skill.minLevelInput);
+    }
     fmt::println(out, "        level={}", skill.sortLevel);
     fmt::println(out, "    }})");
 }
