@@ -166,8 +166,14 @@ static string outputReputation(const Skill &skill, const TravelInfo &info)
         fmt::println("MISSING FACTION RANK {}", skill.factionRank);
         return s;
     }
+    auto rankLabelIt = ranges::find(info.repRanks, rankIt->second, &RepRank::key);
+    if(rankLabelIt == info.repRanks.end())
+    {
+        fmt::println("MISSING FACTION RANK LABEL {}", rankIt->second);
+        return s;
+    }
     string factionTitle = convertToLuaGVarName(factionIt->name.at(EN), info.strip);
-    string rankTitle = convertToLuaGVarName(rankIt->second.name.at(EN), info.strip);
+    string rankTitle = convertToLuaGVarName(rankLabelIt->name.at(EN), info.strip);
     s = fmt::format("rep=LC.rep.{}, repLevel=LC.repLevel.{},",
                     factionTitle, rankTitle);
     return s;
@@ -276,6 +282,22 @@ void outputLocaleDataFile(const TravelInfo &info)
     }
 
     fmt::println(out, "---[[ auto-generated travel skill locale data ]] --\n\n");
+
+    fmt::println(out, "LC_EN.repLevel = {{}}");
+    fmt::println(out, "LC_DE.repLevel = {{}}");
+    fmt::println(out, "LC_FR.repLevel = {{}}");
+    fmt::println(out, "LC_RU.repLevel = {{}}");
+    fmt::println(out, "");
+
+    for(const auto &rank : info.repRanks)
+    {
+        auto title = convertToLuaGVarName(rank.name.at(EN), info.strip);
+        fmt::println(out, "LC_EN.repLevel.{} = \"{}\"", title, rank.name.at(EN));
+        fmt::println(out, "LC_DE.repLevel.{} = \"{}\"", title, rank.name.at(DE));
+        fmt::println(out, "LC_FR.repLevel.{} = \"{}\"", title, rank.name.at(FR));
+        fmt::println(out, "LC_RU.repLevel.{} = \"{}\"", title, rank.name.at(RU));
+        fmt::println(out, "");
+    }
 
     fmt::println(out, "LC_EN.rep = {{}}");
     fmt::println(out, "LC_DE.rep = {{}}");

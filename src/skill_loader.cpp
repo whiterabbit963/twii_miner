@@ -341,14 +341,10 @@ bool SkillLoader::getFactionLabel(const std::string &locale, TravelInfo &info)
         string_view value = attr->value();
         if(key.starts_with("key"))
         {
-            for(auto &faction : info.factions)
+            auto it = ranges::find(info.repRanks, key, &RepRank::key);
+            if(it != info.repRanks.end())
             {
-                for(auto &rankPair : faction.ranks)
-                {
-                    auto &rank = rankPair.second;
-                    if(rank.key == key)
-                        rank.name[locale] = value;
-                }
+                it->name[locale] = value;
             }
         }
         else
@@ -394,8 +390,8 @@ bool SkillLoader::getFactions(TravelInfo &info)
         Faction faction;
         string_view factionId = attr->value();
         faction.id = atoi(factionId.data());
-        auto it = std::ranges::find(info.skills, faction.id, &Skill::factionId);
-        if(it == info.skills.end())
+        auto skillIt = std::ranges::find(info.skills, faction.id, &Skill::factionId);
+        if(skillIt == info.skills.end())
             continue;
 
         for(xml_node<> *level = node->first_node("level");
@@ -408,8 +404,21 @@ bool SkillLoader::getFactions(TravelInfo &info)
             attr = level->first_attribute("name");
             if(!attr)
                 continue;
-            string_view labelKey = attr->value();
-            faction.ranks.insert({rank, {string{labelKey}, {}}});
+            string labelKey = attr->value();
+            faction.ranks.insert({rank, labelKey});
+
+            auto it = ranges::find(info.repRanks, labelKey, &RepRank::key);
+            if(it == info.repRanks.end())
+            {
+                for(auto &skill : info.skills)
+                {
+                    if(skill.factionId == faction.id && skill.factionRank == rank)
+                    {
+                        info.repRanks.push_back(RepRank{labelKey, {}});
+                        break;
+                    }
+                }
+            }
         }
         info.factions.push_back(faction);
     }

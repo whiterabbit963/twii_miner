@@ -106,20 +106,20 @@ struct Skill
 
 struct Faction
 {
-    struct Rank
-    {
-        std::string key;
-        LCLabel name;
-    };
-
     uint32_t id{0};
     LCLabel name;
-    std::map<unsigned, Rank> ranks;
+    std::map<unsigned, std::string> ranks;
 };
 
 struct Currency
 {
     uint32_t id{0};
+    LCLabel name;
+};
+
+struct RepRank
+{
+    std::string key;
     LCLabel name;
 };
 
@@ -132,6 +132,7 @@ struct TravelInfo
     std::vector<Skill> skills;
     std::vector<Currency> currencies;
     std::vector<Faction> factions;
+    std::vector<RepRank> repRanks;
     Utf8Map strip{{"á", "a"}, {"â", "a"}, {"ê", "e"}, {"ú", "u"},
                   {"é", "e"}, {"ó", "o"}, {"í", "i"}};
 };
