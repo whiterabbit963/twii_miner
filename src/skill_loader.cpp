@@ -287,11 +287,6 @@ bool SkillLoader::getSkillItems(std::vector<Skill> &skills)
             {
                 skill.group = Skill::Type::Creep;
             }
-            else
-            {
-                skill.group = Skill::Type::Rep;
-            }
-            // TODO: hardcode the Skill::Type::Gen && Creep
         }
 
         //fmt::println("{} {}", skill.id, skill.name[locale]);
