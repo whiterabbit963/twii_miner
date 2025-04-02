@@ -105,7 +105,7 @@ void replaceUtf8(string &in, const Utf8Map &strip)
     }
 }
 
-string convertToLuaGVarName(const string &in, const Utf8Map &strip)
+static string convertToLuaGVarName(const string &in, const Utf8Map &strip)
 {
     string out = in;
     replaceUtf8(out, strip);
@@ -116,6 +116,22 @@ string convertToLuaGVarName(const string &in, const Utf8Map &strip)
     out = std::regex_replace(out, std::regex("THE_"), "");
     out = std::regex_replace(out, std::regex("___"), "_");
     return out;
+}
+
+string extractNameAttr(const string &in)
+{
+    // ${PLAYERNAME:Verwandter[m]|Verwandte[f]}
+    const std::regex attr("^\\$\\{PLAYERNAME:(.*)\\[.*\\|(.*)\\[.*\\}$");
+    std::smatch matches;
+
+    if(std::regex_match(in, matches, attr))
+    {
+        if(matches.size() >= 3)
+        {
+            return matches[1].str();
+        }
+    }
+    return in;
 }
 
 static string outputMapLoc(const MapLoc &loc)
@@ -292,10 +308,14 @@ void outputLocaleDataFile(const TravelInfo &info)
     for(const auto &rank : info.repRanks)
     {
         auto title = convertToLuaGVarName(rank.name.at(EN), info.strip);
-        fmt::println(out, "LC_EN.repLevel.{} = \"{}\"", title, rank.name.at(EN));
-        fmt::println(out, "LC_DE.repLevel.{} = \"{}\"", title, rank.name.at(DE));
-        fmt::println(out, "LC_FR.repLevel.{} = \"{}\"", title, rank.name.at(FR));
-        fmt::println(out, "LC_RU.repLevel.{} = \"{}\"", title, rank.name.at(RU));
+        fmt::println(out, "LC_EN.repLevel.{} = \"{}\"",
+                     title, extractNameAttr(rank.name.at(EN)));
+        fmt::println(out, "LC_DE.repLevel.{} = \"{}\"",
+                     title, extractNameAttr(rank.name.at(DE)));
+        fmt::println(out, "LC_FR.repLevel.{} = \"{}\"",
+                     title, extractNameAttr(rank.name.at(FR)));
+        fmt::println(out, "LC_RU.repLevel.{} = \"{}\"",
+                     title, extractNameAttr(rank.name.at(RU)));
         fmt::println(out, "");
     }
 

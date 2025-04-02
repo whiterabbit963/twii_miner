@@ -299,7 +299,6 @@ bool SkillLoader::getSkillItems(std::vector<Skill> &skills)
     return true;
 }
 
-
 bool SkillLoader::getFactionLabels(TravelInfo &info)
 {
     if(!getFactionLabel(EN, info))
