@@ -55,7 +55,7 @@ struct Token
 struct Acquire
 {
     uint32_t itemId;
-    std::vector<Token> currency;
+    std::vector<std::vector<Token>> currency;
 };
 
 struct Skill
@@ -152,6 +152,7 @@ public:
     bool getSkillNames(const std::string &locale, std::vector<Skill> &skills);
     bool getSkillDesc(const std::string &locale, std::vector<Skill> &skills);
     bool getSkillItems(std::vector<Skill> &skills);
+    bool getClassInfo(std::vector<Skill> &skill);
 
     bool getFactionLabels(TravelInfo &info);
     bool getFactionLabel(const std::string &locale, TravelInfo &info);

@@ -94,6 +94,7 @@ std::vector<Skill> SkillLoader::getSkills()
 
     getSkillNames(skills);
     getSkillItems(skills);
+    getClassInfo(skills);
 
     return skills;
 }
@@ -222,6 +223,58 @@ bool SkillLoader::getSkillDesc(const string &locale, vector<Skill> &skills)
     return true;
 }
 
+static void loadClassSkillInfo(xml_node<> *root, std::vector<Skill> &skills)
+{
+    for(xml_node<> *node = root->first_node("classSkill");
+            node; node = node->next_sibling("classSkill"))
+    {
+        xml_attribute<> *attr = node->first_attribute("skillId");
+        if(!attr)
+            continue;
+        uint32_t skillId = atoi(attr->value());
+        auto it = ranges::find(skills, skillId, &Skill::id);
+        if(it == skills.end())
+            continue;
+        attr = node->first_attribute("minLevel");
+        if(!attr)
+            continue;
+        unsigned minLevel = atoi(attr->value());
+        if(!minLevel)
+            continue;
+        it->minLevel = minLevel;
+        it->autoLevel = true;
+    }
+}
+
+bool SkillLoader::getClassInfo(std::vector<Skill> &skills)
+{
+    string skillPath = fmt::format("{}\\lotro-data\\lore\\classes.xml", m_path);
+    if(!m_xml.load(skillPath))
+        return false;
+
+    xml_node<> *root = m_xml.doc().first_node("classes");
+    if(!root)
+    {
+        return false;
+    }
+
+    for(xml_node<> *node = root->first_node("class");
+            node; node = node->next_sibling("class"))
+    {
+        xml_attribute<> *attr = node->first_attribute("key");
+        if(!attr)
+            continue;
+
+        if(attr->value() == "Hunter"sv ||
+                attr->value() == "Warden"sv ||
+                attr->value() == "Corsair"sv)
+        {
+            loadClassSkillInfo(node, skills);
+        }
+    }
+    return true;
+}
+
 // <item key="1879501345" name="Muster at Utug-bûr" icon="1090531744-1090519043-1090531745" level="5" category="ITEM" class="105" binding="BIND_ON_ACQUIRE" unique="true"
 //   quality="RARE" minLevel="140" requiredClass="Warden" requiredFaction="1879489736;3" description="key:621104289:54354734" valueTableId="1879094316">
 // <stats/>
@@ -260,7 +313,8 @@ bool SkillLoader::getSkillItems(std::vector<Skill> &skills)
             continue;
 
         auto &skill = *it;
-        skill.acquire.push_back({static_cast<uint32_t>(atoi(itemKey.data()))});
+        uint32_t itemId = atoi(itemKey.data());
+        skill.acquire.push_back({itemId});
 
         if(attr = node->first_attribute("minLevel"); attr)
             skill.minLevel = atoi(attr->value());
@@ -523,7 +577,8 @@ bool SkillLoader::getBarters(TravelInfo &info)
                 {
                     continue;
                 }
-
+                acquireIt->currency.push_back({});
+                auto &tokenList = acquireIt->currency.back();
                 for(xml_node<> *giveNode = brtrNode->first_node("give");
                         giveNode; giveNode = giveNode->next_sibling("give"))
                 {
@@ -540,7 +595,7 @@ bool SkillLoader::getBarters(TravelInfo &info)
                         token.amt = atoi(giveAttr->value());
                     }
 
-                    acquireIt->currency.push_back(token);
+                    tokenList.push_back(token);
 
                     auto tokenIt = ranges::find(info.currencies, token.id, &Currency::id);
                     if(tokenIt == info.currencies.end())

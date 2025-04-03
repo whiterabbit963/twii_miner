@@ -161,19 +161,19 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
                 return false;
             skill.minLevelInput = value.value();
         }
-        else if(name == "autoLevel")
-        {
-            auto value = item.second.as_boolean();
-            if(!value)
-                return false;
-            skill.autoLevel = value->get();
-        }
         else if(name == "store")
         {
             auto value = item.second.as_boolean();
             if(!value)
                 return false;
             skill.storeLP = value->get();
+        }
+        else if(name == "autoRep")
+        {
+            auto value = item.second.as_boolean();
+            if(!value)
+                return false;
+            skill.autoRep = value->get();
         }
         else if(name == "EN" || name == "DE" || name == "FR" || name == "RU")
         {

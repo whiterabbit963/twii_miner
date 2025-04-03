@@ -167,6 +167,77 @@ static string outputOverlapIds(const vector<uint32_t> &ids)
     return out;
 }
 
+static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &skill)
+{
+    if(skill.group == Skill::Type::Creep)
+        return;
+    if(skill.autoLevel)
+    {
+        fmt::println(out, "        acquire={{ {{ autoLevel=true }} }},");
+    }
+    else
+    {
+        string buf;
+        auto in = std::back_inserter(buf);
+        bool onlyCost = false;
+        if(!skill.acquire.empty())
+        {
+            onlyCost = true;
+            for(auto &acquire : skill.acquire)
+            {
+                bool acquireFront = true;
+                for(auto &tokenList : acquire.currency)
+                {
+                    if(tokenList.empty())
+                        continue;
+                    fmt::format_to(in, "{}\n            {{cost={{", acquireFront ? "" : ",");
+                    acquireFront = false;
+                    bool tokenFront = true;
+                    for(auto &token : tokenList)
+                    {
+                        auto it = ranges::find(info.currencies, token.id, &Currency::id);
+                        if(it == info.currencies.end())
+                        {
+                            fmt::println("CURRENCY NOT FOUND");
+                            return;
+                        }
+                        auto tokenName = convertToLuaGVarName(it->name.at(EN), info.strip);
+                        fmt::format_to(in, "{}{{amount={}, token=LC.token.{}}}",
+                                       tokenFront ? "" : ", ", token.amt, tokenName);
+                        tokenFront = false;
+                    }
+                    fmt::format_to(in, "}},\n");
+                    fmt::format_to(in, "                EN={{vendor=\"\" }},\n");
+                    fmt::format_to(in, "                DE={{vendor=\"\" }},\n");
+                    fmt::format_to(in, "                FR={{vendor=\"\" }},\n");
+                    fmt::format_to(in, "                RU={{vendor=\"\" }} }}");
+                }
+            }
+        }
+        if(skill.storeLP)
+        {
+            bool addComma = !buf.empty();
+            fmt::format_to(in, "{}{} {{ store=true }}",
+                           addComma ? "," : "",
+                           onlyCost ? "\n           " : "");
+            onlyCost = false;
+        }
+        if(skill.autoRep)
+        {
+            bool addComma = !buf.empty();
+            fmt::format_to(in, "{}{} {{ autoRep=true }}",
+                           addComma ? "," : "",
+                           onlyCost ? "\n           " : "");
+            onlyCost = false;
+        }
+
+        if(!buf.empty())
+        {
+            fmt::println(out, "        acquire={{{} }},", buf);
+        }
+    }
+}
+
 static string outputReputation(const Skill &skill, const TravelInfo &info)
 {
     string s;
@@ -240,13 +311,14 @@ void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill, Trave
     fmt::println(out, "        FR={{{} }},", outputLabelFields(skill, FR));
     fmt::println(out, "        RU={{{} }},", outputLabelFields(skill, RU));
     fmt::println(out, "        map={},", outputMapList(skill.mapList));
-    if(skill.factionId)
-    {
-        fmt::println(out, "        {}", outputReputation(skill, info));
-    }
     if(!skill.overlapIds.empty())
     {
         fmt::println(out, "        overlap={},", outputOverlapIds(skill.overlapIds));
+    }
+    outputAcquire(out, info, skill);
+    if(skill.factionId)
+    {
+        fmt::println(out, "        {}", outputReputation(skill, info));
     }
     if(skill.minLevel)
     {
@@ -278,12 +350,15 @@ void outputSkillDataFile(const TravelInfo &info)
     {
         auto groupName = getGroupName(group);
         auto tagIt = info.labelTags.find(group);
-        fmt::println(out, "    -- add the {} locations", groupName);
+        if(group == Skill::Type::Creep)
+            fmt::println(out, "end\n\nfunction TravelDictionary:CreateCreepDictionary()");
+        fmt::println(out, "    -- add the {} skills", groupName);
         if(tagIt != info.labelTags.end())
         {
             fmt::println(out, "    self.{}:AddLabelTag({})",
                          groupName, outputLabelTag(tagIt->second));
         }
+
         for(auto &skill : info.skills)
         {
             if(skill.group != group)
@@ -291,6 +366,8 @@ void outputSkillDataFile(const TravelInfo &info)
 
             outputSkill(out, info, skill, state);
         }
+        if(group == Skill::Type::Creep)
+            fmt::println(out, "end");
     }
 }
 
