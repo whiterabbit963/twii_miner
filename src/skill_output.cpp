@@ -304,6 +304,25 @@ void outputLocaleDataFile(const TravelInfo &info)
     }
 
     fmt::println(out, "---[[ auto-generated travel skill locale data ]] --\n\n");
+    fmt::println(out, "local Locale = {{\n"
+                      "    [Turbine.Language.English] = {{}},\n"
+                      "    [Turbine.Language.German] = {{}},\n"
+                      "    [Turbine.Language.French] = {{}},\n"
+                      "    [Turbine.Language.Russian] = {{}}\n"
+                      "}}\n"
+                      "local LC_EN = Locale[Turbine.Language.English]\n"
+                      "local LC_DE = Locale[Turbine.Language.German]\n"
+                      "local LC_FR = Locale[Turbine.Language.French]\n"
+                      "local LC_RU = Locale[Turbine.Language.Russian]\n");
+    fmt::println(out, "if GLocale == Turbine.Language.German then\n"
+                      "    LC_DE = LC\n"
+                      "elseif GLocale == Turbine.Language.French then\n"
+                      "      LC_FR = LC\n"
+                      "elseif GLocale == Turbine.Language.Russian then\n"
+                      "    LC_RU = LC\n"
+                      "else\n"
+                      "    LC_EN = LC\n"
+                      "end\n");
 
     fmt::println(out, "LC_EN.repLevel = {{}}");
     fmt::println(out, "LC_DE.repLevel = {{}}");
