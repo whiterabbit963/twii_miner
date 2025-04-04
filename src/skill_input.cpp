@@ -117,7 +117,7 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
     }
     for(auto &item : *itemTable)
     {
-        std::string_view name = item.first;
+        std::string_view name = item.first.str();
         if(name == "id")
         {
             auto value = item.second.as_string();
@@ -206,12 +206,12 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
                 }
                 if(lclPtr)
                 {
-                    std::string locale;
-                    std::transform(name.begin(), name.end(), std::back_inserter(locale), ::tolower);
-                    if(!*lclPtr)
+                    std::string lc;
+                    std::transform(name.begin(), name.end(), std::back_inserter(lc), ::tolower);
+                    if(!lclPtr->has_value())
                         (*lclPtr) = std::make_optional<LCLabel>();
                     auto &lcl = *lclPtr;
-                    lcl->insert({locale, std::string{lblValue.value()}});
+                    lcl->insert({lc, std::string{lblValue.value()}});
                 }
             }
         }
