@@ -529,10 +529,49 @@ bool SkillLoader::getCurrencies(TravelInfo &info)
     if(!getBarters(info))
         return false;
 
+    if(!getBartererTitleKeys(info))
+        return false;
+
+    if(!getVendors(info))
+        return false;
+
+    if(!getNPCLabels(info))
+        return false;
+
     if(!getCurrencyLabels(info))
        return false;
 
     return true;
+}
+
+static uint32_t getBartererId(xml_node<> *root, xml_node<> *proNode)
+{
+    // now that barterEntries have been parsed
+    // get the profileId for the barterProfile
+    // and search through barterer starting from root
+    xml_attribute<> *attr = proNode->first_attribute("profileId");
+    if(!attr)
+        return 0;
+    const uint32_t profileId = atoi(attr->value());
+    for(xml_node<> *brtrNode = root->first_node("barterer");
+         brtrNode; brtrNode = brtrNode->next_sibling("barterer"))
+    {
+        for(xml_node<> *bpNode = brtrNode->first_node("barterProfile");
+             bpNode; bpNode = bpNode->next_sibling("barterProfile"))
+        {
+            attr = bpNode->first_attribute("profileId");
+            if(!attr)
+                continue;
+            uint32_t matchProId = atoi(attr->value());
+            if(matchProId != profileId)
+                continue;
+            attr = brtrNode->first_attribute("id");
+            if(!attr)
+                continue;
+            return atoi(attr->value());
+        }
+    }
+    return 0;
 }
 
 // <barterProfile profileId="1879501119" name="Temple of Utug-bûr Rewards">
@@ -577,8 +616,8 @@ bool SkillLoader::getBarters(TravelInfo &info)
                 {
                     continue;
                 }
-                acquireIt->currency.push_back({});
-                auto &tokenList = acquireIt->currency.back();
+                acquireIt->barters.push_back({});
+                auto &bartersList = acquireIt->barters.back();
                 for(xml_node<> *giveNode = brtrNode->first_node("give");
                         giveNode; giveNode = giveNode->next_sibling("give"))
                 {
@@ -595,7 +634,17 @@ bool SkillLoader::getBarters(TravelInfo &info)
                         token.amt = atoi(giveAttr->value());
                     }
 
-                    tokenList.push_back(token);
+                    uint32_t bartererId = getBartererId(root, proNode);
+                    if(bartererId)
+                    {
+                        bartersList.bartererId = bartererId;
+                        auto npcIt = ranges::find(info.npcs, bartererId, &NPC::id);
+                        if(npcIt == info.npcs.end())
+                        {
+                            info.npcs.push_back({bartererId});
+                        }
+                    }
+                    bartersList.currency.push_back(token);
 
                     auto tokenIt = ranges::find(info.currencies, token.id, &Currency::id);
                     if(tokenIt == info.currencies.end())
@@ -605,6 +654,121 @@ bool SkillLoader::getBarters(TravelInfo &info)
                 }
             }
         }
+    }
+    return true;
+}
+
+// -- lotro-data/lore/NPCs.xml
+// <NPC id="1879450946" name="Quartermaster" gender="MALE"
+//      title="key:621066979:229802005"/>
+// -- lotro-data/lore/labels/en/npc.xml
+// name: <label key="1879450946" value="Quartermaster"/>
+// title: <label key="key:621066979:229802005" value="Dúnedain of Cardolan"/>
+bool SkillLoader::getBartererTitleKeys(TravelInfo &info)
+{
+    string fp = fmt::format("{}\\lotro-data\\lore\\NPCs.xml", m_path);
+    if(!m_xml.load(fp))
+        return false;
+
+    xml_node<> *root = m_xml.doc().first_node("NPCs");
+    if(!root)
+        return false;
+    for(xml_node<> *node = root->first_node("NPC");
+            node; node = node->next_sibling("NPC"))
+    {
+        xml_attribute<> *attr = node->first_attribute("id");
+        if(!attr)
+            return false;
+        uint32_t npcId = atoi(attr->value());
+        if(!npcId)
+            return false;
+
+        auto it = ranges::find(info.npcs, npcId, &NPC::id);
+        if(it != info.npcs.end())
+        {
+            attr = node->first_attribute("title");
+            if(attr)
+            {
+                it->titleKey = attr->value();
+            }
+        }
+    }
+    return true;
+}
+
+bool SkillLoader::getNPCLabels(TravelInfo &info)
+{
+    if(!getNPCLabel(EN, info))
+        return false;
+    if(!getNPCLabel(DE, info))
+        return false;
+    if(!getNPCLabel(FR, info))
+        return false;
+    if(!getNPCLabel(RU, info))
+        return false;
+    return true;
+}
+
+bool SkillLoader::getNPCLabel(const std::string &locale, TravelInfo &info)
+{
+    string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\npc.xml", m_path, locale);
+    if(!m_xml.load(fp))
+        return false;
+
+    xml_node<> *root = m_xml.doc().first_node("labels");
+    if(!root)
+        return false;
+
+    for(xml_node<> *node = root->first_node("label");
+            node; node = node->next_sibling("label"))
+    {
+        xml_attribute<> *attr = node->first_attribute("key");
+        if(!attr)
+            continue;
+
+        string_view key = attr->value();
+        if(key.starts_with("key"))
+        {
+            auto it = ranges::find(info.npcs, key, &NPC::titleKey);
+            if(it != info.npcs.end())
+            {
+                attr = node->first_attribute("value");
+                if(attr)
+                {
+                    it->title[locale] = attr->value();
+                }
+            }
+        }
+        else
+        {
+            uint32_t npcId = atoi(attr->value());
+            auto it = ranges::find(info.npcs, npcId, &NPC::id);
+            if(it != info.npcs.end())
+            {
+                attr = node->first_attribute("value");
+                if(attr)
+                {
+                    it->name[locale] = attr->value();
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool SkillLoader::getVendors(TravelInfo &info)
+{
+    string fp = fmt::format("{}\\lotro-data\\lore\\vendors.xml", m_path);
+    if(!m_xml.load(fp))
+        return false;
+
+    xml_node<> *root = m_xml.doc().first_node("vendors");
+    if(!root)
+        return false;
+    for(xml_node<> *node = root->first_node("vendor");
+            node; node = node->next_sibling("vendor"))
+    {
+
     }
     return true;
 }

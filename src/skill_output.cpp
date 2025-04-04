@@ -167,6 +167,29 @@ static string outputOverlapIds(const vector<uint32_t> &ids)
     return out;
 }
 
+static string outputVendor(const string &locale, const NPC &npc, uint32_t bartererId)
+{
+    if(!npc.titleKey.empty())
+    {
+        return fmt::format("{} ({})", npc.name.at(locale), npc.title.at(locale));
+    }
+    return npc.name.at(locale);
+}
+
+static string outputVendors(const TravelInfo &info, uint32_t id)
+{
+    string buf;
+    auto it = ranges::find(info.npcs, id, &NPC::id);
+    if(it == info.npcs.end())
+        return buf;
+    auto in = std::back_inserter(buf);
+    fmt::format_to(in, "                EN={{vendor=\"{}\" }},\n", outputVendor(EN, *it, id));
+    fmt::format_to(in, "                DE={{vendor=\"{}\" }},\n", outputVendor(DE, *it, id));
+    fmt::format_to(in, "                FR={{vendor=\"{}\" }},\n", outputVendor(FR, *it, id));
+    fmt::format_to(in, "                RU={{vendor=\"{}\" }} }}", outputVendor(RU, *it, id));
+    return buf;
+}
+
 static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &skill)
 {
     if(skill.group == Skill::Type::Creep)
@@ -186,14 +209,14 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
             for(auto &acquire : skill.acquire)
             {
                 bool acquireFront = true;
-                for(auto &tokenList : acquire.currency)
+                for(auto &bartersList : acquire.barters)
                 {
-                    if(tokenList.empty())
+                    if(bartersList.currency.empty())
                         continue;
                     fmt::format_to(in, "{}\n            {{cost={{", acquireFront ? "" : ",");
                     acquireFront = false;
                     bool tokenFront = true;
-                    for(auto &token : tokenList)
+                    for(auto &token : bartersList.currency)
                     {
                         auto it = ranges::find(info.currencies, token.id, &Currency::id);
                         if(it == info.currencies.end())
@@ -207,10 +230,7 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
                         tokenFront = false;
                     }
                     fmt::format_to(in, "}},\n");
-                    fmt::format_to(in, "                EN={{vendor=\"\" }},\n");
-                    fmt::format_to(in, "                DE={{vendor=\"\" }},\n");
-                    fmt::format_to(in, "                FR={{vendor=\"\" }},\n");
-                    fmt::format_to(in, "                RU={{vendor=\"\" }} }}");
+                    fmt::format_to(in, "{}", outputVendors(info, bartersList.bartererId));
                 }
             }
         }

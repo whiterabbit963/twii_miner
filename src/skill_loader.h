@@ -52,10 +52,16 @@ struct Token
     unsigned amt{0};
 };
 
+struct Barter
+{
+    uint32_t bartererId{0};
+    std::vector<Token> currency;
+};
+
 struct Acquire
 {
-    uint32_t itemId;
-    std::vector<std::vector<Token>> currency;
+    uint32_t itemId{0};
+    std::vector<Barter> barters;
 };
 
 struct Skill
@@ -124,6 +130,14 @@ struct RepRank
     LCLabel name;
 };
 
+struct NPC
+{
+    uint32_t id{0};
+    std::string titleKey;
+    LCLabel name;
+    LCLabel title;
+};
+
 using FactionLabels = std::map<std::string, LCLabel, std::less<>>;
 using Utf8Map = std::map<std::string_view, std::string_view>;
 
@@ -134,6 +148,7 @@ struct TravelInfo
     std::vector<Currency> currencies;
     std::vector<Faction> factions;
     std::vector<RepRank> repRanks;
+    std::vector<NPC> npcs;
     Utf8Map strip{{"á", "a"}, {"â", "a"}, {"ê", "e"}, {"ú", "u"},
                   {"é", "e"}, {"ó", "o"}, {"í", "i"}};
 };
@@ -160,7 +175,11 @@ public:
     bool getCurrencyLabels(TravelInfo &info);
     bool getCurrencyLabel(const std::string &locale, TravelInfo &info);
 
+    bool getVendors(TravelInfo &info);
     bool getBarters(TravelInfo &info);
+    bool getBartererTitleKeys(TravelInfo &info);
+    bool getNPCLabels(TravelInfo &info);
+    bool getNPCLabel(const std::string &locale, TravelInfo &info);
 
 #if 0
     bool getBarterLabels(TravelInfo &info);
