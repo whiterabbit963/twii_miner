@@ -294,10 +294,11 @@ static string outputLabelFields(const Skill &skill, std::string_view locale)
     {
         return fmt::format("{}", outputLabelField(skill.name, lc, "name"));
     }
-    return fmt::format("{}{}{}{}{}",
+    return fmt::format("{}{}{}{}{}{}",
                        outputLabelField(skill.name, lc, "name"),
                        outputLabelField(skill.desc, lc, "desc"),
                        outputLabelField(skill.label, lc, "label"),
+                       outputLabelField(skill.detail, lc, "detail"),
                        outputLabelField(skill.zlabel, lc, "zlabel"),
                        outputLabelField(skill.zone, lc, "zone"));
 }
