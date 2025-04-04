@@ -415,7 +415,7 @@ void outputLocaleDataFile(const TravelInfo &info)
     fmt::println(out, "if GLocale == Turbine.Language.German then\n"
                       "    LC_DE = LC\n"
                       "elseif GLocale == Turbine.Language.French then\n"
-                      "      LC_FR = LC\n"
+                      "    LC_FR = LC\n"
                       "elseif GLocale == Turbine.Language.Russian then\n"
                       "    LC_RU = LC\n"
                       "else\n"
@@ -462,6 +462,26 @@ void outputLocaleDataFile(const TravelInfo &info)
     fmt::println(out, "LC_DE.token = {{}}");
     fmt::println(out, "LC_FR.token = {{}}");
     fmt::println(out, "LC_RU.token = {{}}");
+    fmt::println(out, "");
+    fmt::println(out, "LC_EN.token.COPPER = \"Copper\"");
+    fmt::println(out, "LC_DE.token.COPPER = \"Kupfer\"");
+    fmt::println(out, "LC_FR.token.COPPER = \"Cuivre\"");
+    fmt::println(out, "LC_RU.token.COPPER = \"Медь\"");
+    fmt::println(out, "");
+    fmt::println(out, "LC_EN.token.SILVER = \"Silver\"");
+    fmt::println(out, "LC_DE.token.SILVER = \"Silber\"");
+    fmt::println(out, "LC_FR.token.SILVER = \"Argent\"");
+    fmt::println(out, "LC_RU.token.SILVER = \"Серебро\"");
+    fmt::println(out, "");
+    fmt::println(out, "LC_EN.token.GOLD = \"Gold\"");
+    fmt::println(out, "LC_DE.token.GOLD = \"Gold\"");
+    fmt::println(out, "LC_FR.token.GOLD = \"Or\"");
+    fmt::println(out, "LC_RU.token.GOLD = \"Золото\"");
+    fmt::println(out, "");
+    fmt::println(out, "LC_EN.token.LOTRO_POINT = \"LOTRO Points\"");
+    fmt::println(out, "LC_DE.token.LOTRO_POINT = \"HdRO-Punkte\"");
+    fmt::println(out, "LC_FR.token.LOTRO_POINT = \"Points SdAO\"");
+    fmt::println(out, "LC_RU.token.LOTRO_POINT = \"ВКО марки\"");
     fmt::println(out, "");
     for(const auto &currency : info.currencies)
     {
