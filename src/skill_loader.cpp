@@ -313,8 +313,15 @@ bool SkillLoader::getSkillItems(std::vector<Skill> &skills)
             continue;
 
         auto &skill = *it;
-        uint32_t itemId = atoi(itemKey.data());
-        skill.acquire.push_back({itemId});
+        Acquire acquire;
+        acquire.itemId = atoi(itemKey.data());
+        if(attr = node->first_attribute("valueTableId"); attr)
+            acquire.valueTableId = atoi(attr->value());
+        if(attr = node->first_attribute("level"); attr)
+            acquire.level = atoi(attr->value());
+        if(attr = node->first_attribute("quality"); attr)
+            acquire.quality = attr->value();
+        skill.acquire.push_back(acquire);
 
         if(attr = node->first_attribute("minLevel"); attr)
             skill.minLevel = atoi(attr->value());
@@ -756,6 +763,89 @@ bool SkillLoader::getNPCLabel(const std::string &locale, TravelInfo &info)
     return true;
 }
 
+static Barter *getVendorInfo(string_view sellListId, xml_node<> *root, Acquire &acquire)
+{
+    for(xml_node<> *node = root->first_node("vendor");
+            node; node = node->next_sibling("vendor"))
+    {
+        for(xml_node<> *sellNode = node->first_node("sellList");
+                sellNode; sellNode = sellNode->next_sibling("sellList"))
+        {
+            xml_attribute<> *attr = sellNode->first_attribute("sellListId");
+            if(!attr)
+                continue;
+            string_view sellId = attr->value();
+            if(sellListId == sellId)
+            {
+                attr = node->first_attribute("id");
+                if(!attr)
+                    continue;
+                uint32_t vendorId = atoi(attr->value());
+                attr = node->first_attribute("sellFactor");
+                if(!attr)
+                    continue;
+                acquire.barters.push_back({vendorId, atof(attr->value())});
+                return &acquire.barters.back();
+            }
+        }
+    }
+    return nullptr;
+}
+
+uint32_t SkillLoader::getValueTableValue(const Acquire &item)
+{
+    XMLLoader xml;
+    string fp = fmt::format("{}\\lotro-data\\lore\\valueTables.xml", m_path);
+    if(!xml.load(fp))
+        return false;
+
+    xml_node<> *root = xml.doc().first_node("valueTables");
+    if(!root)
+        return false;
+    for(xml_node<> *node = root->first_node("valueTable");
+            node; node = node->next_sibling("valueTable"))
+    {
+        xml_attribute<> *attr = node->first_attribute("id");
+        if(!attr)
+            continue;
+        uint32_t id = atoi(attr->value());
+        if(id != item.valueTableId)
+            continue;
+        double factor = 0;
+        for(xml_node<> *quality = node->first_node("quality");
+                quality; quality = quality->next_sibling("quality"))
+        {
+            attr = quality->first_attribute("key");
+            if(!attr)
+                continue;
+            string_view key = attr->value();
+            if(key == item.quality)
+            {
+                attr = quality->first_attribute("factor");
+                if(attr)
+                    factor = atof(attr->value());
+                break;
+            }
+        }
+        for(xml_node<> *base = node->first_node("baseValue");
+                base; base = base->next_sibling("baseValue"))
+        {
+            attr = base->first_attribute("level");
+            if(!attr)
+                continue;
+            uint32_t level = atoi(attr->value());
+            if(level == item.level)
+            {
+                attr = base->first_attribute("value");
+                if(attr)
+                    return factor * atof(attr->value());
+                return 0;
+            }
+        }
+    }
+    return 0;
+}
+
 bool SkillLoader::getVendors(TravelInfo &info)
 {
     string fp = fmt::format("{}\\lotro-data\\lore\\vendors.xml", m_path);
@@ -765,10 +855,40 @@ bool SkillLoader::getVendors(TravelInfo &info)
     xml_node<> *root = m_xml.doc().first_node("vendors");
     if(!root)
         return false;
-    for(xml_node<> *node = root->first_node("vendor");
-            node; node = node->next_sibling("vendor"))
+    for(xml_node<> *node = root->first_node("sellList");
+            node; node = node->next_sibling("sellList"))
     {
+        for(xml_node<> *sellNode = node->first_node("sellEntry");
+                sellNode; sellNode = sellNode->next_sibling("sellEntry"))
+        {
+            xml_attribute<> *attr = sellNode->first_attribute("id");
+            if(!attr)
+                continue;
+            uint32_t itemId = atoi(attr->value());
+            for(auto &skill : info.skills)
+            {
+                for(auto &item : skill.acquire)
+                {
+                    if(item.itemId == itemId)
+                    {
+                        attr = node->first_attribute("sellListId");
+                        if(!attr)
+                            return false;
+                        Barter *vendor = getVendorInfo(attr->value(), root, item);
+                        if(!vendor)
+                            return false;
 
+                        vendor->buyAmt = getValueTableValue(item);
+                        uint32_t bartererId = vendor->bartererId;
+                        auto npcIt = ranges::find(info.npcs, bartererId, &NPC::id);
+                        if(npcIt == info.npcs.end())
+                        {
+                            info.npcs.push_back({bartererId});
+                        }
+                    }
+                }
+            }
+        }
     }
     return true;
 }

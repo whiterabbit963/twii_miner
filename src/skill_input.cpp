@@ -297,6 +297,7 @@ bool mergeSkillInputs(TravelInfo &info)
                 it->status = Skill::SearchStatus::MultiFound;
             if(it->group == Skill::Type::Unknown)
                 it->group = skillInput.group;
+            it->storeLP = skillInput.storeLP;
             it->minLevelInput = skillInput.minLevelInput;
             it->mapList = skillInput.mapList;
             it->overlapIds = skillInput.overlapIds;

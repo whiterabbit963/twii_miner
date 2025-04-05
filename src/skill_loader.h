@@ -55,12 +55,17 @@ struct Token
 struct Barter
 {
     uint32_t bartererId{0};
+    double sellFactor{0};
+    double buyAmt{0};
     std::vector<Token> currency;
 };
 
 struct Acquire
 {
     uint32_t itemId{0};
+    uint32_t valueTableId{0};
+    unsigned level{0};
+    std::string quality;
     std::vector<Barter> barters;
 };
 
@@ -180,6 +185,7 @@ public:
     bool getBartererTitleKeys(TravelInfo &info);
     bool getNPCLabels(TravelInfo &info);
     bool getNPCLabel(const std::string &locale, TravelInfo &info);
+    uint32_t getValueTableValue(const Acquire &item);
 
 #if 0
     bool getBarterLabels(TravelInfo &info);

@@ -208,26 +208,54 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
             onlyCost = true;
             for(auto &acquire : skill.acquire)
             {
+                if(!acquire.itemId)
+                    continue;
                 bool acquireFront = true;
                 for(auto &bartersList : acquire.barters)
                 {
-                    if(bartersList.currency.empty())
-                        continue;
                     fmt::format_to(in, "{}\n            {{cost={{", acquireFront ? "" : ",");
                     acquireFront = false;
+
                     bool tokenFront = true;
-                    for(auto &token : bartersList.currency)
+                    if(bartersList.currency.empty())
                     {
-                        auto it = ranges::find(info.currencies, token.id, &Currency::id);
-                        if(it == info.currencies.end())
+                        unsigned amt = bartersList.buyAmt * bartersList.sellFactor;
+                        unsigned copper = amt % 100;
+                        unsigned silver = (amt / 100) % 1000;
+                        unsigned gold = amt / 100000;
+                        if(gold)
                         {
-                            fmt::println("CURRENCY NOT FOUND");
-                            return;
+                            fmt::format_to(in, "{}{{amount={}, token=LC.token.GOLD}}",
+                                           tokenFront ? "" : ", ", gold);
+                            tokenFront = false;
                         }
-                        auto tokenName = convertToLuaGVarName(it->name.at(EN), info.strip);
-                        fmt::format_to(in, "{}{{amount={}, token=LC.token.{}}}",
-                                       tokenFront ? "" : ", ", token.amt, tokenName);
-                        tokenFront = false;
+                        if(silver)
+                        {
+                            fmt::format_to(in, "{}{{amount={}, token=LC.token.SILVER}}",
+                                           tokenFront ? "" : ", ", silver);
+                            tokenFront = false;
+                        }
+                        if(copper)
+                        {
+                            fmt::format_to(in, "{}{{amount={}, token=LC.token.COPPER}}",
+                                           tokenFront ? "" : ", ", copper);
+                        }
+                    }
+                    else
+                    {
+                        for(auto &token : bartersList.currency)
+                        {
+                            auto it = ranges::find(info.currencies, token.id, &Currency::id);
+                            if(it == info.currencies.end())
+                            {
+                                fmt::println("CURRENCY NOT FOUND");
+                                return;
+                            }
+                            auto tokenName = convertToLuaGVarName(it->name.at(EN), info.strip);
+                            fmt::format_to(in, "{}{{amount={}, token=LC.token.{}}}",
+                                           tokenFront ? "" : ", ", token.amt, tokenName);
+                            tokenFront = false;
+                        }
                     }
                     fmt::format_to(in, "}},\n");
                     fmt::format_to(in, "{}", outputVendors(info, bartersList.bartererId));
