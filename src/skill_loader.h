@@ -187,11 +187,6 @@ public:
     bool getNPCLabel(const std::string &locale, TravelInfo &info);
     uint32_t getValueTableValue(const Acquire &item);
 
-#if 0
-    bool getBarterLabels(TravelInfo &info);
-    bool getBarterLabel(const std::string &locale, TravelInfo &info);
-#endif
-
 private:
     std::string m_path;
     XMLLoader m_xml;
