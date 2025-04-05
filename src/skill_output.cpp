@@ -171,6 +171,22 @@ static string outputVendor(const string &locale, const NPC &npc, uint32_t barter
 {
     if(!npc.titleKey.empty())
     {
+        string_view title = npc.title.at(EN);
+        if(title == "Hunter Trainer"sv ||
+                title == "Warden Trainer"sv ||
+                title == "Delving Mission Giver"sv ||
+                title == "Ikorbâni Quartermaster"sv)
+        {
+            return npc.title.at(locale);
+        }
+
+        const std::regex attr("^.* Quartermaster$");
+        std::smatch matches;
+        if(std::regex_match(npc.name.at(EN), matches, attr))
+        {
+            return npc.name.at(locale);
+        }
+
         return fmt::format("{} ({})", npc.name.at(locale), npc.title.at(locale));
     }
     return npc.name.at(locale);
@@ -276,7 +292,7 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
             fmt::format_to(in, "{}{} {{ autoRep=true }}",
                            addComma ? "," : "",
                            onlyCost ? "\n           " : "");
-            onlyCost = false;
+            // onlyCost = false;
         }
 
         if(!buf.empty())
