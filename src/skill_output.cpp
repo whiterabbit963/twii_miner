@@ -222,11 +222,11 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
         if(!skill.acquire.empty())
         {
             onlyCost = true;
+            bool acquireFront = true;
             for(auto &acquire : skill.acquire)
             {
                 if(!acquire.itemId)
                     continue;
-                bool acquireFront = true;
                 for(auto &bartersList : acquire.barters)
                 {
                     fmt::format_to(in, "{}\n            {{cost={{", acquireFront ? "" : ",");
@@ -345,7 +345,11 @@ static string outputLabelField(std::optional<std::reference_wrapper<const LCLabe
         auto &labels = labelsRef.value().get();
         auto it = labels.find(locale);
         if(it != labels.end())
+        {
+            if(name == "desc")
+                return fmt::format(", {}=[[{}]]", name, it->second);
             return fmt::format("{} {}=\"{}\"", name == "name" ? "" : ",", name, it->second);
+        }
     }
     return {};
 }
