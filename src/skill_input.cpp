@@ -92,6 +92,30 @@ std::optional<MapList> loadMapInput(toml::array *arr)
     return mapList;
 }
 
+std::optional<LCLabel> loadAcquireInput(toml::table *tbl)
+{
+    LCLabel input;
+    if(!tbl)
+        return std::nullopt;
+    for(auto &item : *tbl)
+    {
+        if(item.first != "EN" &&
+                item.first != "DE" &&
+                item.first != "FR" &&
+                item.first != "RU")
+            return std::nullopt;
+
+        std::string lc;
+        std::transform(item.first.begin(), item.first.end(), std::back_inserter(lc), ::tolower);
+
+        auto descOpt = item.second.as_string();
+        if(!descOpt)
+            return std::nullopt;
+        input[lc] = descOpt->get();
+    }
+    return input;
+}
+
 std::optional<std::vector<uint32_t>> loadOverlaps(toml::array *arr)
 {
     std::vector<uint32_t> overlaps;
@@ -174,6 +198,13 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
             if(!value)
                 return false;
             skill.autoRep = value->get();
+        }
+        else if(name == "acquire_desc")
+        {
+            auto acquire = loadAcquireInput(item.second.as_table());
+            if(!acquire)
+                return false;
+            skill.acquireDesc = std::move(*acquire);
         }
         else if(name == "EN" || name == "DE" || name == "FR" || name == "RU")
         {
@@ -300,6 +331,7 @@ bool mergeSkillInputs(TravelInfo &info)
             it->storeLP = skillInput.storeLP;
             it->minLevelInput = skillInput.minLevelInput;
             it->mapList = skillInput.mapList;
+            it->acquireDesc = skillInput.acquireDesc;
             it->overlapIds = skillInput.overlapIds;
             it->sortLevel = skillInput.sortLevel;
             it->label = skillInput.label;

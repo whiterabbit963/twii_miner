@@ -224,6 +224,14 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
     {
         fmt::println(out, "        acquire={{ {{ autoLevel=true }} }},");
     }
+    else if(!skill.acquireDesc.empty())
+    {
+        fmt::println(out, "        acquire={{ {{");
+        fmt::println(out, "                EN={{desc=\"{}\"}},", skill.acquireDesc.at(EN));
+        fmt::println(out, "                DE={{desc=\"{}\"}},", skill.acquireDesc.at(DE));
+        fmt::println(out, "                FR={{desc=\"{}\"}},", skill.acquireDesc.at(FR));
+        fmt::println(out, "                RU={{desc=\"{}\"}} }} }},", skill.acquireDesc.at(RU));
+    }
     else
     {
         string buf;
@@ -231,7 +239,6 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
         bool onlyCost = false;
         if(!skill.acquire.empty())
         {
-            onlyCost = true;
             bool acquireFront = true;
             for(auto &acquire : skill.acquire)
             {
@@ -302,6 +309,7 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
                     fmt::format_to(in, "{}", outputVendors(info, bartersList.bartererId));
                 }
             }
+            onlyCost = !acquireFront;
         }
         if(skill.storeLP)
         {

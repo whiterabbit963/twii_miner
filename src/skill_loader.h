@@ -112,6 +112,7 @@ struct Skill
     std::vector<uint32_t> overlapIds; // input
     std::string tag; // input; generally empty
     std::vector<Acquire> acquire; // parse
+    LCLabel acquireDesc;
     uint32_t factionId{0}; // parse
     unsigned factionRank{0}; // parse
     unsigned minLevel{0}; // parse

@@ -1868,16 +1868,13 @@
     FR={ name="Retour à la maison personnelle", label="Maison personnelle" }
     RU={ name="Возвращение домой",              label="Частный дом" }
     map=[{type="NONE", x=-1, y=-1}]
-    # acquire={
-    #     {
-    #         EN={desc="Buy a House and earn the Novice trait."]
-    #         DE={desc="Buy a House and earn the Novice trait."]
-    #         FR={desc="Buy a House and earn the Novice trait."]
-    #         RU={desc="Купите дом и получите талант новичка."]
-    #     }
-    # }
     #minLevel=1,
     level=1
+    [gen.acquire_desc]
+        EN="Buy a House and earn the Novice trait"
+        DE="Buy a House and earn the Novice trait"
+        FR="Buy a House and earn the Novice trait"
+        RU="Купите дом и получите талант новичка"
 
 [[gen]]
     id="0x70046EE4"
@@ -1886,16 +1883,13 @@
     FR={ name="Aller à une maison premium",   label="Maison premium" }
     RU={ name="Возвращение в престижный дом", label="Престижный дом" }
     map=[{type="NONE", x=-1, y=-1}]
-    # acquire={
-    #     {
-    #         EN={desc="Buy a Premium House and earn the Novice trait."]
-    #         DE={desc="Buy a Premium House and earn the Novice trait."]
-    #         FR={desc="Buy a Premium House and earn the Novice trait."]
-    #         RU={desc="Купите престижный дом и получите талант новичка."]
-    #     }
-    # }
     #minLevel=1,
     level=1
+    [gen.acquire_desc]
+        EN="Buy a Premium House and earn the Novice trait"
+        DE="Buy a Premium House and earn the Novice trait"
+        FR="Buy a Premium House and earn the Novice trait"
+        RU="Купите престижный дом и получите талант новичка"
 
 [[gen]]
     id="0x7000D047"
@@ -1904,13 +1898,12 @@
     FR={ name="Retour à la maison de confrérie", label="Maison de confrérie" }
     RU={ name="Путешествие в дом содружества",   label="Дом содружества" }
     map=[{type="NONE", x=-1, y=-1}]
-    # acquire={ {
-    #         EN={desc="Become a member of a kinship that has a kinship house."]
-    #         DE={desc="Become a member of a kinship that has a kinship house."]
-    #         FR={desc="Become a member of a kinship that has a kinship house."]
-    #         RU={desc="Станьте членом содружества, у которого есть дом."]}}
-    #minLevel=1,
     level=1
+    [gen.acquire_desc]
+        EN="Become a member of a kinship that has a kinship house"
+        DE="Become a member of a kinship that has a kinship house"
+        FR="Become a member of a kinship that has a kinship house"
+        RU="Станьте членом содружества, у которого есть дом"
 
 [[gen]]
     id="0x70057C36"
@@ -1919,14 +1912,12 @@
     FR={ name="Retour à la maison d'un membre de confrérie", label="Maison d'un membre de confrérie" }
     RU={ name="Путешествие в дом участника содружества",     label="Дом участника содружества" }
     map=[{type="NONE", x=-1, y=-1}]
-    # acquire={ {
-    #         EN={desc="Become a member of a kinship."]
-    #         DE={desc="Become a member of a kinship."]
-    #         FR={desc="Become a member of a kinship."]
-    #         RU={desc="Станьте членом содружества."]}}
-    #minLevel=1,
     level=1
-
+    [gen.acquire_desc]
+        EN="Become a member of a kinship"
+        DE="Become a member of a kinship"
+        FR="Become a member of a kinship"
+        RU="Станьте членом содружества"
 
 [[rep]]
     id="0x70023262"
