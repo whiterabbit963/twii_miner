@@ -109,15 +109,16 @@ struct Skill
     std::optional<std::string> race;
     SearchStatus status{SearchStatus::NotFound};
     Type group{Type::Unknown}; // parseable?
+    std::optional<std::string> skillTag; // input
     LCLabel name; // parse
     std::optional<LCLabel> desc; // parse
     std::optional<LCLabel> label; // input
     std::optional<LCLabel> zone; // input
     std::optional<LCLabel> zlabel; // input
     std::optional<LCLabel> detail; // input
+    std::optional<LCLabel> tag; // input
     MapList mapList; // input
     std::vector<uint32_t> overlapIds; // input
-    std::string tag; // input; generally empty
     std::vector<Acquire> acquire; // parse
     LCLabel acquireDesc;
     std::optional<Deed> acquireDeed;

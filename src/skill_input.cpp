@@ -182,7 +182,7 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
             auto value = item.second.as_string();
             if(!value)
                 return false;
-            skill.tag = value->get();
+            skill.skillTag = value->get();
         }
         else if(name == "minLevel")
         {
@@ -233,6 +233,10 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
                 else if(lblName == "detail")
                 {
                     lclPtr = &skill.detail;
+                }
+                else if(lblName == "tag")
+                {
+                    lclPtr = &skill.tag;
                 }
                 if(lclPtr)
                 {
@@ -338,6 +342,8 @@ bool mergeSkillInputs(TravelInfo &info)
             it->zone = skillInput.zone;
             it->zlabel = skillInput.zlabel;
             it->detail = skillInput.detail;
+            it->tag = skillInput.tag;
+            it->skillTag = skillInput.skillTag;
             // TODO: copy other skill input values
         }
         info.skills.push_back(std::move(*it));
