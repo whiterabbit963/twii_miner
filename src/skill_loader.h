@@ -100,6 +100,7 @@ struct Skill
     };
 
     uint32_t id;
+    std::optional<std::string> race;
     SearchStatus status{SearchStatus::NotFound};
     Type group{Type::Unknown}; // parseable?
     LCLabel name; // parse

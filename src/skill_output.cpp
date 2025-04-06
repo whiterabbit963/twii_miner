@@ -406,6 +406,8 @@ static string outputLabelFields(const Skill &skill, std::string_view locale)
 void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill, TravelOutputState &state)
 {
     fmt::println(out, "    self.{}:AddSkill({{", getGroupName(skill.group));
+    if(skill.race)
+        fmt::println(out, "        -- {}", *skill.race);
     fmt::println(out, "        id=\"0x{:08X}\",", skill.id);
     fmt::println(out, "        EN={{{} }},", outputLabelFields(skill, EN));
     fmt::println(out, "        DE={{{} }},", outputLabelFields(skill, DE));

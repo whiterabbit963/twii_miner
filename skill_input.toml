@@ -1489,7 +1489,7 @@
 
 
 [[racials]]
-    # man
+    race="man"
     id="0x700062F6"
     EN={ name="Return to Bree",     desc="enables you to quickly return",      label="Bree", zlabel="West Gate",       zone="Bree" }
     DE={ name="Rückkehr nach Bree", desc="Ihr könnt schnell nach Bree",        label="Bree", zlabel="Westtor",         zone="Bree" }
@@ -1499,7 +1499,7 @@
     level=5
 
 [[racials]]
-    # hobbit
+    race="hobbit"
     id="0x700062C8"
     EN={ name="Return to the Shire",     label="Michel Delving", zone="Shire" }
     DE={ name="Rückkehr ins Auenland",   label="Michelbinge",    zone="Auenland" }
@@ -1509,7 +1509,7 @@
     level=1
 
 [[racials]]
-    # dwarf
+    race="dwarf"
     id="0x70006346"
     EN={ name="Return to Thorin's Gate",     desc="This enables you to quickly return",           label="Thorin's Gate",   zone="Ered Luin" }
     DE={ name="Rückkehr zu Thorins Tor",     desc="Hiermit gelangt Ihr schnell",                  label="Thorins Tor",     zone="Ered Luin" }
@@ -1519,7 +1519,7 @@
     level=1.2
 
 [[racials]]
-    # elf
+    race="elf"
     id="0x7000631F"
     EN={ name="Return to Rivendell",     desc="This enables you to quickly return",       label="Rivendell", zone="Trollshaws" }
     DE={ name="Rückkehr nach Bruchtal",  desc="Hiermit gelangt Ihr schnell",              label="Bruchtal",  zone="Die Trollhöhen" }
@@ -1529,7 +1529,7 @@
     level=40.1
 
 [[racials]]
-    # beorning
+    race="beorning"
     id="0x70041A22"
     EN={ name="Return Home",              desc="Grimbeorn's Lodge.",     label="Beorning Home",    zone="Vales of Anduin" }
     DE={ name="Zum 1. Heim zurückkehren", desc="Grimbeorns Hütte.",      label="Grimbeorns Hütte", zone="Die Täler des Anduin" }
@@ -1539,7 +1539,7 @@
     level=120
 
 [[racials]]
-    # high elf
+    race="high elf"
     id="0x70048C8C"
     EN={ name="Travel to Caras Galadhon in Lothlórien",        label="Caras Galadhon", zone="Lothlórien" }
     DE={ name="Reise nach Caras Galadhon in Lothlórien",       label="Caras Galadhon", zone="Lothlórien" }
@@ -1549,7 +1549,7 @@
     level=60
 
 [[racials]]
-    # stoutaxe
+    race="stoutaxe"
     id="0x70053C0F"
     EN={ name="Travel to Thorin's Hall",      label="Thorin's Hall",    zone="Ered Luin" }
     DE={ name="Reise zu Thorins Halle",       label="Thorins Halle",    zone="Ered Luin" }
@@ -1559,7 +1559,7 @@
     level=1.2
 
 [[racials]]
-    # river hobbit
+    race="river hobbit"
     id="0x70066D31"
     EN={ name="Return to Lyndelby",        label="Lyndelby",  zone="Wells of Langflood" }
     DE={ name="Kehrt zu Lyndelby zurück.", label="Lyndelby",  zone="Quellen des Langflut" }

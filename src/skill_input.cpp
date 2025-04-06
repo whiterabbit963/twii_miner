@@ -147,8 +147,14 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
             auto value = item.second.as_string();
             if(!value)
                 return false;
-
             skill.id = strtol((*value)->c_str(), nullptr, 16);
+        }
+        if(name == "race")
+        {
+            auto value = item.second.as_string();
+            if(!value)
+                return false;
+            skill.race = value->get();
         }
         else if(name == "map")
         {
@@ -328,6 +334,7 @@ bool mergeSkillInputs(TravelInfo &info)
                 it->status = Skill::SearchStatus::MultiFound;
             if(it->group == Skill::Type::Unknown)
                 it->group = skillInput.group;
+            it->race = skillInput.race;
             it->storeLP = skillInput.storeLP;
             it->minLevelInput = skillInput.minLevelInput;
             it->mapList = skillInput.mapList;
