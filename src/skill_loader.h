@@ -60,6 +60,12 @@ struct Barter
     std::vector<Token> currency;
 };
 
+struct Deed
+{
+    uint32_t id;
+    LCLabel name;
+};
+
 struct Acquire
 {
     uint32_t itemId{0};
@@ -114,6 +120,7 @@ struct Skill
     std::string tag; // input; generally empty
     std::vector<Acquire> acquire; // parse
     LCLabel acquireDesc;
+    std::optional<Deed> acquireDeed;
     uint32_t factionId{0}; // parse
     unsigned factionRank{0}; // parse
     unsigned minLevel{0}; // parse
@@ -185,6 +192,10 @@ public:
     bool getQuests(std::vector<Skill> &skills);
     bool getQuestLabels(std::vector<Skill> &skills);
     bool getQuestLabel(const std::string &locale, std::vector<Skill> &skills);
+    bool getTraits(std::vector<Skill> &skills);
+    bool getDeed(std::string_view traitId, Skill &skill);
+    bool getDeedLabels(std::vector<Skill> &skills);
+    bool getDeedLabel(const std::string &locale, std::vector<Skill> &skills);
 
     bool getFactions(TravelInfo &info);
     bool getFactionLabels(TravelInfo &info);

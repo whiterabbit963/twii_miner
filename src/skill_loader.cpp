@@ -107,6 +107,7 @@ std::vector<Skill> SkillLoader::getSkills()
     getSkillItems(skills);
     getClassInfo(skills);
     getQuests(skills);
+    getTraits(skills);
 
     return skills;
 }
@@ -993,6 +994,134 @@ bool SkillLoader::getQuestLabel(const string &locale, std::vector<Skill> &skills
             return false;
 
         it->second->questName[locale] = attr->value();
+    }
+    return true;
+}
+
+bool SkillLoader::getDeed(string_view traitId, Skill &skill)
+{
+    XMLLoader xml;
+    string fp = fmt::format("{}\\lotro-data\\lore\\deeds.xml", m_path);
+    if(!xml.load(fp))
+        return false;
+
+    xml_node<> *root = xml.doc().first_node("deeds");
+    if(!root)
+        return false;
+    for(xml_node<> *node = root->first_node("deed");
+            node; node = node->next_sibling("deed"))
+    {
+        for(xml_node<> *rewardNode = node->first_node("rewards");
+                rewardNode; rewardNode = rewardNode->next_sibling("rewards"))
+        {
+            for(xml_node<> *traitNode = rewardNode->first_node("trait");
+                    traitNode; traitNode = traitNode->next_sibling("trait"))
+            {
+                xml_attribute<> *attr = traitNode->first_attribute("id");
+                if(!attr)
+                    return false;
+                if(traitId == attr->value())
+                {
+                    attr = node->first_attribute("id");
+                    if(!attr)
+                        return false;
+                    uint32_t deedId = atoi(attr->value());
+                    skill.acquireDeed = Deed{deedId};
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool SkillLoader::getTraits(std::vector<Skill> &skills)
+{
+    string fp = fmt::format("{}\\lotro-data\\lore\\traits.xml", m_path);
+    if(!m_xml.load(fp))
+        return false;
+
+    unordered_map<uint32_t, Skill*> skillHash;
+    for(auto &skill : skills)
+    {
+        skillHash.insert({skill.id, &skill});
+    }
+    xml_node<> *root = m_xml.doc().first_node("traits");
+    if(!root)
+        return false;
+    for(xml_node<> *node = root->first_node("trait");
+            node; node = node->next_sibling("trait"))
+    {
+        for(xml_node<> *skillNode = node->first_node("skill");
+                skillNode; skillNode = skillNode->next_sibling("skill"))
+        {
+            xml_attribute<> *attr = skillNode->first_attribute("id");
+            if(!attr)
+                break;
+            uint32_t skillId = atoi(attr->value());
+            auto it = skillHash.find(skillId);
+            if(it != skillHash.end())
+            {
+                attr = node->first_attribute("identifier");
+                if(attr)
+                    getDeed(attr->value(), *it->second);
+            }
+            break;
+        }
+    }
+    getDeedLabels(skills);
+    return true;
+}
+
+bool SkillLoader::getDeedLabels(std::vector<Skill> &skills)
+{
+    if(!getDeedLabel(EN, skills))
+        return false;
+    if(!getDeedLabel(DE, skills))
+        return false;
+    if(!getDeedLabel(FR, skills))
+        return false;
+    if(!getDeedLabel(RU, skills))
+        return false;
+    return true;
+}
+
+bool SkillLoader::getDeedLabel(const string &locale, std::vector<Skill> &skills)
+{
+    string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\deeds.xml", m_path, locale);
+    if(!m_xml.load(fp))
+        return false;
+
+    xml_node<> *root = m_xml.doc().first_node("labels");
+    if(!root)
+        return false;
+
+    std::unordered_map<uint32_t, Deed*> deedInfo;
+    for(auto &skill : skills)
+    {
+        auto &deed = skill.acquireDeed;
+        if(!deed)
+            continue;
+        deedInfo.insert({deed->id, &deed.value()});
+    }
+    for(xml_node<> *node = root->first_node("label");
+            node; node = node->next_sibling("label"))
+    {
+        xml_attribute<> *attr = node->first_attribute("key");
+        if(!attr)
+            continue;
+
+        string_view key = attr->value();
+        if(key.starts_with("key"))
+            continue;
+        auto it = deedInfo.find(atoi(key.data()));
+        if(it == deedInfo.end())
+            continue;
+
+        attr = node->first_attribute("value");
+        if(!attr)
+            return false;
+
+        it->second->name[locale] = attr->value();
     }
     return true;
 }

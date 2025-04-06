@@ -226,17 +226,28 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
     }
     else if(!skill.acquireDesc.empty())
     {
-        fmt::println(out, "        acquire={{ {{");
+        fmt::println(out, "        acquire={{");
+        fmt::println(out, "            {{");
         fmt::println(out, "                EN={{desc=\"{}\"}},", skill.acquireDesc.at(EN));
         fmt::println(out, "                DE={{desc=\"{}\"}},", skill.acquireDesc.at(DE));
         fmt::println(out, "                FR={{desc=\"{}\"}},", skill.acquireDesc.at(FR));
         fmt::println(out, "                RU={{desc=\"{}\"}} }} }},", skill.acquireDesc.at(RU));
     }
+    else if(skill.acquireDeed)
+    {
+        auto &deed = *skill.acquireDeed;
+        fmt::println(out, "        acquire={{");
+        fmt::println(out, "            {{");
+        fmt::println(out, "                EN={{deed=\"{}\"}},", deed.name.at(EN));
+        fmt::println(out, "                DE={{deed=\"{}\"}},", deed.name.at(DE));
+        fmt::println(out, "                FR={{deed=\"{}\"}},", deed.name.at(FR));
+        fmt::println(out, "                RU={{deed=\"{}\"}} }} }},", deed.name.at(RU));
+    }
     else
     {
         string buf;
         auto in = std::back_inserter(buf);
-        bool onlyCost = false;
+        bool firstEntry = true;
         if(!skill.acquire.empty())
         {
             bool acquireFront = true;
@@ -309,22 +320,22 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
                     fmt::format_to(in, "{}", outputVendors(info, bartersList.bartererId));
                 }
             }
-            onlyCost = !acquireFront;
+            firstEntry = acquireFront;
         }
         if(skill.storeLP)
         {
             bool addComma = !buf.empty();
             fmt::format_to(in, "{}{} {{ store=true }}", addComma ? "," : "",
-                           onlyCost ? "\n           " : "");
-            onlyCost = false;
+                           firstEntry ? "" : "\n           ");
+            firstEntry = false;
         }
         if(skill.autoRep)
         {
             bool addComma = !buf.empty();
             fmt::format_to(in, "{}{} {{ autoRep=true }}",
                            addComma ? "," : "",
-                           onlyCost ? "\n           " : "");
-            // onlyCost = false;
+                           firstEntry ? "" : "\n           ");
+            // firstEntry = false;
         }
 
         if(!buf.empty())
