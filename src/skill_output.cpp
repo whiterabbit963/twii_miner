@@ -435,7 +435,7 @@ void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill, Trave
 
 void outputSkillDataFile(const TravelInfo &info)
 {
-    std::ofstream out("SkillData.lua", ios::out);
+    std::ofstream out("SkillData.lua", ios::out | ios::binary);
     if(!out.is_open())
     {
         fmt::println("Failed to create SkillData.lua");
@@ -474,7 +474,7 @@ void outputSkillDataFile(const TravelInfo &info)
 
 void outputLocaleDataFile(const TravelInfo &info)
 {
-    std::ofstream out("LocaleData.lua", ios::out);
+    std::ofstream out("LocaleData.lua", ios::out | ios::binary);
     if(!out.is_open())
     {
         fmt::println("Failed to create LocaleData.lua");
