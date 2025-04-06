@@ -206,6 +206,14 @@ static string outputVendors(const TravelInfo &info, uint32_t id)
     return buf;
 }
 
+static string outputQuest(const string &locale, const Acquire &acquire)
+{
+    string buf;
+    auto in = std::back_inserter(buf);
+    fmt::format_to(in, "quest=\"{}\"", acquire.questName.at(locale));
+    return buf;
+}
+
 static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &skill)
 {
     if(skill.group == Skill::Type::Creep)
@@ -227,6 +235,21 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
             {
                 if(!acquire.itemId)
                     continue;
+
+                if(acquire.questId &&
+                        !acquire.questNameKey.empty() &&
+                        !acquire.questName.empty())
+                {
+                    fmt::format_to(in, "{}\n            {{", acquireFront ? "" : ",");
+                    acquireFront = false;
+
+                    fmt::format_to(in, "\n                EN={{{}}},", outputQuest(EN, acquire));
+                    fmt::format_to(in, "\n                DE={{{}}},", outputQuest(DE, acquire));
+                    fmt::format_to(in, "\n                FR={{{}}},", outputQuest(FR, acquire));
+                    fmt::format_to(in, "\n                RU={{{}}}", outputQuest(RU, acquire));
+                    fmt::format_to(in, " }}");
+                }
+
                 for(auto &bartersList : acquire.barters)
                 {
                     fmt::format_to(in, "{}\n            {{cost={{", acquireFront ? "" : ",");
@@ -281,8 +304,7 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
         if(skill.storeLP)
         {
             bool addComma = !buf.empty();
-            fmt::format_to(in, "{}{} {{ store=true }}",
-                           addComma ? "," : "",
+            fmt::format_to(in, "{}{} {{ store=true }}", addComma ? "," : "",
                            onlyCost ? "\n           " : "");
             onlyCost = false;
         }

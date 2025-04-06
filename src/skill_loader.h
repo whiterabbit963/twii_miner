@@ -63,10 +63,19 @@ struct Barter
 struct Acquire
 {
     uint32_t itemId{0};
+
+    // barters & vendors
+    std::vector<Barter> barters;
+
+    // vendors
     uint32_t valueTableId{0};
     unsigned level{0};
     std::string quality;
-    std::vector<Barter> barters;
+
+    // quests
+    uint32_t questId{0};
+    std::string questNameKey;
+    LCLabel questName;
 };
 
 struct Skill
@@ -165,18 +174,21 @@ public:
     SkillLoader(std::string_view root);
 
     std::vector<Skill> getSkills();
-    bool getFactions(TravelInfo &info);
-    bool getCurrencies(TravelInfo &info);
 
     bool getSkillNames(std::vector<Skill> &skills);
     bool getSkillNames(const std::string &locale, std::vector<Skill> &skills);
     bool getSkillDesc(const std::string &locale, std::vector<Skill> &skills);
     bool getSkillItems(std::vector<Skill> &skills);
-    bool getClassInfo(std::vector<Skill> &skill);
+    bool getClassInfo(std::vector<Skill> &skills);
+    bool getQuests(std::vector<Skill> &skills);
+    bool getQuestLabels(std::vector<Skill> &skills);
+    bool getQuestLabel(const std::string &locale, std::vector<Skill> &skills);
 
+    bool getFactions(TravelInfo &info);
     bool getFactionLabels(TravelInfo &info);
     bool getFactionLabel(const std::string &locale, TravelInfo &info);
 
+    bool getCurrencies(TravelInfo &info);
     bool getCurrencyLabels(TravelInfo &info);
     bool getCurrencyLabel(const std::string &locale, TravelInfo &info);
 

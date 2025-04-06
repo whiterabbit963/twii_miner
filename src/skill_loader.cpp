@@ -2,6 +2,7 @@
 
 #include <array>
 #include <ranges>
+#include <unordered_map>
 #include <fmt/format.h>
 
 using namespace std;
@@ -95,6 +96,7 @@ std::vector<Skill> SkillLoader::getSkills()
     getSkillNames(skills);
     getSkillItems(skills);
     getClassInfo(skills);
+    getQuests(skills);
 
     return skills;
 }
@@ -889,6 +891,103 @@ bool SkillLoader::getVendors(TravelInfo &info)
                 }
             }
         }
+    }
+    return true;
+}
+
+bool SkillLoader::getQuests(std::vector<Skill> &skills)
+{
+    string fp = fmt::format("{}\\lotro-data\\lore\\quests.xml", m_path);
+    if(!m_xml.load(fp))
+        return false;
+
+    xml_node<> *root = m_xml.doc().first_node("quests");
+    if(!root)
+        return false;
+    for(xml_node<> *node = root->first_node("quest");
+            node; node = node->next_sibling("quest"))
+    {
+        for(xml_node<> *rewardNode = node->first_node("rewards");
+                rewardNode; rewardNode = rewardNode->next_sibling("rewards"))
+        {
+            for(xml_node<> *objNode = rewardNode->first_node("object");
+                    objNode; objNode = objNode->next_sibling("object"))
+            {
+                xml_attribute<> *attr = objNode->first_attribute("id");
+                if(!attr)
+                    continue;
+                uint32_t itemId = atoi(attr->value());
+                for(auto &skill : skills)
+                {
+                    auto it = ranges::find(skill.acquire, itemId, &Acquire::itemId);
+                    if(it == skill.acquire.end())
+                        continue;
+
+                    if(attr = node->first_attribute("id"); attr)
+                        it->questId = atoi(attr->value());
+                    attr = node->first_attribute("rawName");
+                    if(!attr)
+                        return false;
+                    it->questNameKey = attr->value();
+                }
+            }
+        }
+    }
+
+    getQuestLabels(skills);
+    return true;
+}
+
+bool SkillLoader::getQuestLabels(std::vector<Skill> &skills)
+{
+    if(!getQuestLabel(EN, skills))
+        return false;
+    if(!getQuestLabel(DE, skills))
+        return false;
+    if(!getQuestLabel(FR, skills))
+        return false;
+    if(!getQuestLabel(RU, skills))
+        return false;
+    return true;
+}
+
+bool SkillLoader::getQuestLabel(const string &locale, std::vector<Skill> &skills)
+{
+    string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\quests.xml", m_path, locale);
+    if(!m_xml.load(fp))
+        return false;
+
+    xml_node<> *root = m_xml.doc().first_node("labels");
+    if(!root)
+        return false;
+
+    std::unordered_map<std::string_view, Acquire*> acquireInfo;
+    for(auto &skill : skills)
+    {
+        for(auto &acquire : skill.acquire)
+        {
+            acquireInfo.insert({acquire.questNameKey, &acquire});
+        }
+    }
+    for(xml_node<> *node = root->first_node("label");
+            node; node = node->next_sibling("label"))
+    {
+        xml_attribute<> *attr = node->first_attribute("key");
+        if(!attr)
+            continue;
+
+        string_view key = attr->value();
+        if(!key.starts_with("key"))
+            continue;
+        auto it = acquireInfo.find(key);
+        if(it == acquireInfo.end())
+            continue;
+
+        attr = node->first_attribute("value");
+        if(!attr)
+            return false;
+
+        it->second->questName[locale] = attr->value();
     }
     return true;
 }
