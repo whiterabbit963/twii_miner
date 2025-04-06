@@ -19,8 +19,6 @@
     RU={ name="Путь в Занорье",          label="Занорье",        zone="Шир" }
     map=[{type="ERIADOR", x=360, y=390}]
     overlap=["0x700062C8", "0x70023262"]
-    autoLevel=true
-    #minLevel=22
     level=1
 
 [[hunter]]
@@ -31,8 +29,6 @@
     RU={ name="Путь в Чертоги Торина",          label="Чертоги Торина",   zone="Эред Луин" }
     map=[{type="ERIADOR", x=305, y=270}]
     overlap=["0x70006346", "0x70053C0F", "0x7001BF91"]
-    autoLevel=true
-    #minLevel=24
     level=1.1
 
 [[hunter]]
@@ -43,8 +39,6 @@
     RU={ name="Путь в Бри",       label="Бри",  zlabel="Западные ворота", zone="Бри" }
     map=[{type="ERIADOR", x=585, y=335}]
     overlap=["0x700062F6", "0x7001BF90"]
-    autoLevel=true
-    #minLevel=32
     level=5
 
 [[hunter]]
@@ -55,7 +49,6 @@
     RU={ name="Путь в Клегур",      label="Клегур", zone="Лебедянь" }
     map=[{type="ERIADOR", x=755, y=555}]
     overlap=["0x70064F47"]
-    #minLevel=20,
     level=7
 
 [[hunter]]
@@ -66,7 +59,6 @@
     RU={ name="Путь в Лебедянь",                 label="Лебедянь",         detail="Лхан-Гаран", zone="Лебедянь" }
     map=[{type="ERIADOR", x=825, y=490}]
     overlap=["0x700634A4"]
-    ##minLevel=20,
     level=10
 
 [[hunter]]
@@ -77,7 +69,6 @@
     RU={ name="Путь в Кардолан",        label="Кардолан", detail="Хэрне", zone="Кардолан" }
     map=[{type="ERIADOR", x=560, y=495}]
     overlap=["0x700634AE"]
-    #minLevel=20,
     level=15
 
 [[hunter]]
@@ -88,7 +79,6 @@
     RU={ name="Путь в Андрат",       label="Андрат",  zone="Кардолан" }
     map=[{type="ERIADOR", x=580, y=465}]
     overlap=["0x7006323D"]
-    #minLevel=20,
     level=17
 
 [[hunter]]
@@ -99,7 +89,6 @@
     RU={ name="Путь в Новодворье",      label="Новодворье",  zone="Дальний Шир" }
     map=[{type="ERIADOR", x=440, y=350}]
     overlap=["0x70061340"]
-    #minLevel=20,
     level=20
 
 [[hunter]]
@@ -109,7 +98,6 @@
     FR={ name="Guide vers Ost Guruth",   label="Ost Guruth",   zone="Terres Solitaires" }
     RU={ name="Путь в Ост Гурут",        label="Ост Гурут",    zone="Пустоши" }
     map=[{type="ERIADOR", x=755, y=400}]
-    #minLevel=26,
     overlap=["0x70020441"]
     level=25
 
@@ -120,8 +108,6 @@
     FR={ name="Guide vers Esteldin",  label="Esteldin",  zone="Hauts du Nord" }
     RU={ name="Путь в Эстельдин",     label="Эстельдин", zone="Северное нагорье" }
     map=[{type="ERIADOR", x=655, y=290}]
-    autoLevel=true
-    #minLevel=34,
     level=30
 
 [[hunter]]
@@ -131,7 +117,6 @@
     FR={ name="Guide vers Evendim",  label="Evendim", detail="Tinnudir", zone="Evendim" }
     RU={ name="Путь в Эвендим",      label="Эвендим", detail="Тиннудир", zone="Эвендим" }
     map=[{type="ERIADOR", x=490, y=235}]
-    #minLevel=36,
     level=35
 
 [[hunter]]
@@ -142,7 +127,6 @@
     RU={ name="Путь в Торнхад",      label="Торнхад", zone="Митейтельская стрелка" }
     map=[{type="ERIADOR", x=775, y=435}]
     overlap=["0x70060EA8"]
-    #minLevel=38,
     level=40
 
 [[hunter]]
@@ -153,8 +137,6 @@
     RU={ name="Путь в Ривенделл",     label="Ривенделл", zone="Троллистая пуща" }
     map=[{type="ERIADOR", x=865, y=410}]
     overlap=["0x7000631F", "0x70023263"]
-    autoLevel=true
-    #minLevel=46,
     level=40.1
 
 [[hunter]]
@@ -165,7 +147,6 @@
     RU={ name="Путь в Мглистые горы",         label="Мглистые горы",   detail="Хримбарг", zone="Мглистые горы" }
     map=[{type="ERIADOR", x=915, y=265}]
     store=true
-    #minLevel=40,
     level=40.2
 
 [[hunter]]
@@ -176,7 +157,6 @@
     RU={ name="Путь в Примостье",           label="Примостье",       zone="Северное нагорье" }
     map=[{type="ERIADOR", x=590, y=285}]
     overlap=["0x70059D12"]
-    #minLevel=40,
     level=40.3
 
 [[hunter]]
@@ -187,7 +167,6 @@
     RU={ name="Путь к Торговой пристани",         label="Торговая пристань",  zone="Эвендим" }
     map=[{type="ERIADOR", x=515, y=305}]
     overlap=["0x70059D0E"]
-    #minLevel=40,
     level=40.4
 
 [[hunter]]
@@ -197,7 +176,6 @@
     FR={ name="Guide vers Sûri-kylä",  label="Sûri-kylä",  zone="Forochel" }
     RU={ name="Путь в Сури-кила",       label="Сури-кила", zone="Форохель" }
     map=[{type="ERIADOR", x=430, y=50}]
-    #minLevel=48,
     level=42
 
 [[hunter]]
@@ -207,7 +185,6 @@
     FR={ name="Guide vers l'ouest d'Angmar",    label="Angmar ouest",    detail="Aughaire", zone="Angmar" }
     RU={ name="Путь в западный Ангмар",         label="Западный Ангмар", detail="Огайр",    zone="Ангмар" }
     map=[{type="ERIADOR", x=825, y=185}]
-    #minLevel=44,
     level=45
 
 [[hunter]]
@@ -217,7 +194,6 @@
     FR={ name="Guide vers l'est d'Angmar",  label="Angmar est",         detail="Gath Forthnír", zone="Angmar" }
     RU={ name="Путь в восточный Ангмар",    label="Восточный Ангмар",   detail="Гат Фортнир",   zone="Ангмар" }
     map=[{type="ERIADOR", x=705, y=180}]
-    #minLevel=48,
     level=49
 
 [[hunter]]
@@ -227,7 +203,6 @@
     FR={ name="Guide vers Echad Dunann",    label="Echad Dunann",   zone="Eregion" }
     RU={ name="Путь в Эхад Дунанн",         label="Эхад Дунанн",    zone="Эрегион" }
     map=[{type="ERIADOR", x=855, y=535}]
-    #minLevel=51,
     level=50
 
 [[hunter]]
@@ -237,7 +212,6 @@
     FR={ name="Guide vers la vingt et unième salle",    label="Vingt et unième salle",  zone="Moria" }
     RU={ name="Путь в Двадцать первый чертог",          label="Двадцать первый чертог", zone="Мория" }
     map=[{type="RHOVANION", x=95, y=585}, {type="ERIADOR", x=950, y=510}]
-    #minLevel=56,
     level=55
 
 [[hunter]]
@@ -248,7 +222,6 @@
     RU={ name="Путь в Карас Галадон",       label="Карас Галадон",  zone="Лотлориэн" }
     map=[{type="RHOVANION", x=120, y=660}]
     overlap=["0x70048C8C"]
-    #minLevel=60,
     level=60
 
 [[hunter]]
@@ -258,7 +231,6 @@
     FR={ name="Guide vers l'Orée noire",    label="Orée noire",     zone="Forêt Noire" }
     RU={ name="Путь в Черную рощу",         label="Черная роща",    zone="Лихолесье" }
     map=[{type="RHOVANION", x=365, y=630}]
-    #minLevel=62,
     level=61
 
 [[hunter]]
@@ -268,7 +240,6 @@
     FR={ name="Guide vers Harndirion",  label="Harndirion", zone="Enedwaith" }
     RU={ name="Путь в Харндирион",      label="Харндирион", zone="Энедвайт" }
     map=[{type="ERIADOR", x=815, y=635}]
-    #minLevel=62,
     level=62
 
 [[hunter]]
@@ -278,7 +249,6 @@
     FR={ name="Guide pour Galtrev",     label="Galtrev",    zone="Pays de Dun" }
     RU={ name="Путь в Галтрев",         label="Галтрев",    zone="Дунланд" }
     map=[{type="ERIADOR", x=810, y=715}]
-    #minLevel=70,
     level=65
 
 [[hunter]]
@@ -289,7 +259,6 @@
     RU={ name="Путь в Стангард",        label="Стангард",   zone="Великая река" }
     map=[{type="RHOVANION", x=200, y=720}, {type="ROHAN", x=545, y=90}]
     overlap=["0x7002C65D"]
-    #minLevel=75,
     level=75
 
 [[hunter]]
@@ -300,7 +269,6 @@
     RU={ name="Путь в Сноуборн",            label="Сноуборн",       zone="Восточный Рохан" }
     map=[{type="ROHAN", x=515, y=500}]
     overlap=["0x70031A46"]
-    #minLevel=80,
     level=80
 
 [[hunter]]
@@ -311,7 +279,6 @@
     RU={ name="Путь в Форлоу",       label="Форлоу",  zone="Вилдермор" }
     map=[{type="ROHAN", x=450, y=175}]
     overlap=["0x70036B5E"]
-    #minLevel=85,
     level=85
 
 [[hunter]]
@@ -322,7 +289,6 @@
     RU={ name="Путь в Альдбург",        label="Альдбург",   zone="Западный Рохан" }
     map=[{type="ROHAN", x=570, y=640}]
     overlap=["0x7003DC81"]
-    #minLevel=85,
     level=88
 
 [[hunter]]
@@ -333,7 +299,6 @@
     RU={ name="Путь в Хельмову Падь",           label="Хельмова Падь",      zone="Западный Рохан" }
     map=[{type="ROHAN", x=275, y=565}]
     overlap=["0x7003DC82"]
-    #minLevel=90,
     level=90
 
 [[hunter]]
@@ -344,7 +309,6 @@
     RU={ name="Путь в Дол Амрот",       desc="в Западном Гондоре",  label="Дол Амрот",  zone="Западный Гондор" }
     map=[{type="GONDOR", x=225, y=550}]
     overlap=["0x700411AC"]
-    #minLevel=95,
     level=98
 
 [[hunter]]
@@ -355,7 +319,6 @@
     RU={ name="Путь в Арнах",       label="Арнах",  zone="Восточный Гондор" }
     map=[{type="GONDOR", x=715, y=425}]
     overlap=["0x70043A6A"]
-    #minLevel=100,
     level=100
 
 [[hunter]]
@@ -366,7 +329,6 @@
     RU={ name="Путь в Минас Тирит",         label="Минас Тирит",  zone="Старый Анориен" }
     map=[{type="GONDOR", x=670, y=345}]
     overlap=["0x7004497E"]
-    #minLevel=100,
     level=100.1
 
 [[hunter]]
@@ -377,7 +339,6 @@
     RU={ name="Путь в военный лагерь Рохиррим",         label="Лагерь Рохиррим",            zone="Дальний Анориен" }
     map=[{type="GONDOR", x=665, y=140}]
     overlap=["0x700459A9"]
-    #minLevel=100,
     level=102
 
 [[hunter]]
@@ -388,7 +349,6 @@
     RU={ name="Путь в Минас Тирит (после битвы)",               label="Минас Тирит (после битвы)",      zone="Анориен" }
     map=[{type="GONDOR", x=670, y=375}]
     overlap=["0x70046CC0"]
-    #minLevel=100,
     level=105
 
 [[hunter]]
@@ -399,7 +359,6 @@
     RU={ name="Путь в Осгилиат (после битвы)",              label="Осгилиат (после битвы)",         zone="Анориен" }
     map=[{type="GONDOR", x=855, y=335}]
     overlap=["0x7004707D"]
-    #minLevel=100,
     level=105.1
 
 [[hunter]]
@@ -410,7 +369,6 @@
     RU={ name="Путь в Хеннет Аннун",      label="Хеннет Аннун",  zone="Итилиен" }
     map=[{type="GONDOR", x=875, y=385}]
     overlap=["0x70047080"]
-    #minLevel=100,
     level=105.2
 
 [[hunter]]
@@ -421,7 +379,6 @@
     RU={ name="Путь в лагерь Воинства Запада", label="Лагерь Воинства Запада", zone="Гиблые земли" }
     map=[{type="GONDOR", x=805, y=170}]
     overlap=["0x70047BF4"]
-    #minLevel=100,
     level=105.3
 
 [[hunter]]
@@ -432,7 +389,6 @@
     RU={ name="Путь в Хаэрондир",      label="Хаэрондир", zone="Гиблые земли" }
     map=[{type="GONDOR", x=855, y=100}]
     overlap=["0x70047C1B"]
-    #minLevel=100,
     level=105.4
 
 [[hunter]]
@@ -443,7 +399,6 @@
     RU={ name="Путь на заставу Удуна",       label="Застава Удуна",    zone="Мордор" }
     map=[{type="GONDOR", x=925, y=230}]
     overlap=["0x7004AE1D"]
-    #minLevel=100,
     level=106
 
 [[hunter]]
@@ -454,7 +409,6 @@
     RU={ name="Путь в Дейл",      label="Дейл", zone="Эрин Ласгален" }
     map=[{type="RHOVANION", x=720, y=215}]
     overlap=["0x7004D738"]
-    #minLevel=115,
     level=115
 
 [[hunter]]
@@ -465,7 +419,6 @@
     RU={ name="Путь в Ярнфаст",       label="Ярнфаст",  zone="Железное взгорье" }
     map=[{type="RHOVANION", x=890, y=110}]
     overlap=["0x7004FAC3"]
-    #minLevel=116,
     level=116
 
 [[hunter]]
@@ -476,7 +429,6 @@
     RU={ name="Путь в Скархальд",     label="Скархальд", zone="Эред Митрин" }
     map=[{type="RHOVANION", x=430, y=90}]
     overlap=["0x7004FAC5"]
-    #minLevel=116,
     level=117
 
 [[hunter]]
@@ -487,7 +439,6 @@
     RU={ name="Путь в Беорнингус",         label="Беорнингус",    zone="Долина Андуина" }
     map=[{type="RHOVANION", x=390, y=300}]
     overlap=["0x70041A22", "0x70052F12"]
-    #minLevel=116,
     level=120
 
 [[hunter]]
@@ -498,7 +449,6 @@
     RU={ name="Путь в Хультвис",       label="Хультвис", zone="Долина Андуина" }
     map=[{type="RHOVANION", x=375, y=400}]
     overlap=["0x70052F04"]
-    #minLevel=116,
     level=120.1
 
 [[hunter]]
@@ -509,7 +459,6 @@
     RU={ name="Путь в Эстолад Лан",      label="Эстолад Лан", zone="Имлад Моргул" }
     map=[{type="GONDOR", x=960, y=460}]
     overlap=["0x700551F8"]
-    #minLevel=121,
     level=125
 
 [[hunter]]
@@ -520,7 +469,6 @@
     RU={ name="Путь в Лимлок",      label="Лимлок", zone="Истоки Долгой реки" }
     map=[{type="RHOVANION", x=345, y=230}]
     overlap=["0x70057629"]
-    #minLevel=130,
     level=130
 
 [[hunter]]
@@ -531,7 +479,6 @@
     RU={ name="Путь в Аннак-Курфу",         label="Аннак-Курфу",    zone="Долина предков" }
     map=[{type="RHOVANION", x=530, y=90}]
     overlap=["0x7005856F"]
-    #minLevel=20,
     level=130.1
 
 [[hunter]]
@@ -542,7 +489,6 @@
     RU={ name="Путь в Акраз-Захар",         label="Акраз-Захар",    zone="Эрин Ласгален" }
     map=[{type="RHOVANION", x=750, y=115}]
     overlap=["0x7005AA90"]
-    #minLevel=130,
     level=130.2
 
 [[hunter]]
@@ -553,7 +499,6 @@
     RU={ name="Путь в Азанулбизар",         label="Азанулбизар",    detail="Амдан", zone="Азанулбизар" }
     map=[{type="RHOVANION", x=210, y=555}]
     overlap=["0x7005AA92"]
-    #minLevel=130,
     level=130.3
 
 [[hunter]]
@@ -564,7 +509,6 @@
     RU={ name="Путь к Благородным вратам",  label="Благородные врата",  zone="Гундабад" }
     map=[{type="RHOVANION", x=190, y=130}]
     overlap=["0x7005D47C"]
-    #minLevel=131,
     level=131
 
 [[hunter]]
@@ -575,7 +519,6 @@
     RU={ name="Путь в Лейтстат",        label="Лейтстат",   zone="Гундабад" }
     map=[{type="RHOVANION", x=270, y=65}]
     overlap=["0x7005D484"]
-    #minLevel=135,
     level=135
 
 [[hunter]]
@@ -586,7 +529,6 @@
     RU={ name="Путь в Карн-Дум",        label="Карн-Дум",   zone="Ангмар" }
     map=[{type="ERIADOR", x=735, y=100}]
     overlap=["0x70064ACA"]
-    #minLevel=20,
     level=140.1
 
 [[hunter]]
@@ -597,7 +539,6 @@
     RU={ name="Путь в Пеларгир",        label="Пеларгир",   zone="Королевский Гондор" }
     map=[{type="GONDOR", x=670, y=625}]
     overlap=["0x700658EB"]
-    #minLevel=135,
     level=141
 
 [[hunter]]
@@ -608,7 +549,6 @@
     RU={ name="Путь в Дол Амрот",       desc="Королевский Гондор",  label="Королевский Дол Амрот",  zlabel="Дол Амрот",     zone="Королевский Гондор" }
     map=[{type="GONDOR", x=210, y=485}, {type="HARADWAITH", x=325, y=70}]
     overlap=["0x70068700"]
-    #minLevel=135,
     level=142
 
 [[hunter]]
@@ -619,7 +559,6 @@
     RU={ name="Путь в Лонд-Кирион",         label="Лонд-Кирион",    zone="Анфалас" }
     map=[{type="GONDOR", x=255, y=420}, {type="HARADWAITH", x=230, y=20}]
     overlap=["0x70068703"]
-    #minLevel=135,
     level=143
 
 [[hunter]]
@@ -630,7 +569,6 @@
     RU={ name="Путь в Халракс",     label="Халракс",    zone="Острова Щита" }
     map=[{type="HARADWAITH", x=215, y=260}]
     overlap=["0x70068702"]
-    #minLevel=140,
     level=145
 
 [[hunter]]
@@ -641,7 +579,6 @@
     RU={ name="Путь в Джакс-Фанал",     label="Джакс-Фанал",    zone="Умбар" }
     map=[{type="HARADWAITH", x=305, y=315}]
     overlap=["0x70068701"]
-    #minLevel=140,
     level=146
 
 [[hunter]]
@@ -652,7 +589,6 @@
     RU={ name="Путь в Бедж-Магда",     label="Бедж-Магда", zone="Умбар" }
     map=[{type="HARADWAITH", x=350, y=380}]
     overlap=["0x7006A9C1"]
-    #minLevel=20,
     level=147
 
 [[hunter]]
@@ -663,7 +599,6 @@
     RU={ name="Путь в Умбар",      label="Умбар",  detail="Бахарбель", zone="Умбар" }
     map=[{type="HARADWAITH", x=505, y=370}]
     overlap=["0x700686FF"]
-    #minLevel=140,
     level=148
 
 [[hunter]]
@@ -674,7 +609,6 @@
     RU={ name="Путь в таверну 'Кровавый орёл'",            label="Таверна Кровавый Орёл",       zone="Умбар" }
     map=[{type="HARADWAITH", x=475, y=400}]
     overlap=["0x700697F2"]
-    #minLevel=20,
     level=149
 
 [[hunter]]
@@ -685,7 +619,6 @@
     RU={ name="Guide to Iridír",    label="Iridír", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=555, y=325}]
     overlap=["0x7006C3A1"]
-    #minLevel=150,
     level=150.1
 
 [[hunter]]
@@ -696,7 +629,6 @@
     RU={ name="Guide to Jirush",    label="Jirush", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=560, y=415}]
     overlap=["0x7006C3C3"]
-    #minLevel=150,
     level=150.2
 
 [[hunter]]
@@ -707,7 +639,6 @@
     RU={ name="Guide to Urmâkh",    label="Urmâkh", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=640, y=410}]
     overlap=["0x7006C3B0"]
-    #minLevel=150,
     level=150.3
 
 [[hunter]]
@@ -718,7 +649,6 @@
     RU={ name="Guide to Maurûsh",    label="Maurûsh", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=640, y=350}]
     overlap=["0x7006C3BC"]
-    #minLevel=150,
     level=150.4
 
 [[hunter]]
@@ -728,7 +658,6 @@
     FR={ name="Guide vers Utug-bûr",             label="Utug-bûr", zone="Ikorbân" }
     RU={ name="Guide to Utug-bûr",               label="Utug-bûr", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=670, y=310}]
-    #minLevel=150,
     level=150.5
 
 
@@ -740,7 +669,6 @@
     RU={ name="Сбор в Клегуре",         label="Клегур", zone="Лебедянь" }
     map=[{type="ERIADOR", x=755, y=555}]
     overlap=["0x70064F47"]
-    #minLevel=20,
     level=7
 
 [[warden]]
@@ -751,7 +679,6 @@
     RU={ name="Сбор в Лебедяни",                    label="Лебедянь",           detail="Лхан-Гаран",    zone="Лебедянь" }
     map=[{type="ERIADOR", x=825, y=490}]
     overlap=["0x700634A4"]
-    #minLevel=20,
     level=10
 
 [[warden]]
@@ -762,7 +689,6 @@
     RU={ name="Сбор в Кардолане",          label="Кардолан", detail="Хэрне", zone="Кардолан" }
     map=[{type="ERIADOR", x=560, y=495}]
     overlap=["0x700634AE"]
-    #minLevel=20,
     level=15
 
 [[warden]]
@@ -773,7 +699,6 @@
     RU={ name="Сбор в Андрате",          label="Андрат",  zone="Кардолан" }
     map=[{type="ERIADOR", x=580, y=465}]
     overlap=["0x7006323D"]
-    #minLevel=20,
     level=17
 
 [[warden]]
@@ -784,7 +709,6 @@
     RU={ name="Сбор в Новодворье",           label="Новодворье",  zone="Дальний Шир" }
     map=[{type="ERIADOR", x=440, y=350}]
     overlap=["0x70061340"]
-    #minLevel=20,
     level=20
 
 [[warden]]
@@ -795,8 +719,6 @@
     RU={ name="Сбор в Ост Гуруте",          label="Ост Гурут",    zone="Пустоши" }
     map=[{type="ERIADOR", x=755, y=400}]
     overlap=["0x70020441"]
-    autoLevel=true
-    #minLevel=26,
     level=25
 
 [[warden]]
@@ -806,8 +728,6 @@
     FR={ name="Rassemblement : Esteldin", label="Esteldin",  zone="Hauts du Nord" }
     RU={ name="Сбор в Эстельдине",        label="Эстельдин", zone="Северное нагорье" }
     map=[{type="ERIADOR", x=655, y=290}]
-    autoLevel=true
-    #minLevel=34,
     level=30
 
 [[warden]]
@@ -817,8 +737,6 @@
     FR={ name="Rassemblement : La région d'Evendim", label="Evendim", detail="Tinnudir",  zone="Evendim" }
     RU={ name="Сбор в Эвендиме",                     label="Эвендим", detail="Тиннудир",  zone="Эвендим" }
     map=[{type="ERIADOR", x=490, y=235}]
-    autoLevel=true
-    #minLevel=38,
     level=35
 
 [[warden]]
@@ -829,7 +747,6 @@
     RU={ name="Сбор в Торнхаде",   label="Торнхад", zone="Митейтельская стрелка" }
     map=[{type="ERIADOR", x=775, y=435}]
     overlap=["0x70060EA8"]
-    #minLevel=38,
     level=40
 
 [[warden]]
@@ -840,8 +757,6 @@
     RU={ name="Сбор в Ривенделле",         label="Ривенделл", zone="Троллистая пуща" }
     map=[{type="ERIADOR", x=865, y=410}]
     overlap=["0x7000631F", "0x70023263"]
-    autoLevel=true
-    #minLevel=44,
     level=40.1
 
 [[warden]]
@@ -852,7 +767,6 @@
     RU={ name="Сбор в Мглистых горах",             label="Мглистые горы",   detail="Хримбарг", zone="Мглистые горы" }
     map=[{type="ERIADOR", x=915, y=265}]
     store=true
-    #minLevel=40,
     level=40.2
 
 [[warden]]
@@ -863,7 +777,6 @@
     RU={ name="Сбор в Примостье",                label="Примостье",       zone="Северное нагорье" }
     map=[{type="ERIADOR", x=590, y=285}]
     overlap=["0x70059D12"]
-    #minLevel=40,
     level=40.3
 
 [[warden]]
@@ -874,7 +787,6 @@
     RU={ name="Сбор на Торговой пристани",          label="Торговая пристань",  zone="Эвендим" }
     map=[{type="ERIADOR", x=515, y=305}]
     overlap=["0x70059D0E"]
-    #minLevel=40,
     level=40.4
 
 [[warden]]
@@ -884,7 +796,6 @@
     FR={ name="Rassemblement : Sûri-kylä",  label="Sûri-kylä",  zone="Forochel" }
     RU={ name="Сбор в Сури-кила",           label="Сури-кила",  zone="Форохель" }
     map=[{type="ERIADOR", x=430, y=50}]
-    #minLevel=48,
     level=42
 
 [[warden]]
@@ -894,7 +805,6 @@
     FR={ name="Rassemblement : La vingt et unième salle",   label="Vingt et unième salle",  zone="Moria" }
     RU={ name="Сбор в Двадцать первом чертоге",             label="Двадцать первый чертог", zone="Мория" }
     map=[{type="RHOVANION", x=95, y=585}, {type="ERIADOR", x=950, y=510}]
-    #minLevel=56,
     level=55
 
 [[warden]]
@@ -905,7 +815,6 @@
     RU={ name="Сбор в Карас Галадоне",          label="Карас Галадон",  zone="Лотлориэн" }
     map=[{type="RHOVANION", x=120, y=660}]
     overlap=["0x70048C8C"]
-    #minLevel=60,
     level=60
 
 [[warden]]
@@ -915,7 +824,6 @@
     FR={ name="Rassemblement : L'Orée noire",   label="Orée noire",     zone="Forêt Noire" }
     RU={ name="Сбор в Черной роще",             label="Черная роща",    zone="Лихолесье" }
     map=[{type="RHOVANION", x=365, y=630}]
-    #minLevel=62,
     level=61
 
 [[warden]]
@@ -925,7 +833,6 @@
     FR={ name="Rassemblement : Harndirion", label="Harndirion", zone="Enedwaith" }
     RU={ name="Сбор в Харндирионе",         label="Харндирион", zone="Энедвайт" }
     map=[{type="ERIADOR", x=815, y=635}]
-    #minLevel=62,
     level=62
 
 [[warden]]
@@ -936,7 +843,6 @@
     RU={ name="Сбор в Галтреве",         label="Галтрев", zone="Дунланд" }
     map=[{type="ERIADOR", x=810, y=715}]
     overlap=["0x7002C647"]
-    #minLevel=70,
     level=65
 
 [[warden]]
@@ -947,7 +853,6 @@
     RU={ name="Сбор в Стангарде",           label="Стангард",   zone="Великая река" }
     map=[{type="RHOVANION", x=200, y=720}, {type="ROHAN", x=545, y=90}]
     overlap=["0x7002C65D"]
-    #minLevel=75,
     level=75
 
 [[warden]]
@@ -958,7 +863,6 @@
     RU={ name="Сбор в Сноуборне",               label="Сноуборн",       zone="Восточный Рохан" }
     map=[{type="ROHAN", x=515, y=500}]
     overlap=["0x70031A46"]
-    #minLevel=80,
     level=80
 
 [[warden]]
@@ -969,7 +873,6 @@
     RU={ name="Сбор в Форлоу",          label="Форлоу",     zone="Вилдермор" }
     map=[{type="ROHAN", x=450, y=175}]
     overlap=["0x70036B5E"]
-    #minLevel=85,
     level=85
 
 [[warden]]
@@ -980,7 +883,6 @@
     RU={ name="Сбор в Альдбурге",        label="Альдбург", zone="Западный Рохан" }
     map=[{type="ROHAN", x=570, y=640}]
     overlap=["0x7003DC81"]
-    #minLevel=85,
     level=88
 
 [[warden]]
@@ -991,7 +893,6 @@
     RU={ name="Сбор в Хельмовой Пади",           label="Хельмова Падь",   zone="Западный Рохан" }
     map=[{type="ROHAN", x=275, y=565}]
     overlap=["0x7003DC82"]
-    #minLevel=95,
     level=90
 
 [[warden]]
@@ -1002,7 +903,6 @@
     RU={ name="Сбор в Дол Амроте",          desc="в Западном Гондоре",    label="Дол Амрот",  zone="Западный Гондор" }
     map=[{type="GONDOR", x=225, y=550}]
     overlap=["0x700411AC"]
-    #minLevel=95,
     level=98
 
 [[warden]]
@@ -1013,7 +913,6 @@
     RU={ name="Сбор в Арнахе",          label="Арнах",  zone="Восточный Гондор" }
     map=[{type="GONDOR", x=715, y=425}]
     overlap=["0x70043A6A"]
-    #minLevel=100,
     level=100
 
 [[warden]]
@@ -1024,7 +923,6 @@
     RU={ name="Сбор в Минас Тирите",          label="Минас Тирит", zone="Старый Анориен" }
     map=[{type="GONDOR", x=670, y=345}]
     overlap=["0x7004497E"]
-    #minLevel=100,
     level=100.1
 
 [[warden]]
@@ -1035,7 +933,6 @@
     RU={ name="Сбор в военном лагере Рохиррим", label="Лагерь Рохиррим",          zone="Дальний Анориен" }
     map=[{type="GONDOR", x=665, y=140}]
     overlap=["0x700459A9"]
-    #minLevel=100,
     level=102
 
 [[warden]]
@@ -1046,7 +943,6 @@
     RU={ name="Сбор в Минас Тирите (после битвы)",              label="Минас Тирит (после битвы)",      zone="Анориен" }
     map=[{type="GONDOR", x=670, y=375}]
     overlap=["0x70046CC0"]
-    #minLevel=100,
     level=105
 
 [[warden]]
@@ -1057,7 +953,6 @@
     RU={ name="Сбор в Осгилиате (после битвы)",              label="Осгилиат (после битвы)",      zone="Анориен" }
     map=[{type="GONDOR", x=855, y=335}]
     overlap=["0x7004707D"]
-    #minLevel=100,
     level=105.1
 
 [[warden]]
@@ -1068,7 +963,6 @@
     RU={ name="Сбор в Хеннет Аннун",           label="Хеннет Аннун",  zone="Итилиен" }
     map=[{type="GONDOR", x=875, y=385}]
     overlap=["0x70047080"]
-    #minLevel=100,
     level=105.2
 
 [[warden]]
@@ -1079,7 +973,6 @@
     RU={ name="Сбор в лагере Воинства Запада",   label="Лагерь Воинства Запада", zone="Гиблые земли" }
     map=[{type="GONDOR", x=805, y=170}]
     overlap=["0x70047BF4"]
-    #minLevel=100,
     level=105.3
 
 [[warden]]
@@ -1090,7 +983,6 @@
     RU={ name="Сбор в Хаэрондире",         label="Хаэрондир", zone="Гиблые земли" }
     map=[{type="GONDOR", x=855, y=100}]
     overlap=["0x70047C1B"]
-    #minLevel=100,
     level=105.4
 
 [[warden]]
@@ -1101,7 +993,6 @@
     RU={ name="Сбор на заставе Удуна",          label="Застава Удуна",    zone="Мордор" }
     map=[{type="GONDOR", x=925, y=230}]
     overlap=["0x7004AE1D"]
-    #minLevel=100,
     level=106
 
 [[warden]]
@@ -1112,7 +1003,6 @@
     RU={ name="Сбор в Дейле",         label="Дейл", zone="Эрин Ласгален" }
     map=[{type="RHOVANION", x=720, y=215}]
     overlap=["0x7004D738"]
-    #minLevel=115,
     level=115
 
 [[warden]]
@@ -1123,7 +1013,6 @@
     RU={ name="Сбор в Ярнфасте",          label="Ярнфаст",  zone="Железное взгорье" }
     map=[{type="RHOVANION", x=890, y=110}]
     overlap=["0x7004FAC3"]
-    #minLevel=116,
     level=116
 
 [[warden]]
@@ -1134,7 +1023,6 @@
     RU={ name="Сбор в Скархальде",        label="Скархальд", zone="Эред Митрин" }
     map=[{type="RHOVANION", x=430, y=90}]
     overlap=["0x7004FAC5"]
-    #minLevel=116,
     level=117
 
 [[warden]]
@@ -1145,7 +1033,6 @@
     RU={ name="Сбор в Беорнингусе",          label="Беорнингус",    zone="Долина Андуина" }
     map=[{type="RHOVANION", x=390, y=300}]
     overlap=["0x70041A22", "0x70052F12"]
-    #minLevel=116,
     level=120
 
 [[warden]]
@@ -1156,7 +1043,6 @@
     RU={ name="Сбор в Хультвисе",        label="Хультвис", zone="Долина Андуина" }
     map=[{type="RHOVANION", x=375, y=400}]
     overlap=["0x70052F04"]
-    #minLevel=116,
     level=120.1
 
 [[warden]]
@@ -1167,7 +1053,6 @@
     RU={ name="Сбор в Эстолад Лане",         label="Эстолад Лан", zone="Имлад Моргул" }
     map=[{type="GONDOR", x=960, y=460}]
     overlap=["0x700551F8"]
-    #minLevel=121,
     level=125
 
 [[warden]]
@@ -1178,7 +1063,6 @@
     RU={ name="Сбор в Лимлоке",         label="Лимлок", zone="Истоки Долгой реки" }
     map=[{type="RHOVANION", x=345, y=230}]
     overlap=["0x70057629"]
-    #minLevel=130,
     level=130
 
 [[warden]]
@@ -1189,7 +1073,6 @@
     RU={ name="Сбор в Аннак-Курфу",           label="Аннак-Курфу",  zone="Долина предков" }
     map=[{type="RHOVANION", x=530, y=90}]
     overlap=["0x7005856F"]
-    #minLevel=20,
     level=130.1
 
 [[warden]]
@@ -1200,7 +1083,6 @@
     RU={ name="Сбор в Акраз-Захаре",         label="Акраз-Захар", zone="Эрин Ласгален" }
     map=[{type="RHOVANION", x=750, y=115}]
     overlap=["0x7005AA90"]
-    #minLevel=130,
     level=130.2
 
 [[warden]]
@@ -1211,7 +1093,6 @@
     RU={ name="Сбор в Азанулбизаре",         label="Азанулбизар", detail="Амдан", zone="Азанулбизар" }
     map=[{type="RHOVANION", x=210, y=555}]
     overlap=["0x7005AA92"]
-    #minLevel=130,
     level=130.3
 
 [[warden]]
@@ -1222,7 +1103,6 @@
     RU={ name="Сбор у Благородных врат",        label="Благородные врата", zone="Гундабад" }
     map=[{type="RHOVANION", x=190, y=130}]
     overlap=["0x7005D47C"]
-    #minLevel=131,
     level=131
 
 [[warden]]
@@ -1233,7 +1113,6 @@
     RU={ name="Сбор в Лейтстате",          label="Лейтстат",  zone="Гундабад" }
     map=[{type="RHOVANION", x=270, y=65}]
     overlap=["0x7005D484"]
-    #minLevel=135,
     level=135
 
 [[warden]]
@@ -1244,7 +1123,6 @@
     RU={ name="Сбор в Карн-Думе",         label="Карн-Дум", zone="Ангмар" }
     map=[{type="ERIADOR", x=735, y=100}]
     overlap=["0x70064ACA"]
-    #minLevel=20,
     level=140.1
 
 [[warden]]
@@ -1255,7 +1133,6 @@
     RU={ name="Сбор в Пеларгире",         label="Пеларгир", zone="Королевский Гондор" }
     map=[{type="GONDOR", x=670, y=625}]
     overlap=["0x700658EB"]
-    #minLevel=135,
     level=141
 
 [[warden]]
@@ -1266,7 +1143,6 @@
     RU={ name="Сбор в Дол Амроте",          desc="Королевский Гондор", label="Королевский Дол Амрот",  zlabel="Дол Амрот",     zone="Королевский Гондор" }
     map=[{type="GONDOR", x=210, y=485}, {type="HARADWAITH", x=325, y=70}]
     overlap=["0x70068700"]
-    #minLevel=135,
     level=142
 
 [[warden]]
@@ -1277,7 +1153,6 @@
     RU={ name="Сбор в Лонд-Кирионе",         label="Лонд-Кирион", zone="Анфалас" }
     map=[{type="GONDOR", x=255, y=420}, {type="HARADWAITH", x=230, y=20}]
     overlap=["0x70068703"]
-    #minLevel=135,
     level=143
 
 [[warden]]
@@ -1288,7 +1163,6 @@
     RU={ name="Сбор в Халраксе",        label="Халракс", zone="Острова Щита" }
     map=[{type="HARADWAITH", x=215, y=260}]
     overlap=["0x70068702"]
-    #minLevel=140,
     level=145
 
 [[warden]]
@@ -1299,7 +1173,6 @@
     RU={ name="Сбор в Джакс-Фанале",        label="Джакс-Фанал", zone="Умбар" }
     map=[{type="HARADWAITH", x=305, y=315}]
     overlap=["0x70068701"]
-    #minLevel=140,
     level=146
 
 [[warden]]
@@ -1310,7 +1183,6 @@
     RU={ name="Сбор в Бедж-Магде",          label="Бедж-Магда", zone="Умбар" }
     map=[{type="HARADWAITH", x=350, y=380}]
     overlap=["0x7006A9C1"]
-    #minLevel=20,
     level=147
 
 [[warden]]
@@ -1321,7 +1193,6 @@
     RU={ name="Сбор в Умбаре",         label="Умбар", detail="Бахарбель", zone="Умбар" }
     map=[{type="HARADWAITH", x=505, y=370}]
     overlap=["0x700686FF"]
-    #minLevel=140,
     level=148
 
 [[warden]]
@@ -1332,7 +1203,6 @@
     RU={ name="Сбор в таверне 'Кровавый орёл'",               label="Таверна Кровавый Орёл",       zone="Умбар" }
     map=[{type="HARADWAITH", x=475, y=400}]
     overlap=["0x700697F2"]
-    #minLevel=20,
     level=149
 
 [[warden]]
@@ -1343,7 +1213,6 @@
     RU={ name="Muster at Iridír",       label="Iridír", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=555, y=325}]
     overlap=["0x7006C3A1"]
-    #minLevel=150,
     level=150.1
 
 [[warden]]
@@ -1354,7 +1223,6 @@
     RU={ name="Muster at Jirush",       label="Jirush", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=560, y=415}]
     overlap=["0x7006C3C3"]
-    #minLevel=150,
     level=150.2
 
 [[warden]]
@@ -1365,7 +1233,6 @@
     RU={ name="Muster at Urmâkh",       label="Urmâkh", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=640, y=410}]
     overlap=["0x7006C3B0"]
-    #minLevel=150,
     level=150.3
 
 [[warden]]
@@ -1376,7 +1243,6 @@
     RU={ name="Muster at Maurûsh",       label="Maurûsh", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=640, y=350}]
     overlap=["0x7006C3BC"]
-    #minLevel=150,
     level=150.4
 
 [[warden]]
@@ -1386,7 +1252,6 @@
     FR={ name="Rassemblement à Utug-bûr", label="Utug-bûr", zone="Ikorbân" }
     RU={ name="Muster at Utug-bûr",       label="Utug-bûr", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=670, y=310}]
-    #minLevel=150,
     level=150.5
 
 
@@ -1397,8 +1262,6 @@
     FR={ name="Naviguer vers Celondim", label="Celondim", zone="Ered Luin" }
     RU={ name="Отплытие в Келондим",    label="Келондим", zone="Эред Луин" }
     map=[{type="ERIADOR", x=310, y=380}]
-    autoLevel=true
-    #minLevel=7,
     level=1
 
 [[mariner]]
@@ -1408,8 +1271,6 @@
     FR={ name="Naviguer vers le Pays de Bouc", label="Pays de Bouc", zone="Bree" }
     RU={ name="Отплытие в Забрендию",          label="Забрендия",    zone="Бри" }
     map=[{type="ERIADOR", x=515, y=405}]
-    autoLevel=true
-    #minLevel=15,
     level=4
 
 [[mariner]]
@@ -1419,8 +1280,6 @@
     FR={ name="Naviguer vers Tharbad", label="Tharbad", zone="Noues des cygnes" }
     RU={ name="Отплытие в Тарбад",     label="Тарбад",  zone="Лебедянь" }
     map=[{type="ERIADOR", x=650, y=525}]
-    autoLevel=true
-    #minLevel=7,
     level=5
 
 [[mariner]]
@@ -1430,8 +1289,6 @@
     FR={ name="Naviguer vers Tinnudir", label="Tinnudir", zone="Evendim" }
     RU={ name="Отплытие на Тиннудир",   label="Тиннудир", zone="Эвендим" }
     map=[{type="ERIADOR", x=420, y=250}]
-    autoLevel=true
-    #minLevel=35,
     level=30
 
 [[mariner]]
@@ -1442,7 +1299,6 @@
     RU={ name="Отплытие к Торговой пристани",        label="Торговая пристань",  zone="Эвендим" }
     map=[{type="ERIADOR", x=515, y=305}]
     overlap=["0x70059D0E"]
-    #minLevel=40,
     level=40.4
 
 [[mariner]]
@@ -1452,7 +1308,6 @@
     FR={ name="Naviguer vers Sûri-kylä", label="Sûri-kylä", zone="Forochel" }
     RU={ name="Отплытие в Сури-кила",    label="Сури-кила", zone="Форохель" }
     map=[{type="ERIADOR", x=430, y=50}]
-    #minLevel=38,
     level=42
 
 [[mariner]]
@@ -1462,9 +1317,6 @@
     FR={ name="Naviguer vers la Lothlorien", label="Lothlórien", detail="Egladil", zone="Lothlórien" }
     RU={ name="Отплытие в Лотлориэн",        label="Лотлориэн",  detail="Эгладил", zone="Лотлориэн" }
     map=[{type="RHOVANION", x=245, y=670}]
-    overlap=["0x70048C8C"]
-    autoLevel=true
-    #minLevel=60,
     level=60
 
 [[mariner]]
@@ -1474,7 +1326,6 @@
     FR={ name="Naviguer vers l'Orée Noire", label="Orée Noire",  zone="Forêt Noire" }
     RU={ name="Отплытие к Чёрной роще",     label="Черная роща", zone="Лихолесье" }
     map=[{type="RHOVANION", x=365, y=630}]
-    #minLevel=38,
     level=61
 
 [[mariner]]
@@ -1485,7 +1336,6 @@
     RU={ name="Отплытие к Бурым равнинам",       label="Бурые равнины", zone="Великая река" }
     map=[{type="ROHAN", x=700, y=180}]
     store=true
-    #minLevel=70,
     level=75.1
 
 [[mariner]]
@@ -1496,7 +1346,6 @@
     RU={ name="Отплытие в Сноуборн",       label="Сноуборн",     zone="Восточный Рохан" }
     map=[{type="ROHAN", x=515, y=500}]
     overlap=["0x70031A46"]
-    #minLevel=80,
     level=80
 
 [[mariner]]
@@ -1507,7 +1356,6 @@
     RU={ name="Отплытие в Дол Амрот",       desc="в Дол Амрот",                 label="Дол Амрот",  zone="Западный Гондор" }
     map=[{type="GONDOR", x=225, y=550}]
     overlap=["0x700411AC"]
-    #minLevel=95,
     level=98
 
 [[mariner]]
@@ -1518,7 +1366,6 @@
     RU={ name="Отплытие в Осгилиат (после битвы)",         label="Осгилиат (после битвы)",         zone="Анориен" }
     map=[{type="GONDOR", x=855, y=335}]
     overlap=["0x7004707D"]
-    #minLevel=100,
     level=105.1
 
 [[mariner]]
@@ -1529,7 +1376,6 @@
     RU={ name="Отплытие в Озёрный город", label="Озёрный город", zone="Эрин Ласгален" }
     map=[{type="RHOVANION", x=740, y=275}]
     overlap=["0x7004D738"]
-    #minLevel=115,
     level=115
 
 [[mariner]]
@@ -1540,7 +1386,6 @@
     RU={ name="Отплытие в Пеларгир",    label="Пеларгир", zone="Королевский Гондор" }
     map=[{type="GONDOR", x=670, y=625}]
     overlap=["0x700658EB"]
-    #minLevel=135,
     level=141
 
 [[mariner]]
@@ -1551,7 +1396,6 @@
     RU={ name="Отплытие в Дол Амрот",     desc="Королевский Гондор", label="Королевский Дол Амрот",  zlabel="Дол Амрот",  zone="Королевский Гондор" }
     map=[{type="GONDOR", x=210, y=485}, {type="HARADWAITH", x=385, y=70}]
     overlap=["0x70068700"]
-    #minLevel=135,
     level=142
 
 [[mariner]]
@@ -1562,7 +1406,6 @@
     RU={ name="Отплытие в Лонд-Кирион",    label="Лонд-Кирион", zone="Анфалас" }
     map=[{type="GONDOR", x=255, y=420}, {type="HARADWAITH", x=230, y=20}]
     overlap=["0x70068703"]
-    #minLevel=135,
     level=143
 
 [[mariner]]
@@ -1573,7 +1416,6 @@
     RU={ name="Отплытие в Халракс",   label="Халракс", zone="Острова Щита" }
     map=[{type="HARADWAITH", x=215, y=260}]
     overlap=["0x70068702"]
-    #minLevel=140,
     level=145
 
 [[mariner]]
@@ -1584,7 +1426,6 @@
     RU={ name="Отплытие в Джакс-Фанал",   label="Джакс-Фанал", zone="Умбар" }
     map=[{type="HARADWAITH", x=305, y=315}]
     overlap=["0x70068701"]
-    #minLevel=140,
     level=146
 
 [[mariner]]
@@ -1595,7 +1436,6 @@
     RU={ name="Отплытие в Бедж-Магду",   label="Бедж-Магда", zone="Умбар" }
     map=[{type="HARADWAITH", x=350, y=380}]
     overlap=["0x7006A9C1"]
-    #minLevel=20,
     level=147
 
 [[mariner]]
@@ -1606,7 +1446,6 @@
     RU={ name="Отплытие в Умбар",    label="Умбар", detail="Бахарбель", zone="Умбар" }
     map=[{type="HARADWAITH", x=505, y=370}]
     overlap=["0x700686FF"]
-    #minLevel=140,
     level=148
 
 [[mariner]]
@@ -1617,7 +1456,6 @@
     RU={ name="Sail to Iridír",       label="Iridír", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=555, y=325}]
     overlap=["0x7006C3A1"]
-    #minLevel=150,
     level=150.1
 
 [[mariner]]
@@ -1628,7 +1466,6 @@
     RU={ name="Sail to Urmâkh",       label="Urmâkh", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=640, y=410}]
     overlap=["0x7006C3B0"]
-    #minLevel=150
     level=150.2
 
 [[mariner]]
@@ -1639,7 +1476,6 @@
     RU={ name="Sail to Maurûsh",       label="Maurûsh", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=640, y=350}]
     overlap=["0x7006C3BC"]
-    #minLevel=150
     level=150.3
 
 [[mariner]]
@@ -1649,7 +1485,6 @@
     FR={ name="Voyager jusqu'à Utug-bûr", label="Utug-bûr", zone="Ikorbân" }
     RU={ name="Sail to Utug-bûr",         label="Utug-bûr", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=670, y=310}]
-    #minLevel=150
     level=150.4
 
 
@@ -1661,7 +1496,6 @@
     FR={ name="Retour à Bree",      desc="Permet de retourner",                label="Bree", zlabel="Porte Ouest",     zone="Bree" }
     RU={ name="Возвращение в Бри",  desc="Вы можете быстро перенестись в Бри", label="Бри",  zlabel="Западные ворота", zone="Бри" }
     map=[{type="ERIADOR", x=525, y=335}]
-    #minLevel=29,
     level=5
 
 [[racials]]
@@ -1672,7 +1506,6 @@
     FR={ name="Retournez dans la Comté", label="Grand'Cave",     zone="Comté" }
     RU={ name="Возвращение в Шир",       label="Занорье",        zone="Шир" }
     map=[{type="ERIADOR", x=405, y=440}]
-    #minLevel=29,
     level=1
 
 [[racials]]
@@ -1683,7 +1516,6 @@
     FR={ name="Retour : Porte de Thorin",    desc="Ceci vous permet de retourner",                label="Porte de Thorin", zone="Ered Luin" }
     RU={ name="Возвращение к Вратам Торина", desc="Вы можете быстро перенестись к Вратам Торина", label="Врата Торина",    zone="Эред Луин" }
     map=[{type="ERIADOR", x=310, y=270}]
-    #minLevel=29,
     level=1.2
 
 [[racials]]
@@ -1694,7 +1526,6 @@
     FR={ name="Retour à Fondcombe",      desc="Ceci vous permet de retourner",            label="Fondcombe", zone="Trouée des Trolls" }
     RU={ name="Возвращение в Ривенделл", desc="Вы можете быстро перенестись в Ривенделл", label="Ривенделл", zone="Троллистая пуща" }
     map=[{type="ERIADOR", x=900, y=375}]
-    #minLevel=29,
     level=40.1
 
 [[racials]]
@@ -1705,7 +1536,6 @@
     FR={ name="Retour à la maison",       desc="Pavillon de Grimbeorn.", label="Maison Beorning",  zone="Val d'Anduin" }
     RU={ name="Возвращение домой",        desc="Усадьба Гримбеорна.",    label="Дом беорнинга",    zone="Долина Андуина" }
     map=[{type="RHOVANION", x=285, y=340}]
-    #minLevel=19,
     level=120
 
 [[racials]]
@@ -1716,7 +1546,6 @@
     FR={ name="Voyage vers Caras Galadhon, en Lothlórien",     label="Caras Galadhon", zone="Lothlórien" }
     RU={ name="Путешествие в Карас Галадон, что в Лотлориэне", label="Карас Галадон",  zone="Лотлориэн" }
     map=[{type="RHOVANION", x=120, y=690}]
-    #minLevel=32,
     level=60
 
 [[racials]]
@@ -1727,7 +1556,6 @@
     FR={ name="Aller au Palais de Thorin",    label="Palais de Thorin", zone="Ered Luin" }
     RU={ name="Путешествие в Чертоги Торина", label="Чертоги Торина",   zone="Эред Луин" }
     map=[{type="ERIADOR", x=345, y=310}]
-    #minLevel=35,
     level=1.2
 
 [[racials]]
@@ -1738,7 +1566,6 @@
     FR={ name="Retour à Lyndelby",         label="Lyndelby",  zone="Puits du Long Fleuve" }
     RU={ name="Возвращение в Линдельби",   label="Линдельби", zone="Истоки Долгой реки" }
     map=[{type="RHOVANION", x=155, y=165}]
-    #minLevel=125,
     level=1.3
 
 # add the Return Home and housing skills
@@ -1759,7 +1586,6 @@
     RU={ name="Дорога домой 2" }
     map=[{type="NONE", x=-1, y=-1}]
     store=true
-    #minLevel=10,
     level=1
 
 [[gen]]
@@ -1770,7 +1596,6 @@
     RU={ name="Дорога домой 3" }
     map=[{type="NONE", x=-1, y=-1}]
     store=true
-    #minLevel=10,
     level=1
 
 [[gen]]
@@ -1781,7 +1606,6 @@
     RU={ name="Дорога домой 4" }
     map=[{type="NONE", x=-1, y=-1}]
     store=true
-    #minLevel=10,
     level=1
 
 [[gen]]
@@ -1792,7 +1616,6 @@
     RU={ name="Дорога домой 5" }
     map=[{type="NONE", x=-1, y=-1}]
     store=true
-    #minLevel=10,
     level=1
 
 [[gen]]
@@ -1803,7 +1626,6 @@
     RU={ name="Дорога домой 6" }
     map=[{type="NONE", x=-1, y=-1}]
     store=true
-    #minLevel=10,
     level=1
 
 [[gen]]
@@ -1814,7 +1636,6 @@
     RU={ name="Дорога домой 7" }
     map=[{type="NONE", x=-1, y=-1}]
     store=true
-    #minLevel=10,
     level=1
 
 [[gen]]
@@ -1825,7 +1646,6 @@
     RU={ name="Дорога домой 8" }
     map=[{type="NONE", x=-1, y=-1}]
     store=true
-    #minLevel=10,
     level=1
 
 [[gen]]
@@ -1836,7 +1656,6 @@
     RU={ name="Дорога домой 9" }
     map=[{type="NONE", x=-1, y=-1}]
     store=true
-    #minLevel=10,
     level=1
 
 [[gen]]
@@ -1847,7 +1666,6 @@
     RU={ name="Дорога домой 10" }
     map=[{type="NONE", x=-1, y=-1}]
     store=true
-    #minLevel=10,
     level=1
 
 [[gen]]
@@ -1858,7 +1676,6 @@
     RU={ name="Дорога домой 11" }
     map=[{type="NONE", x=-1, y=-1}]
     store=true
-    #minLevel=10,
     level=1
 
 [[gen]]
@@ -1868,7 +1685,6 @@
     FR={ name="Retour à la maison personnelle", label="Maison personnelle" }
     RU={ name="Возвращение домой",              label="Частный дом" }
     map=[{type="NONE", x=-1, y=-1}]
-    #minLevel=1,
     level=1
     [gen.acquire_desc]
         EN="Buy a House and earn the Novice trait"
@@ -1883,7 +1699,6 @@
     FR={ name="Aller à une maison premium",   label="Maison premium" }
     RU={ name="Возвращение в престижный дом", label="Престижный дом" }
     map=[{type="NONE", x=-1, y=-1}]
-    #minLevel=1,
     level=1
     [gen.acquire_desc]
         EN="Buy a Premium House and earn the Novice trait"
@@ -1927,7 +1742,6 @@
     RU={ name="Возвращение в Занорье",     label="Занорье",        tag="Лавка", zone="Шир" }
     map=[{type="ERIADOR", x=375, y=440}]
     store=true
-    #minLevel=10,
     level=1
 
 [[rep]]
@@ -1937,14 +1751,7 @@
     FR={ name="Retour : Porte de Thorin",    desc="Grâce à l'amitié qui vous", label="Porte de Thorin", zone="Ered Luin" }
     RU={ name="Возвращение к Вратам Торина", desc="Благодаря дружбе",          label="Врата Торина",    zone="Эред Луин" }
     map=[{type="ERIADOR", x=345, y=310}]
-    # acquire={
-    #     {cost={{amount=100, token=LC.token.DOURHAND_CREST}}
-    #         EN={vendor="Tórth", desc="Near the entrance of Blue Stone Garrison in the western part of Thorin's Hall"]
-    #         DE={vendor="Tórth", desc="Near the entrance of Blue Stone Garrison in the western part of Thorin's Hall"]
-    #         FR={vendor="Tórth", desc="Near the entrance of Blue Stone Garrison in the western part of Thorin's Hall"]
-    #         RU={vendor="Тортх", desc="Рядом со входом в Гарнизон Синий Камень в западной части Чертогов Торина"]}
     store=true
-    #minLevel=10,
     level=1.1
 
 [[rep]]
@@ -1954,14 +1761,7 @@
     FR={ name="Retour à Bree",      desc="Grâce à votre amitié",      label="Bree", zlabel="Porte Ouest",     zone="Bree" }
     RU={ name="Возвращение в Бри",  desc="Благодаря дружбе",          label="Бри",  zlabel="Западные ворота", zone="Бри" }
     map=[{type="ERIADOR", x=555, y=335}]
-    # acquire={
-    #     {cost={{amount=100, token=LC.token.BARROW_TREASURE}} coords="[31.8S, 51.3W]",
-    #         EN={vendor="Tad Leafcutter", desc="Outside the Bree-town Hunting Lodge"]
-    #         DE={vendor="Tad Leafcutter", desc="Outside the Bree-town Hunting Lodge"]
-    #         FR={vendor="Tad Leafcutter", desc="Outside the Bree-town Hunting Lodge"]
-    #         RU={vendor="Тад Листорез", desc="Рядом с Охотничьим домиком Бри"]}
     store=true
-    #minLevel=10,
     level=5
 
 [[rep]]
@@ -1972,12 +1772,6 @@
     RU={ name="Возвращение на рынок Лалии",   label="Рынок Лалии",     zone="Бри" }
     tag="Mithril"
     map=[{type="ERIADOR", x=630, y=360}]
-    # acquire={
-    #     {cost={{amount=3, token=LC.token.MITHRIL_COIN}}
-    #         EN={vendor="Lalia", desc="Inside Lalia's Market"]
-    #         DE={vendor="Lalia", desc="Inside Lalia's Market"]
-    #         FR={vendor="Lalia", desc="Inside Lalia's Market"]
-    #         RU={vendor="Лалия", desc="Внутри Рынка Лалии"]} }
     level=5.1
 
 [[rep]]
@@ -1987,7 +1781,6 @@
     FR={ name="Retournez voir Clegur", label="Clegur", zone="Noues des cygnes" }
     RU={ name="Возвращение в Клегур",  label="Клегур", zone="Swanfleet" }
     map=[{type="ERIADOR", x=725, y=555}]
-    #minLevel=20,
     level=7
 
 [[rep]]
@@ -1997,7 +1790,6 @@
     FR={ name="Retour aux Noues des cygnes", label="Noues des cygnes", detail="Lhan Garan", zone="Noues des cygnes" }
     RU={ name="Возвращение в Лебедянь",      label="Лебедянь",         detail="Лхан-Гаран", zone="Лебедянь" }
     map=[{type="ERIADOR", x=795, y=490}]
-    #minLevel=20,
     level=10
 
 [[rep]]
@@ -2007,7 +1799,6 @@
     FR={ name="Retour au Cardolan",     label="Cardolan", detail="Herne", zone="Cardolan" }
     RU={ name="Возвращение в Кардолан", label="Кардолан", detail="Хэрне", zone="Кардолан" }
     map=[{type="ERIADOR", x=590, y=495}]
-    #minLevel=20,
     level=15
 
 [[rep]]
@@ -2017,7 +1808,6 @@
     FR={ name="Retour à Andrath",      label="Andrath", zone="Cardolan" }
     RU={ name="Возвращение в Андрат",  label="Андрат", zone="Кардолан" }
     map=[{type="ERIADOR", x=550, y=465}]
-    #minLevel=20,
     level=17
 
 [[rep]]
@@ -2027,7 +1817,6 @@
     FR={ name="Retour à Bourdeneuve",         label="Bourdeneuve", zone="Comté lointain" }
     RU={ name="Возвращение в Новодворье",     label="Новодворье",  zone="Дальний Шир" }
     map=[{type="ERIADOR", x=410, y=350}]
-    #minLevel=20,
     level=20
 
 [[rep]]
@@ -2039,7 +1828,6 @@
     map=[{type="ERIADOR", x=725, y=400}]
     store=true
     autoRep=true
-    #minLevel=10,
     level=25
 
 [[rep]]
@@ -2049,7 +1837,6 @@
     FR={ name="Retournez voir Tornhad",     label="Tornhad", zone="L'Angle de Mitheithel" }
     RU={ name="Возвращение в Торнхад",      label="Торнхад", zone="Митейтельская стрелка" }
     map=[{type="ERIADOR", x=745, y=435}]
-    #minLevel=38,
     level=40
 
 [[rep]]
@@ -2060,7 +1847,6 @@
     RU={ name="Возвращение в Ривенделл", desc="Благодаря дружбе",          label="Ривенделл", tag="Лавка", zone="Троллистая пуща" }
     map=[{type="ERIADOR", x=835, y=410}]
     store=true
-    #minLevel=10,
     level=40.1
 
 [[rep]]
@@ -2077,7 +1863,6 @@
     #         DE={drop="Delving Reward Box (any tier)"]
     #         FR={drop="Delving Reward Box (any tier)"]
     #         RU={drop="Delving Reward Box (any tier)"]} }
-    #minLevel=20,
     level=40.11
 
 [[rep]]
@@ -2087,7 +1872,6 @@
     FR={ name="Retour à Glân Vraig",          label="Glân Vraig", tag="Quête",   zone="Les Landes d'Etten" }
     RU={ name="Возвращение в Глан Врайг",     label="Глан Врайг", tag="Задание", zone="Эттенские высоты" }
     map=[{type="ERIADOR", x=835, y=245}]
-    #minLevel=2,
     level=40.12
 
 [[rep]]
@@ -2097,7 +1881,6 @@
     FR={ name="Retournez à Pont-à-Tréteaux", label="Pont-à-Tréteaux", zone="Hauts du Nord" }
     RU={ name="Возвращение в Примостье",     label="Примостье",       zone="Северное нагорье" }
     map=[{type="ERIADOR", x=560, y=285}]
-    #minLevel=40,
     level=40.3
 
 [[rep]]
@@ -2107,7 +1890,6 @@
     FR={ name="Retournez au Quai des marchands", label="Quai des marchands", zone="Evendim" }
     RU={ name="Возвращение к Торговой пристани", label="Торговая пристань",  zone="Эвендим" }
     map=[{type="ERIADOR", x=515, y=275}]
-    #minLevel=40,
     level=40.4
 
 [[rep]]
@@ -2118,7 +1900,6 @@
     RU={ name="Возвращение в Лихолесье",    label="Лихолесье",   detail="Ост Галад",    zone="Лихолесье" }
     map=[{type="RHOVANION", x=335, y=630}]
     store=true
-    #minLevel=51,
     level=61
 
 [[rep]]
@@ -2129,7 +1910,6 @@
     RU={ name="Возвращение в Энедвайт",  label="Энедвайт",  detail="Лханух",  zone="Энедвайт" }
     map=[{type="ERIADOR", x=765, y=620}]
     store=true
-    #minLevel=51,
     level=62
 
 [[rep]]
@@ -2140,7 +1920,6 @@
     RU={ name="Возвращение в Галтрев",     label="Галтрев", zone="Дунланд" }
     map=[{type="ERIADOR", x=780, y=715}]
     store=true
-    #minLevel=70,
     level=65
 
 [[rep]]
@@ -2151,7 +1930,6 @@
     RU={ name="Возвращение в Стангард",     label="Стангард",  zone="Великая река" }
     map=[{type="RHOVANION", x=170, y=720}, {type="ROHAN", x=515, y=90}]
     store=true
-    #minLevel=70,
     level=75
 
 [[rep]]
@@ -2161,7 +1939,6 @@
     FR={ name="Retourner à Neigebronne",        label="Neigebronne",  zone="Rohan est" }
     RU={ name="Возвращение в Сноуборн",         label="Сноуборн",     zone="Восточный Рохан" }
     map=[{type="ROHAN", x=485, y=500}]
-    #minLevel=80,
     level=85
 
 [[rep]]
@@ -2171,7 +1948,6 @@
     FR={ name="Retour à Forloi",       label="Forloi",  zone="Landes farouches" }
     RU={ name="Возвращение в Форлоу",  label="Форлоу",  zone="Вилдермор" }
     map=[{type="ROHAN", x=480, y=175}]
-    #minLevel=85,
     level=85
 
 [[rep]]
@@ -2181,7 +1957,6 @@
     FR={ name="Retour à Aldburg",          label="Aldburg",  zone="Rohan de l'Ouest" }
     RU={ name="Возвращение в Альдбург",    label="Альдбург", zone="Западный Рохан" }
     map=[{type="ROHAN", x=540, y=640}]
-    #minLevel=85,
     level=88
 
 [[rep]]
@@ -2191,7 +1966,6 @@
     FR={ name="Retour au Gouffre de Helm",     label="Gouffre de Helm", zone="Rohan de l'Ouest" }
     RU={ name="Возвращение в Хельмову Падь",   label="Хельмова Падь",   zone="Западный Рохан" }
     map=[{type="ROHAN", x=245, y=565}]
-    #minLevel=90,
     level=90
 
 [[rep]]
@@ -2201,7 +1975,6 @@
     FR={ name="Retour à Derunant",                 label="Derunant",            zone="Rohan de l'Ouest" }
     RU={ name="Возвращение в Заколдованную балку", label="Заколдованная балка", zone="Западный Рохан" }
     map=[{type="RHOVANION", x=45, y=720}, {type="ROHAN", x=295, y=275}]
-    #minLevel=95,
     level=90.1
 
 [[rep]]
@@ -2211,7 +1984,6 @@
     FR={ name="Retour à Dol Amroth",      desc="l'Ouest du Gondor",        label="Dol Amroth", zone="Gondor de l'Ouest" }
     RU={ name="Возвращение в Дол Амрот",  desc="в Западный Гондор",        label="Дол Амрот",  zone="Западный Гондор" }
     map=[{type="GONDOR", x=195, y=550}]
-    #minLevel=95,
     level=98
 
 [[rep]]
@@ -2221,7 +1993,6 @@
     FR={ name="Retournez à Arnach",   label="Arnach", zone="Gondor de l'Ouest" }
     RU={ name="Возвращение в Арнах",  label="Арнах",  zone="Восточный Гондор" }
     map=[{type="GONDOR", x=685, y=425}]
-    #minLevel=100,
     level=100
 
 [[rep]]
@@ -2231,7 +2002,6 @@
     FR={ name="Retour à Minas Tirith",           label="Minas Tirith", zone="Ancien Anórien" }
     RU={ name="Возвращение в Минас Тирит",       label="Минас Тирит",  zone="Старый Анориен" }
     map=[{type="GONDOR", x=700, y=345}]
-    #minLevel=100,
     level=100.1
 
 [[rep]]
@@ -2241,7 +2011,6 @@
     FR={ name="Retour au camp militaire",              label="Camp militaire",           zone="Lointain Anórien" }
     RU={ name="Возвращение в военный лагерь Рохиррим", label="Военный лагерь Рохиррим",  zone="Дальний Анориен" }
     map=[{type="GONDOR", x=635, y=140}]
-    #minLevel=100,
     level=102
 
 [[rep]]
@@ -2251,7 +2020,6 @@
     FR={ name="Retour à Minas Tirith après la bataille",       label="Minas Tirith après la bataille", zone="Anórien" }
     RU={ name="Возвращение в Минас Тирит (после битвы)",       label="Минас Тирит (после битвы)",      zone="Анориен" }
     map=[{type="GONDOR", x=700, y=375}]
-    #minLevel=100,
     level=105
 
 [[rep]]
@@ -2261,7 +2029,6 @@
     FR={ name="Retour à Osgiliath après la bataille",       label="Osgiliath après la bataille", zone="Anórien" }
     RU={ name="Возвращение в Осгилиат (после битвы)",       label="Осгилиат (после битвы)",      zone="Анориен" }
     map=[{type="GONDOR", x=825, y=335}]
-    #minLevel=100,
     level=105.1
 
 [[rep]]
@@ -2271,7 +2038,6 @@
     FR={ name="Retour à Henneth Annûn",      label="Henneth Annûn", zone="Ithilien" }
     RU={ name="Возвращение в Хеннет Аннун",  label="Хеннет Аннун",  zone="Итилиен" }
     map=[{type="GONDOR", x=845, y=385}]
-    #minLevel=100,
     level=105.2
 
 [[rep]]
@@ -2281,7 +2047,6 @@
     FR={ name="Retour au Camp de l'armée",            label="Camp de l'armée",        zone="Les Landes désertiques" }
     RU={ name="Возвращение в лагерь Воинства Запада", label="Лагерь Воинства Запада", zone="Гиблые земли" }
     map=[{type="GONDOR", x=775, y=170}]
-    #minLevel=100,
     level=105.3
 
 [[rep]]
@@ -2291,7 +2056,6 @@
     FR={ name="Retour à Haerondir",      label="Haerondir", zone="Les Landes désertiques" }
     RU={ name="Возвращение в Хаэрондир", label="Хаэрондир", zone="Гиблые земли" }
     map=[{type="GONDOR", x=825, y=100}]
-    #minLevel=100,
     level=105.4
 
 [[rep]]
@@ -2301,7 +2065,6 @@
     FR={ name="Retour au fort d'Udûn",        label="Fort d'Udûn",      zone="Mordor" }
     RU={ name="Возвращение на заставу Удуна", label="Застава Удуна",    zone="Мордор" }
     map=[{type="GONDOR", x=895, y=230}]
-    #minLevel=100,
     level=106
 
 [[rep]]
@@ -2317,7 +2080,6 @@
     #         DE={allegiance="The Court of Lothlórien", quest="Chapter 1: A Council Waiting" }
     #         FR={allegiance="The Court of Lothlórien", quest="Chapter 1: A Council Waiting" }
     #         RU={allegiance="Двор Лотлориэна", quest="Глава 1: Ожидание Совета" }} }
-    #minLevel=110,
     level=110
 
 [[rep]]
@@ -2333,7 +2095,6 @@
     #         DE={allegiance="The Kingdom of Gondor", quest="Chapter 1: The King and the Steward" }
     #         FR={allegiance="The Kingdom of Gondor", quest="Chapter 1: The King and the Steward" }
     #         RU={allegiance="Королевство Гондор", quest="Глава 1: Король и Наместник" }} }
-    #minLevel=110,
     level=110.1
 
 [[rep]]
@@ -2349,7 +2110,6 @@
     #         DE={allegiance="Durin's Folk", quest="Chapter 1: Beneath the Lonely Mountain" }
     #         FR={allegiance="Durin's Folk", quest="Chapter 1: Beneath the Lonely Mountain" }
     #         RU={allegiance="Народ Дарина", quest="Глава 1: Под Одинокой горой" }} }
-    #minLevel=110,
     level=110.2
 
 [[rep]]
@@ -2365,7 +2125,6 @@
     #         DE={allegiance="Hobbits of the Company", quest="Chapter 1: A Place for Hobbits" }
     #         FR={allegiance="Hobbits of the Company", quest="Chapter 1: A Place for Hobbits" }
     #         RU={allegiance="Хоббиты братства", quest="Глава 1: Место для хоббитов" }} }
-    #minLevel=110,
     level=110.3
 
 [[rep]]
@@ -2375,7 +2134,6 @@
     FR={ name="Revenir à Dale",     label="Dale", zone="Eryn Lasgalen" }
     RU={ name="Возвращение в Дейл", label="Дейл", zone="Эрин Ласгален" }
     map=[{type="RHOVANION", x=690, y=215}]
-    #minLevel=115,
     level=115
 
 [[rep]]
@@ -2385,7 +2143,6 @@
     FR={ name="Revenir à Jarnfast",     label="Jarnfast", zone="La Crevasse de Fer" }
     RU={ name="Возвращение в Ярнфаст",  label="Ярнфаст",  zone="Железное взгорье" }
     map=[{type="RHOVANION", x=860, y=110}]
-    #minLevel=116,
     level=116
 
 [[rep]]
@@ -2395,7 +2152,6 @@
     FR={ name="Revenir à Skarhald",          label="Skarhald",  zone="Ered Mithrin" }
     RU={ name="Возвращение в Скархальд",     label="Скархальд", zone="Эред Митрин" }
     map=[{type="RHOVANION", x=400, y=90}]
-    #minLevel=116,
     level=117
 
 [[rep]]
@@ -2405,7 +2161,6 @@
     FR={ name="Retournez auprès de Beorninghus", label="Beorninghus",   zone="Val d'Anduin" }
     RU={ name="Возвращение в Беорнингус",        label="Беорнингус",    zone="Долина Андуина" }
     map=[{type="RHOVANION", x=360, y=300}]
-    #minLevel=116,
     level=120
 
 [[rep]]
@@ -2415,7 +2170,6 @@
     FR={ name="Retournez auprès de Hultvis", label="Hultvis",  zone="Val d'Anduin" }
     RU={ name="Возвращение в Хультвис",      label="Хультвис", zone="Долина Андуина" }
     map=[{type="RHOVANION", x=345, y=400}]
-    #minLevel=116,
     level=120.1
 
 [[rep]]
@@ -2425,7 +2179,6 @@
     FR={ name="Retour à Estolad Lân",      label="Estolad Lân", zone="Imlad Morgul" }
     RU={ name="Возвращение в Эстолад Лан", label="Эстолад Лан", zone="Имлад Моргул" }
     map=[{type="GONDOR", x=930, y=460}]
-    #minLevel=121,
     level=125
 
 [[rep]]
@@ -2435,7 +2188,6 @@
     FR={ name="Retour à Limlok",      label="Limlok", zone="Puits du Long Fleuve" }
     RU={ name="Возвращение в Лимлок", label="Лимлок", zone="Истоки Долгой реки" }
     map=[{type="RHOVANION", x=315, y=230}]
-    #minLevel=130,
     level=130
 
 [[rep]]
@@ -2445,7 +2197,6 @@
     FR={ name="Retournez à Annâk-khurfu",   label="Annâk-khurfu", zone="Elderslade" }
     RU={ name="Возвращение в Аннак-Курфу",  label="Аннак-Курфу",  zone="Долина предков" }
     map=[{type="RHOVANION", x=500, y=90}]
-    #minLevel=20,
     level=130.1
 
 [[rep]]
@@ -2455,7 +2206,6 @@
     FR={ name="Retour à Akrâz-zahar",      label="Akrâz-zahar", zone="Eryn Lasgalen" }
     RU={ name="Возвращение в Акраз-Захар", label="Акраз-Захар", zone="Эрин Ласгален" }
     map=[{type="RHOVANION", x=720, y=115}]
-    #minLevel=130,
     level=130.2
 
 [[rep]]
@@ -2465,7 +2215,6 @@
     FR={ name="Retour à Azanulbizar",       label="Azanulbizar", detail="Amdân", zone="Azanulbizar" }
     RU={ name="Возвращение в Азанулбизар",  label="Азанулбизар", detail="Амдан", zone="Азанулбизар" }
     map=[{type="RHOVANION", x=180, y=555}]
-    #minLevel=130,
     level=130.3
 
 [[rep]]
@@ -2475,7 +2224,6 @@
     FR={ name="Retourner à la Porte Noble",       label="Porte Noble",       zone="Gundabad" }
     RU={ name="Возвращение к Благородным вратам", label="Благородные врата", zone="Гундабад" }
     map=[{type="RHOVANION", x=160, y=130}]
-    #minLevel=131,
     level=131
 
 [[rep]]
@@ -2485,7 +2233,6 @@
     FR={ name="Retourner à Leitstath",   label="Leitstath", zone="Gundabad" }
     RU={ name="Возвращение в Лейтстат",  label="Лейтстат",  zone="Гундабад" }
     map=[{type="RHOVANION", x=240, y=65}]
-    #minLevel=135,
     level=135
 
 [[rep]]
@@ -2501,7 +2248,6 @@
     #         DE={allegiance="Clan of the Zhélruka", quest="Chapter 1: The Rightful Claim" }
     #         FR={allegiance="Clan of the Zhélruka", quest="Chapter 1: The Rightful Claim" }
     #         RU={allegiance="Клан Желруков", quest="Глава 1: Законное требование" }} }
-    #minLevel=20,
     level=140
 
 [[rep]]
@@ -2511,7 +2257,6 @@
     FR={ name="Retour à Carn Dûm",      label="Carn Dûm", zone="Angmar" }
     RU={ name="Возвращение в Карн-Дум", label="Карн-Дум", zone="Angmar" }
     map=[{type="ERIADOR", x=705, y=100}]
-    #minLevel=20,
     level=140.1
 
 [[rep]]
@@ -2521,7 +2266,6 @@
     FR={ name="Retournez à Pelargir",   label="Pelargir", zone="Gondor royal" }
     RU={ name="Возвращение в Пеларгир", label="Пеларгир", zone="Королевский Гондор" }
     map=[{type="GONDOR", x=640, y=625}]
-    #minLevel=135,
     level=141
 
 [[rep]]
@@ -2531,7 +2275,6 @@
     FR={ name="Retour à Dol Amroth",      desc="le Gondor royal",    label="Dol Amroth royal",      zlabel="Dol Amroth", zone="Gondor royal" }
     RU={ name="Возвращение в Дол Амрот",  desc="Королевский Гондор", label="Королевский Дол Амрот", zlabel="Дол Амрот",  zone="Королевский Гондор" }
     map=[{type="GONDOR", x=180, y=485}, {type="HARADWAITH", x=355, y=70}]
-    #minLevel=135,
     level=142
 
 [[rep]]
@@ -2541,7 +2284,6 @@
     FR={ name="Retour à Lond Cirion",          label="Lond Cirion", zone="Anfalas" }
     RU={ name="Возвращение в Лонд-Кирион",     label="Лонд-Кирион", zone="Анфалас" }
     map=[{type="GONDOR", x=225, y=420}, {type="HARADWAITH", x=200, y=20}]
-    #minLevel=135,
     level=143
 
 [[rep]]
@@ -2551,7 +2293,6 @@
     FR={ name="Retournez voir Halrax",   label="Halrax",  zone="Les îles du Bouclier" }
     RU={ name="Возвращение в Халракс",   label="Халракс", zone="Острова Щита" }
     map=[{type="HARADWAITH", x=245, y=260}]
-    #minLevel=140,
     level=145
 
 [[rep]]
@@ -2561,7 +2302,6 @@
     FR={ name="Retour à Jax Phanâl",          label="Jax Phanâl",  zone="Umbar" }
     RU={ name="Возвращение в Джакс-Фанал",    label="Джакс-Фанал", zone="Умбар" }
     map=[{type="HARADWAITH", x=335, y=315}]
-    #minLevel=140,
     level=146
 
 [[rep]]
@@ -2571,7 +2311,6 @@
     FR={ name="Retour à Bej Mâghda",         label="Bej Mâgha",  zone="Umbar" }
     RU={ name="Возвращение в Бедж-Магду",    label="Бедж-Магда", zone="Умбар" }
     map=[{type="HARADWAITH", x=380, y=380}]
-    #minLevel=20,
     level=147
 
 [[rep]]
@@ -2581,7 +2320,6 @@
     FR={ name="Retour à Umbar",          label="Umbar", detail="Baharbêl",  zone="Umbar" }
     RU={ name="Возвращение в Умбар",     label="Умбар", detail="Бахарбель", zone="Умбар" }
     map=[{type="HARADWAITH", x=475, y=370}]
-    #minLevel=140,
     level=148
 
 [[rep]]
@@ -2592,7 +2330,6 @@
     RU={ name="Возвращение в таверну 'Кровавый орёл'",       label="Таверна Кровавый Орёл",       zone="Умбар" }
     map=[{type="HARADWAITH", x=445, y=400}]
 ##### VERIFY RU as it had \ before each single quote!!!!
-    #minLevel=20,
     level=149
 
 [[rep]]
@@ -2608,7 +2345,6 @@
     #         DE={allegiance="The Ledger-keepers" }
     #         FR={allegiance="The Ledger-keepers" }
     #         RU={allegiance="Хранители книг" }} }
-    #minLevel=140,
     level=150
 
 [[rep]]
@@ -2624,7 +2360,6 @@
     #         DE={allegiance="The Order of the Eagle" }
     #         FR={allegiance="The Order of the Eagle" }
     #         RU={allegiance="Орден орла" }} }
-    #minLevel=140,
     level=150
 
 [[rep]]
@@ -2634,7 +2369,6 @@
     FR={ name="Retour à Iridir",      label="Iridír", zone="Ikorbân" }
     RU={ name="Return to Iridír",     label="Iridír", zone="" }
     map=[{type="HARADWAITH", x=585, y=325}]
-    #minLevel=150,
     level=150.1
 
 [[rep]]
@@ -2644,7 +2378,6 @@
     FR={ name="Retournez voir Jirush",   label="Jirush", zone="Ikorbân" }
     RU={ name="Return to Jirush",        label="Jirush", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=590, y=415}]
-    #minLevel=150,
     level=150.2
 
 [[rep]]
@@ -2654,7 +2387,6 @@
     FR={ name="Retour à Urmâkh",      label="Urmâkh", zone="Ikorbân" }
     RU={ name="Return to Urmâkh",     label="Urmâkh", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=670, y=410}]
-    #minLevel=150,
     level=150.3
 
 [[rep]]
@@ -2664,7 +2396,6 @@
     FR={ name="Retour à Maurûsh",      label="Maurûsh", zone="Ikorbân" }
     RU={ name="Return to Maurûsh",     label="Maurûsh", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=670, y=350}]
-    #minLevel=150,
     level=150.4
 
 [[rep]]
@@ -2674,7 +2405,6 @@
     FR={ name="Retourner à Utug-bûr",   label="Utug-bûr", zone="Ikorbân" }
     RU={ name="Return to Utug-bûr",     label="Utug-bûr", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=700, y=310}]
-    #minLevel=150
     level=150.5
 
 
