@@ -3,6 +3,7 @@
 #include <array>
 #include <ranges>
 #include <unordered_map>
+#include <regex>
 #include <fmt/format.h>
 
 using namespace std;
@@ -27,6 +28,15 @@ Skill::Type getGroupTypeFromName(string_view name)
     if(name == "Mariner"sv || name == "Corsair"sv)
         return Skill::Type::Mariner;
     return Skill::Type::Unknown;
+}
+
+static string fixXmlStr(string_view str)
+{
+    string buf;
+    auto out = back_inserter(buf);
+    std::regex quote("\\\\q");
+    std::regex_replace(out, str.begin(), str.end(), quote, "\\\"");
+    return buf;
 }
 
 
@@ -156,7 +166,7 @@ bool SkillLoader::getSkillNames(const string &locale, vector<Skill> &skills)
         auto &skill = *it;
         attr = node->first_attribute("value");
         if(attr)
-            skill.name[locale] = attr->value();
+            skill.name[locale] = fixXmlStr(attr->value());
     }
 
     // disambiguate identical skill names
@@ -175,10 +185,8 @@ bool SkillLoader::getSkillNames(const string &locale, vector<Skill> &skills)
         if(!it->desc)
         {
             it->desc = std::make_optional<LCLabel>();
-            //fmt::println("{:08X} {}", it->id, it->name[locale]);
         }
         skill.desc = std::make_optional<LCLabel>();
-        //fmt::println("{:08X} {}", skill.id, skill.name[locale]);
     }
 
     return true;
@@ -219,8 +227,7 @@ bool SkillLoader::getSkillDesc(const string &locale, vector<Skill> &skills)
         if(!attr)
             continue;
 
-        (*skill.desc)[locale] = attr->value();
-        //fmt::println("{} {}", skill.id, skill.name[locale]);
+        (*skill.desc)[locale] = fixXmlStr(attr->value());
     }
     return true;
 }
@@ -351,8 +358,6 @@ bool SkillLoader::getSkillItems(std::vector<Skill> &skills)
                 skill.group = Skill::Type::Creep;
             }
         }
-
-        //fmt::println("{} {}", skill.id, skill.name[locale]);
     }
     return true;
 }
@@ -744,7 +749,7 @@ bool SkillLoader::getNPCLabel(const std::string &locale, TravelInfo &info)
                 attr = node->first_attribute("value");
                 if(attr)
                 {
-                    it->title[locale] = attr->value();
+                    it->title[locale] = fixXmlStr(attr->value());
                 }
             }
         }
@@ -757,7 +762,7 @@ bool SkillLoader::getNPCLabel(const std::string &locale, TravelInfo &info)
                 attr = node->first_attribute("value");
                 if(attr)
                 {
-                    it->name[locale] = attr->value();
+                    it->name[locale] = fixXmlStr(attr->value());
                 }
             }
         }

@@ -118,7 +118,7 @@ static string convertToLuaGVarName(const string &in, const Utf8Map &strip)
     return out;
 }
 
-string extractNameAttr(const string &in)
+static string extractNameAttr(const string &in)
 {
     // ${PLAYERNAME:Verwandter[m]|Verwandte[f]}
     const std::regex attr("^\\$\\{PLAYERNAME:(.*)\\[.*\\|(.*)\\[.*\\}$");
