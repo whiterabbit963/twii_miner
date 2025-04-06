@@ -1688,8 +1688,8 @@
     level=1
     [gen.acquire_desc]
         EN="Buy a House and earn the Novice trait"
-        DE="Buy a House and earn the Novice trait"
-        FR="Buy a House and earn the Novice trait"
+        DE="Kaufe ein Haus und verdiene dir die Eigenschaft \"Anfänger\""
+        FR="Achetez une maison et gagnez le trait Novice"
         RU="Купите дом и получите талант новичка"
 
 [[gen]]
@@ -1702,8 +1702,8 @@
     level=1
     [gen.acquire_desc]
         EN="Buy a Premium House and earn the Novice trait"
-        DE="Buy a Premium House and earn the Novice trait"
-        FR="Buy a Premium House and earn the Novice trait"
+        DE="Kaufe ein Premiumheim und verdiene dir die Eigenschaft \"Anfänger\""
+        FR="Achetez une maison premium et gagnez le trait Novice"
         RU="Купите престижный дом и получите талант новичка"
 
 [[gen]]
@@ -1716,8 +1716,8 @@
     level=1
     [gen.acquire_desc]
         EN="Become a member of a kinship that has a kinship house"
-        DE="Become a member of a kinship that has a kinship house"
-        FR="Become a member of a kinship that has a kinship house"
+        DE="Werden Sie Mitglied einer Sippe, die ein Sippenhaus hat"
+        FR="Devenez membre d’une confrérie qui a une maison de confrérie"
         RU="Станьте членом содружества, у которого есть дом"
 
 [[gen]]
@@ -1730,8 +1730,8 @@
     level=1
     [gen.acquire_desc]
         EN="Become a member of a kinship"
-        DE="Become a member of a kinship"
-        FR="Become a member of a kinship"
+        DE="Werden Sie Mitglied einer Sippe"
+        FR="Devenir membre d’une confrérie"
         RU="Станьте членом содружества"
 
 [[rep]]
