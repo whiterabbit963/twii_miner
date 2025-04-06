@@ -1827,7 +1827,6 @@
     RU={ name="Возвращение в Ост Гурут",   label="Ост Гурут",    zone="Пустоши" }
     map=[{type="ERIADOR", x=725, y=400}]
     store=true
-    autoRep=true
     level=25
 
 [[rep]]

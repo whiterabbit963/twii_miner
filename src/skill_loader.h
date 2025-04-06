@@ -127,7 +127,6 @@ struct Skill
     unsigned minLevelInput{0}; // input
     std::string sortLevel; // input
     bool storeLP{false}; // input; adds acquired entry
-    bool autoRep{false}; // input; parseable??? adds acquired entry
     bool autoLevel{false}; // input; parseable??? acquired on minLevel for the class
 
     SkillCategory cat;

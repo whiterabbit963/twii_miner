@@ -241,7 +241,12 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
         fmt::println(out, "                EN={{deed=\"{}\"}},", deed.name.at(EN));
         fmt::println(out, "                DE={{deed=\"{}\"}},", deed.name.at(DE));
         fmt::println(out, "                FR={{deed=\"{}\"}},", deed.name.at(FR));
-        fmt::println(out, "                RU={{deed=\"{}\"}} }} }},", deed.name.at(RU));
+        fmt::println(out, "                RU={{deed=\"{}\"}} }}", deed.name.at(RU));
+        if(skill.storeLP)
+        {
+            fmt::println(out, ",\n            {{ store=true }}");
+        }
+        fmt::println(out, " }},");
     }
     else
     {
@@ -326,14 +331,6 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
         {
             bool addComma = !buf.empty();
             fmt::format_to(in, "{}{} {{ store=true }}", addComma ? "," : "",
-                           firstEntry ? "" : "\n           ");
-            firstEntry = false;
-        }
-        if(skill.autoRep)
-        {
-            bool addComma = !buf.empty();
-            fmt::format_to(in, "{}{} {{ autoRep=true }}",
-                           addComma ? "," : "",
                            firstEntry ? "" : "\n           ");
             // firstEntry = false;
         }
