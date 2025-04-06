@@ -538,10 +538,10 @@ bool SkillLoader::getCurrencies(TravelInfo &info)
     if(!getBarters(info))
         return false;
 
-    if(!getBartererTitleKeys(info))
+    if(!getVendors(info))
         return false;
 
-    if(!getVendors(info))
+    if(!getNPCTitleKeys(info))
         return false;
 
     if(!getNPCLabels(info))
@@ -673,7 +673,7 @@ bool SkillLoader::getBarters(TravelInfo &info)
 // -- lotro-data/lore/labels/en/npc.xml
 // name: <label key="1879450946" value="Quartermaster"/>
 // title: <label key="key:621066979:229802005" value="Dúnedain of Cardolan"/>
-bool SkillLoader::getBartererTitleKeys(TravelInfo &info)
+bool SkillLoader::getNPCTitleKeys(TravelInfo &info)
 {
     string fp = fmt::format("{}\\lotro-data\\lore\\NPCs.xml", m_path);
     if(!m_xml.load(fp))

@@ -171,11 +171,13 @@ static string outputVendor(const string &locale, const NPC &npc, uint32_t barter
 {
     if(!npc.titleKey.empty())
     {
+        // TODO: many of these checks could likely be resolved
+        //       by tracking if multiple vendors sell the same
+        //       skill and have the same title
         string_view title = npc.title.at(EN);
-        if(title == "Hunter Trainer"sv ||
-                title == "Warden Trainer"sv ||
-                title == "Delving Mission Giver"sv ||
-                title == "Ikorbâni Quartermaster"sv)
+        if(title == "Delving Mission Giver"sv ||
+                title == "Ikorbâni Quartermaster"sv ||
+                title == "Iron Garrison Miners"sv)
         {
             return npc.title.at(locale);
         }

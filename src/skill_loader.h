@@ -194,7 +194,7 @@ public:
 
     bool getVendors(TravelInfo &info);
     bool getBarters(TravelInfo &info);
-    bool getBartererTitleKeys(TravelInfo &info);
+    bool getNPCTitleKeys(TravelInfo &info);
     bool getNPCLabels(TravelInfo &info);
     bool getNPCLabel(const std::string &locale, TravelInfo &info);
     uint32_t getValueTableValue(const Acquire &item);
