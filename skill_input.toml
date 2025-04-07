@@ -1856,13 +1856,12 @@
     RU={ name="Возвращение в архив узоров Ривенделла",               label="Архив узоров Ривенделла", zone="Троллистая пуща" }
     tag="Delving"
     map=[{type="ERIADOR", x=905, y=345}]
-    # acquire={
-    #     {
-    #         EN={drop="Delving Reward Box (any tier)"]
-    #         DE={drop="Delving Reward Box (any tier)"]
-    #         FR={drop="Delving Reward Box (any tier)"]
-    #         RU={drop="Delving Reward Box (any tier)"]} }
     level=40.11
+    [gen.acquire_desc]
+        EN="Delving Reward Box (any tier)"
+        DE="Belohnungskiste \"Vertiefen\" (jede Stufe)"
+        FR="Boîte de récompenses de fouille (n'importe quel niveau)"
+        RU="Ящик с наградами погружений (любой уровень)"
 
 [[rep]]
     id="0x7005B38E"
@@ -2073,12 +2072,6 @@
     FR={ name="Voyager jusqu'à la Cour de Lothlórien", label="Cour de Lothlórien",  tag="Quête",   zone="Lothlórien" }
     RU={ name="Возвращение ко Двору Лотлориэна",       label="Двор Лотлориэна",     tag="Задание", zone="Лотлориэн" }
     map=[{type="RHOVANION", x=140, y=585}]
-    # acquire={
-    #     {
-    #         EN={allegiance="The Court of Lothlórien", quest="Chapter 1: A Council Waiting" }
-    #         DE={allegiance="The Court of Lothlórien", quest="Chapter 1: A Council Waiting" }
-    #         FR={allegiance="The Court of Lothlórien", quest="Chapter 1: A Council Waiting" }
-    #         RU={allegiance="Двор Лотлориэна", quest="Глава 1: Ожидание Совета" }} }
     level=110
 
 [[rep]]
@@ -2088,12 +2081,6 @@
     FR={ name="Voyager jusqu'au Palais du roi",  label="Palais du roi",    tag="Quête",   zone="Ancien Anórien" }
     RU={ name="Возвращение в Зал короля",        label="Зал королей",      tag="Задание", zone="Старый Анориен" }
     map=[{type="GONDOR", x=740, y=310}]
-    # acquire={
-    #     {
-    #         EN={allegiance="The Kingdom of Gondor", quest="Chapter 1: The King and the Steward" }
-    #         DE={allegiance="The Kingdom of Gondor", quest="Chapter 1: The King and the Steward" }
-    #         FR={allegiance="The Kingdom of Gondor", quest="Chapter 1: The King and the Steward" }
-    #         RU={allegiance="Королевство Гондор", quest="Глава 1: Король и Наместник" }} }
     level=110.1
 
 [[rep]]
@@ -2103,12 +2090,6 @@
     FR={ name="Voyager jusqu'au Palais sous la Montagne", label="Palais sous la Montagne", tag="Quête",   zone="Ered Mithrin" }
     RU={ name="Возвращение в Чертог-под-Горой",           label="Чертог-под-Горой",        tag="Задание", zone="Эред Митрин" }
     map=[{type="RHOVANION", x=630, y=115}]
-    # acquire={
-    #     {
-    #         EN={allegiance="Durin's Folk", quest="Chapter 1: Beneath the Lonely Mountain" }
-    #         DE={allegiance="Durin's Folk", quest="Chapter 1: Beneath the Lonely Mountain" }
-    #         FR={allegiance="Durin's Folk", quest="Chapter 1: Beneath the Lonely Mountain" }
-    #         RU={allegiance="Народ Дарина", quest="Глава 1: Под Одинокой горой" }} }
     level=110.2
 
 [[rep]]
@@ -2118,12 +2099,6 @@
     FR={ name="Voyager jusqu'à Bâr Thorenion", label="Bâr Thorenion", tag="Quête",   zone="Ithilien" }
     RU={ name="Возвращение в Бар Торенион",    label="Бар Торенион",  tag="Задание", zone="Итилиен" }
     map=[{type="GONDOR", x=965, y=370}]
-    # acquire={
-    #     {
-    #         EN={allegiance="Hobbits of the Company", quest="Chapter 1: A Place for Hobbits" }
-    #         DE={allegiance="Hobbits of the Company", quest="Chapter 1: A Place for Hobbits" }
-    #         FR={allegiance="Hobbits of the Company", quest="Chapter 1: A Place for Hobbits" }
-    #         RU={allegiance="Хоббиты братства", quest="Глава 1: Место для хоббитов" }} }
     level=110.3
 
 [[rep]]
@@ -2241,12 +2216,6 @@
     FR={ name="Voyage jusqu'à la Grande salle de Vérnozal", label="Vérnozal", tag="Quête",   zone="Gundabad" }
     RU={ name="Возвращение в Вернозал",                     label="Вернозал", tag="Задание", zone="Гундабад" }
     map=[{type="RHOVANION", x=155, y=45}]
-    # acquire={
-    #     {
-    #         EN={allegiance="Clan of the Zhélruka", quest="Chapter 1: The Rightful Claim" }
-    #         DE={allegiance="Clan of the Zhélruka", quest="Chapter 1: The Rightful Claim" }
-    #         FR={allegiance="Clan of the Zhélruka", quest="Chapter 1: The Rightful Claim" }
-    #         RU={allegiance="Клан Желруков", quest="Глава 1: Законное требование" }} }
     level=140
 
 [[rep]]
@@ -2328,7 +2297,6 @@
     FR={ name="Retour à la taverne de l'Aigle Sanglant",     label="Taverne de l'Aigle Sanglant", zone="Umbar" }
     RU={ name="Возвращение в таверну 'Кровавый орёл'",       label="Таверна Кровавый Орёл",       zone="Умбар" }
     map=[{type="HARADWAITH", x=445, y=400}]
-##### VERIFY RU as it had \ before each single quote!!!!
     level=149
 
 [[rep]]
@@ -2338,12 +2306,6 @@
     FR={ name="Voyager vers les Gardiens des écrits", label="Gardiens des écrits", tag="Quête",   zone="Umbar" }
     RU={ name="Возвращение к Хранителям книг",        label="Хранители книг",      tag="Задание", zone="Умбар" }
     map=[{type="HARADWAITH", x=415, y=340}]
-    # acquire={
-    #     { rank=10,
-    #         EN={allegiance="The Ledger-keepers" }
-    #         DE={allegiance="The Ledger-keepers" }
-    #         FR={allegiance="The Ledger-keepers" }
-    #         RU={allegiance="Хранители книг" }} }
     level=150
 
 [[rep]]
@@ -2353,12 +2315,6 @@
     FR={ name="Voyager vers l'Ordre de l'Aigle",   label="L'Ordre de l'Aigle", tag="Quête",   zone="Umbar" }
     RU={ name="Возвращение в Орден орла",          label="Орден орла",         tag="Задание", zone="Умбар" }
     map=[{type="HARADWAITH", x=415, y=370}]
-    # acquire={
-    #     { rank=10,
-    #         EN={allegiance="The Order of the Eagle" }
-    #         DE={allegiance="The Order of the Eagle" }
-    #         FR={allegiance="The Order of the Eagle" }
-    #         RU={allegiance="Орден орла" }} }
     level=150
 
 [[rep]]
