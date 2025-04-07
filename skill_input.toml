@@ -1857,7 +1857,7 @@
     tag="Delving"
     map=[{type="ERIADOR", x=905, y=345}]
     level=40.11
-    [gen.acquire_desc]
+    [rep.acquire_desc]
         EN="Delving Reward Box (any tier)"
         DE="Belohnungskiste \"Vertiefen\" (jede Stufe)"
         FR="Boîte de récompenses de fouille (n'importe quel niveau)"
