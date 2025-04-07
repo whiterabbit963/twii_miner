@@ -922,6 +922,7 @@ bool SkillLoader::getQuests(std::vector<Skill> &skills)
                 xml_attribute<> *attr = objNode->first_attribute("id");
                 if(!attr)
                     continue;
+                bool found = false;
                 uint32_t itemId = atoi(attr->value());
                 for(auto &skill : skills)
                 {
@@ -935,6 +936,25 @@ bool SkillLoader::getQuests(std::vector<Skill> &skills)
                     if(!attr)
                         return false;
                     it->questNameKey = attr->value();
+                    found = true;
+                    break;
+                }
+                if(!found)
+                {
+                    //<object id="1879088537" name="Tattered Map to Glân Vraig"/>
+                    if(itemId == 1879088537)
+                    {
+                        auto it = ranges::find(skills, 0x7005B38E, &Skill::id);
+                        if(it != skills.end())
+                        {
+                            it->acquire.push_back(Acquire{itemId});
+                            auto &acquire = it->acquire.back();
+                            if(attr = node->first_attribute("id"); attr)
+                                acquire.questId = atoi(attr->value());
+                            if(attr = node->first_attribute("rawName"); attr)
+                                acquire.questNameKey = attr->value();
+                        }
+                    }
                 }
             }
         }
