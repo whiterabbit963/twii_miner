@@ -998,7 +998,40 @@ bool SkillLoader::getQuestLabel(const string &locale, std::vector<Skill> &skills
     return true;
 }
 
-bool SkillLoader::getDeed(string_view traitId, Skill &skill)
+static Skill *getTraitDeed(const unordered_map<string_view, Skill*> &traits,
+                           xml_node<> *node)
+{
+    for(xml_node<> *traitNode = node->first_node("trait");
+            traitNode; traitNode = traitNode->next_sibling("trait"))
+    {
+        xml_attribute<> *attr = traitNode->first_attribute("id");
+        if(!attr)
+            return nullptr;
+        auto it = traits.find(attr->value());
+        if(it != traits.end())
+            return it->second;
+    }
+    return nullptr;
+}
+
+static Skill *getItemDeed(const unordered_map<uint32_t, Skill*> &items,
+                        xml_node<> *node)
+{
+    for(xml_node<> *itemNode = node->first_node("object");
+            itemNode; itemNode = itemNode->next_sibling("object"))
+    {
+        xml_attribute<> *attr = itemNode->first_attribute("id");
+        if(!attr)
+            return nullptr;
+        auto it = items.find(atoi(attr->value()));
+        if(it != items.end())
+            return it->second;
+    }
+    return nullptr;
+}
+
+bool SkillLoader::getDeeds(const unordered_map<string_view, Skill*> &traits,
+                           const unordered_map<uint32_t, Skill*> &skills)
 {
     XMLLoader xml;
     string fp = fmt::format("{}\\lotro-data\\lore\\deeds.xml", m_path);
@@ -1014,21 +1047,24 @@ bool SkillLoader::getDeed(string_view traitId, Skill &skill)
         for(xml_node<> *rewardNode = node->first_node("rewards");
                 rewardNode; rewardNode = rewardNode->next_sibling("rewards"))
         {
-            for(xml_node<> *traitNode = rewardNode->first_node("trait");
-                    traitNode; traitNode = traitNode->next_sibling("trait"))
+            auto *skill = getTraitDeed(traits, rewardNode);
+            if(!skill)
+                skill = getItemDeed(skills, rewardNode);
+            if(skill)
             {
-                xml_attribute<> *attr = traitNode->first_attribute("id");
-                if(!attr)
-                    return false;
-                if(traitId == attr->value())
+                if(skill->acquireDeed)
                 {
-                    attr = node->first_attribute("id");
-                    if(!attr)
-                        return false;
+                    fmt::println("ALREADY HAS A DEED {}", skill->id);
+                }
+                xml_attribute<> *attr = node->first_attribute("id");
+                if(attr)
+                {
                     uint32_t deedId = atoi(attr->value());
-                    skill.acquireDeed = Deed{deedId};
+                    skill->acquireDeed = Deed{deedId};
+                    break;
                 }
             }
+            break;
         }
     }
     return true;
@@ -1045,6 +1081,15 @@ bool SkillLoader::getTraits(std::vector<Skill> &skills)
     {
         skillHash.insert({skill.id, &skill});
     }
+    unordered_map<uint32_t, Skill*> items;
+    for(auto &skill : skills)
+    {
+        for(auto &acquire : skill.acquire)
+        {
+            items.insert({acquire.itemId, &skill});
+        }
+    }
+    unordered_map<string_view, Skill*> traits;
     xml_node<> *root = m_xml.doc().first_node("traits");
     if(!root)
         return false;
@@ -1063,11 +1108,12 @@ bool SkillLoader::getTraits(std::vector<Skill> &skills)
             {
                 attr = node->first_attribute("identifier");
                 if(attr)
-                    getDeed(attr->value(), *it->second);
+                    traits.insert({attr->value(), it->second});
             }
             break;
         }
     }
+    getDeeds(traits, items);
     getDeedLabels(skills);
     return true;
 }

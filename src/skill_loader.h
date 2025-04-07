@@ -4,16 +4,8 @@
 #include <optional>
 #include <vector>
 #include <string>
-
-// #ifdef _DEBUG
-// #undef _ITERATOR_DEBUG_LEVEL
-// #endif
-
 #include <map>
-
-// #ifdef _DEBUG
-// #define _ITERATOR_DEBUG_LEVEL 2
-// #endif
+#include <unordered_map>
 
 #include "xml_loader.h"
 
@@ -193,7 +185,8 @@ public:
     bool getQuestLabels(std::vector<Skill> &skills);
     bool getQuestLabel(const std::string &locale, std::vector<Skill> &skills);
     bool getTraits(std::vector<Skill> &skills);
-    bool getDeed(std::string_view traitId, Skill &skill);
+    bool getDeeds(const std::unordered_map<std::string_view, Skill*> &traits,
+                  const std::unordered_map<uint32_t, Skill*> &skills);
     bool getDeedLabels(std::vector<Skill> &skills);
     bool getDeedLabel(const std::string &locale, std::vector<Skill> &skills);
 
