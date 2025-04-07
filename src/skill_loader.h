@@ -54,7 +54,13 @@ struct Barter
 
 struct Deed
 {
-    uint32_t id;
+    uint32_t id{0};
+    LCLabel name;
+};
+
+struct Allegiance
+{
+    uint32_t id{0};
     LCLabel name;
 };
 
@@ -114,6 +120,7 @@ struct Skill
     std::vector<Acquire> acquire; // parse
     LCLabel acquireDesc;
     std::optional<Deed> acquireDeed;
+    std::optional<Allegiance> allegiance;
     uint32_t factionId{0}; // parse
     unsigned factionRank{0}; // parse
     unsigned minLevel{0}; // parse
@@ -189,6 +196,10 @@ public:
                   const std::unordered_map<uint32_t, Skill*> &skills);
     bool getDeedLabels(std::vector<Skill> &skills);
     bool getDeedLabel(const std::string &locale, std::vector<Skill> &skills);
+
+    bool getAllegiance(std::vector<Skill> &skills);
+    bool getAllegianceLabels(std::vector<Skill> &skills);
+    bool getAllegianceLabel(const std::string &locale, std::vector<Skill> &skills);
 
     bool getFactions(TravelInfo &info);
     bool getFactionLabels(TravelInfo &info);

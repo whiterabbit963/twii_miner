@@ -208,11 +208,34 @@ static string outputVendors(const TravelInfo &info, uint32_t id)
     return buf;
 }
 
-static string outputQuest(const string &locale, const Acquire &acquire)
+static string outputQuest(const string &locale, const Skill &skill, const Acquire &acquire)
 {
     string buf;
     auto in = std::back_inserter(buf);
-    fmt::format_to(in, "quest=\"{}\"", acquire.questName.at(locale));
+    if(skill.allegiance)
+    {
+        fmt::format_to(in, "allegiance=\"{}\"", skill.allegiance->name.at(locale));
+    }
+    fmt::format_to(in, "{}quest=\"{}\"",
+                   buf.empty() ? "" : ", ",
+                   acquire.questName.at(locale));
+    return buf;
+}
+
+static string outputDeed(const string &locale, const Skill &skill)
+{
+    string buf;
+    auto out = back_inserter(buf);
+    if(skill.allegiance)
+    {
+        fmt::format_to(out, "allegiance=\"{}\"", skill.allegiance->name.at(locale));
+    }
+    if(skill.acquireDeed)
+    {
+        fmt::format_to(out, "{}deed=\"{}\"",
+                       buf.empty() ? "" : ", ",
+                       skill.acquireDeed->name.at(locale));
+    }
     return buf;
 }
 
@@ -238,10 +261,10 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
         auto &deed = *skill.acquireDeed;
         fmt::println(out, "        acquire={{");
         fmt::println(out, "            {{");
-        fmt::println(out, "                EN={{deed=\"{}\"}},", deed.name.at(EN));
-        fmt::println(out, "                DE={{deed=\"{}\"}},", deed.name.at(DE));
-        fmt::println(out, "                FR={{deed=\"{}\"}},", deed.name.at(FR));
-        fmt::println(out, "                RU={{deed=\"{}\"}} }}", deed.name.at(RU));
+        fmt::println(out, "                EN={{{}}},", outputDeed(EN, skill));
+        fmt::println(out, "                DE={{{}}},", outputDeed(DE, skill));
+        fmt::println(out, "                FR={{{}}},", outputDeed(FR, skill));
+        fmt::print(out, "                RU={{{}}} }}", outputDeed(RU, skill));
         if(skill.storeLP)
         {
             fmt::println(out, ",\n            {{ store=true }}");
@@ -268,10 +291,10 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
                     fmt::format_to(in, "{}\n            {{", acquireFront ? "" : ",");
                     acquireFront = false;
 
-                    fmt::format_to(in, "\n                EN={{{}}},", outputQuest(EN, acquire));
-                    fmt::format_to(in, "\n                DE={{{}}},", outputQuest(DE, acquire));
-                    fmt::format_to(in, "\n                FR={{{}}},", outputQuest(FR, acquire));
-                    fmt::format_to(in, "\n                RU={{{}}}", outputQuest(RU, acquire));
+                    fmt::format_to(in, "\n                EN={{{}}},", outputQuest(EN, skill, acquire));
+                    fmt::format_to(in, "\n                DE={{{}}},", outputQuest(DE, skill, acquire));
+                    fmt::format_to(in, "\n                FR={{{}}},", outputQuest(FR, skill, acquire));
+                    fmt::format_to(in, "\n                RU={{{}}}", outputQuest(RU, skill, acquire));
                     fmt::format_to(in, " }}");
                 }
 

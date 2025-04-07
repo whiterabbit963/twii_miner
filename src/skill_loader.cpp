@@ -998,6 +998,88 @@ bool SkillLoader::getQuestLabel(const string &locale, std::vector<Skill> &skills
     return true;
 }
 
+bool SkillLoader::getAllegianceLabel(const string &locale,
+                                     std::vector<Skill> &skills)
+{
+    XMLLoader xml;
+    string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\allegiances.xml", m_path, locale);
+    if(!xml.load(fp))
+        return false;
+
+    xml_node<> *root = xml.doc().first_node("labels");
+    if(!root)
+        return false;
+    for(xml_node<> *node = root->first_node("label");
+            node; node = node->next_sibling("label"))
+    {
+        xml_attribute<> *attr = node->first_attribute("key");
+        if(!attr)
+            return false;
+        string_view key = attr->value();
+        if(key.starts_with("key"))
+            continue;
+        uint32_t allegianceId = atoi(key.data());
+        for(auto &skill : skills)
+        {
+            if(!skill.allegiance)
+                continue;
+            if(skill.allegiance->id != allegianceId)
+                continue;
+            attr = node->first_attribute("value");
+            if(!attr)
+                return false;
+            skill.allegiance->name[locale] = attr->value();
+        }
+    }
+    return true;
+}
+
+bool SkillLoader::getAllegianceLabels(std::vector<Skill> &skills)
+{
+    if(!getAllegianceLabel(EN, skills))
+        return false;
+    if(!getAllegianceLabel(DE, skills))
+        return false;
+    if(!getAllegianceLabel(FR, skills))
+        return false;
+    if(!getAllegianceLabel(RU, skills))
+        return false;
+    return true;
+}
+
+bool SkillLoader::getAllegiance(std::vector<Skill> &skills)
+{
+    XMLLoader xml;
+    string fp = fmt::format("{}\\lotro-data\\lore\\allegiances.xml", m_path);
+    if(!xml.load(fp))
+        return false;
+
+    xml_node<> *root = xml.doc().first_node("allegiances");
+    if(!root)
+        return false;
+    for(xml_node<> *node = root->first_node("allegiance");
+            node; node = node->next_sibling("allegiance"))
+    {
+        xml_attribute<> *attr = node->first_attribute("travelSkillId");
+        if(!attr)
+            return false;
+        uint32_t skillId = atoi(attr->value());
+        auto it = ranges::find(skills, skillId, &Skill::id);
+        if(it == skills.end())
+        {
+            fmt::println("MISSING ALLEGIANCE SKILL {}", skillId);
+            continue;
+        }
+
+        attr = node->first_attribute("id");
+        if(!attr)
+            return false;
+        uint32_t allegianceId = atoi(attr->value());
+        it->allegiance = Allegiance{allegianceId};
+    }
+    return true;
+}
+
 static Skill *getTraitDeed(const unordered_map<string_view, Skill*> &traits,
                            xml_node<> *node)
 {
@@ -1115,6 +1197,8 @@ bool SkillLoader::getTraits(std::vector<Skill> &skills)
     }
     getDeeds(traits, items);
     getDeedLabels(skills);
+    getAllegiance(skills);
+    getAllegianceLabels(skills);
     return true;
 }
 
