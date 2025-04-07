@@ -1076,6 +1076,22 @@ bool SkillLoader::getAllegiance(std::vector<Skill> &skills)
             return false;
         uint32_t allegianceId = atoi(attr->value());
         it->allegiance = Allegiance{allegianceId};
+
+        if(attr = node->first_attribute("minLevel"); attr)
+        {
+            it->minLevel = atoi(attr->value());
+        }
+        if(it->acquireDeed)
+        {
+            auto &deed = it->acquireDeed->name.at(EN);
+            const std::regex attr(".*Allegiance Level ([0-9]+)");
+            std::smatch match;
+            if(std::regex_match(deed, match, attr))
+            {
+                string number = match[1].str();
+                it->allegiance->rank = atoi(number.c_str());
+            }
+        }
     }
     return true;
 }
@@ -1097,7 +1113,7 @@ static Skill *getTraitDeed(const unordered_map<string_view, Skill*> &traits,
 }
 
 static Skill *getItemDeed(const unordered_map<uint32_t, Skill*> &items,
-                        xml_node<> *node)
+                          xml_node<> *node)
 {
     for(xml_node<> *itemNode = node->first_node("object");
             itemNode; itemNode = itemNode->next_sibling("object"))

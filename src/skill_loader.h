@@ -61,6 +61,7 @@ struct Deed
 struct Allegiance
 {
     uint32_t id{0};
+    uint32_t rank{0};
     LCLabel name;
 };
 

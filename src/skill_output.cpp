@@ -239,6 +239,15 @@ static string outputDeed(const string &locale, const Skill &skill)
     return buf;
 }
 
+static string outputAllegianceRank(const Skill &skill)
+{
+    string buf;
+    auto out = back_inserter(buf);
+    if(skill.allegiance && skill.allegiance->rank)
+        fmt::format_to(out, "rank={},", skill.allegiance->rank);
+    return buf;
+}
+
 static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &skill)
 {
     if(skill.group == Skill::Type::Creep)
@@ -258,9 +267,9 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
     }
     else if(skill.acquireDeed)
     {
-        auto &deed = *skill.acquireDeed;
+        bool hasRank = skill.allegiance && skill.allegiance->rank;
         fmt::println(out, "        acquire={{");
-        fmt::println(out, "            {{");
+        fmt::println(out, "            {{{}", outputAllegianceRank(skill));
         fmt::println(out, "                EN={{{}}},", outputDeed(EN, skill));
         fmt::println(out, "                DE={{{}}},", outputDeed(DE, skill));
         fmt::println(out, "                FR={{{}}},", outputDeed(FR, skill));
