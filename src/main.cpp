@@ -6,34 +6,48 @@
 
 using namespace std;
 
-void printNewSkills(const std::vector<Skill> &skills)
+void printNewSkills(const TravelInfo &info)
 {
-#if 0 // TODO: REDO? probably obsolete
     // verification
-    fmt::println("Skills: {}:{}", skills.size(), skillIds.size());
-    for(auto &skill : skills)
+    std::vector<const Skill*> newSkills;
+    for(auto &skill : info.skills)
     {
-        if(!std::any_of(skillIds.begin(), skillIds.end(), [&skill](auto &id) { return skill.id == id; }))
+        auto it = info.inputs.find(skill.id);
+        if(it == info.inputs.end())
+        {
+            auto bit = ranges::find(info.blacklist, skill.id);
+            if(bit == info.blacklist.end())
+                newSkills.push_back(&skill);
+        }
+    }
+    fmt::println("Skills: {}:{}", info.skills.size(), info.inputs.size());
+    for(auto &skill : info.skills)
+    {
+        if(!std::any_of(info.inputs.begin(), info.inputs.end(), [&skill](auto &item)
+                         { return skill.id == item.second.id; }))
         {
             fmt::println("{}", skill.name.at(EN));
         }
         if(skill.name.size() != 4)
             fmt::println("{}", skill.id);
     }
-    for(auto &id : skillIds)
+    for(auto &item : info.inputs)
     {
-        if(!std::any_of(skills.begin(), skills.end(), [&id](auto &s) { return s.id == id; }))
+        if(!std::any_of(info.skills.begin(), info.skills.end(), [&item](auto &s)
+                         { return s.id == item.second.id; }))
         {
-            fmt::println("{}", id);
+            fmt::println("{}", item.first);
         }
     }
     fmt::println("\n\n");
 
     unsigned next = 0;
-    for(auto &skill : skills)
+    for(auto &skill : info.skills)
     {
-        if(!std::any_of(skillIds.begin(), skillIds.end(), [&skill](auto &id) { return skill.id == id; }))
+        if(!std::any_of(info.inputs.begin(), info.inputs.end(), [&skill](auto &item)
+                         { return skill.id == item.second.id; }))
         {
+            // TODO: convert to toml and append to toml input file
             fmt::println("id=\"0x{:08X}\",", skill.id);
             fmt::println("EN={{ name=\"{}\", }},", skill.name.at(EN));
             fmt::println("DE={{ name=\"{}\", }},", skill.name.at(DE));
@@ -45,7 +59,6 @@ void printNewSkills(const std::vector<Skill> &skills)
             fmt::println("");
         }
     }
-#endif
 }
 
 int main(int argc, const char **argv)
@@ -58,7 +71,12 @@ int main(int argc, const char **argv)
     TravelInfo info;
     SkillLoader loader("C:\\projects"); // TODO: make an input arg
     info.skills = loader.getSkills();
-    if(!mergeSkillInputs(info))
+    if(!loadSkillInputs(info))
+    {
+        return -1;
+    }
+    printNewSkills(info);
+    if(!mergeSkillInputs(info, info.inputs))
     {
         return -1;
     }
@@ -71,7 +89,6 @@ int main(int argc, const char **argv)
         return -1;
     }
 
-    printNewSkills(info.skills);
     outputSkillDataFile(info);
     outputLocaleDataFile(info);
     return 0;

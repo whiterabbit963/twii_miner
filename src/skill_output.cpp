@@ -40,6 +40,8 @@ Skill::Type getSkillType(string_view name)
         return Skill::Type::Racial;
     if(name == "creep")
         return Skill::Type::Creep;
+    if(name == "ignore")
+        return Skill::Type::Ignore;
     return Skill::Type::Unknown;
 }
 

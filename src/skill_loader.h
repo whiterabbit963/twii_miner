@@ -95,6 +95,7 @@ struct Skill
     enum class Type
     {
         Unknown,
+        Ignore,
         Hunter,
         Warden,
         Mariner,
@@ -166,8 +167,10 @@ using Utf8Map = std::map<std::string_view, std::string_view>;
 
 struct TravelInfo
 {
-    std::map<Skill::Type, LCLabel> labelTags;
     std::vector<Skill> skills;
+    std::map<unsigned, Skill> inputs;
+    std::vector<uint32_t> blacklist;
+    std::map<Skill::Type, LCLabel> labelTags;
     std::vector<Currency> currencies;
     std::vector<Faction> factions;
     std::vector<RepRank> repRanks;

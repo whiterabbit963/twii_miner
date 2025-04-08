@@ -5,6 +5,47 @@
     racials={EN="Racial", DE="Rasse", FR="Race", RU="Расовые" }
     rep={EN="Rep", DE="Ruf", FR="Rep", RU="Репутация" }
 
+[[ignore]]
+id="0x7002FF64"
+name="Return Home 12"
+
+[[ignore]]
+id="0x7002FF66"
+name="Return Home 13"
+
+[[ignore]]
+id="0x7002FF67"
+name="Return Home 14"
+
+[[ignore]]
+id="0x7002FF68"
+name="Return Home 15"
+
+[[ignore]]
+id="0x7002FF5E"
+name="Return Home 16"
+
+[[ignore]]
+id="0x70037B69"
+name="Smell the Roses"
+
+[[ignore]]
+id="0x70003F3D"
+name="Find the Path"
+
+[[ignore]]
+id="0x70003F40"
+name="Desperate Flight"
+
+[[ignore]]
+id="0x70017A8D"
+name="Desperate Flight"
+
+[[ignore]]
+id="0x7002A7B8"
+name="Precise Map to Glân Vraig"
+
+
 [[hunter]]
     id="0x7000A2C1"
     name="Return to Camp"

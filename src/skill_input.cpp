@@ -253,7 +253,7 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
     return true;
 }
 
-bool mergeSkillInputs(TravelInfo &info)
+bool loadSkillInputs(TravelInfo &info)
 {
     toml::parse_result result = toml::parse_file("C:\\projects\\twii_miner\\skill_input.toml");
 
@@ -265,7 +265,6 @@ bool mergeSkillInputs(TravelInfo &info)
         return false;
     }
 
-    std::map<unsigned, Skill> skillInputs;
     auto &table = result.table();
     for(auto &top : table)
     {
@@ -279,7 +278,7 @@ bool mergeSkillInputs(TravelInfo &info)
                 auto *itemTable = items.as_table();
                 if(!loadSkillInput(itemTable, skill))
                     return false;
-                skillInputs.insert({itemTable->source().begin.line, std::move(skill)});
+                info.inputs.insert({itemTable->source().begin.line, std::move(skill)});
             }
             continue;
         }
@@ -311,7 +310,12 @@ bool mergeSkillInputs(TravelInfo &info)
             }
         }
     }
+    return true;
+}
 
+bool mergeSkillInputs(TravelInfo &info,
+                      std::map<unsigned, Skill> &skillInputs)
+{
     std::vector<Skill> xmlSkills = std::move(info.skills);
     info.skills = std::vector<Skill>{};
     info.skills.reserve(xmlSkills.size());

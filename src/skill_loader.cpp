@@ -14,11 +14,6 @@ using namespace rapidxml;
 // </trait>
 constexpr string_view s_traitsFn = "traits.xml";
 
-constexpr array<uint32_t, 2> s_blacklist{
-    1879064384, // Desperate Flight
-    1879145101, // Desperate Flight
-};
-
 Skill::Type getGroupTypeFromName(string_view name)
 {
     if(name == "Warden"sv)
@@ -93,8 +88,6 @@ std::vector<Skill> SkillLoader::getSkills()
             continue;
 
         skill.id = atoi(attr->value());
-        if(std::ranges::find(s_blacklist, skill.id) != s_blacklist.end())
-            continue;
 
         attr = node->first_attribute("description");
         if(attr)
