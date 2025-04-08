@@ -559,20 +559,21 @@ bool SkillLoader::getCurrencies(TravelInfo &info)
     return true;
 }
 
-static uint32_t getBartererId(xml_node<> *root, xml_node<> *proNode)
+static vector<uint32_t> getBartererId(xml_node<> *root, xml_node<> *proNode)
 {
     // now that barterEntries have been parsed
     // get the profileId for the barterProfile
     // and search through barterer starting from root
+    vector<uint32_t> barterIds;
     xml_attribute<> *attr = proNode->first_attribute("profileId");
     if(!attr)
-        return 0;
+        return barterIds;
     const uint32_t profileId = atoi(attr->value());
     for(xml_node<> *brtrNode = root->first_node("barterer");
-         brtrNode; brtrNode = brtrNode->next_sibling("barterer"))
+            brtrNode; brtrNode = brtrNode->next_sibling("barterer"))
     {
         for(xml_node<> *bpNode = brtrNode->first_node("barterProfile");
-             bpNode; bpNode = bpNode->next_sibling("barterProfile"))
+                bpNode; bpNode = bpNode->next_sibling("barterProfile"))
         {
             attr = bpNode->first_attribute("profileId");
             if(!attr)
@@ -583,10 +584,10 @@ static uint32_t getBartererId(xml_node<> *root, xml_node<> *proNode)
             attr = brtrNode->first_attribute("id");
             if(!attr)
                 continue;
-            return atoi(attr->value());
+            barterIds.push_back(atoi(attr->value()));
         }
     }
-    return 0;
+    return barterIds;
 }
 
 // <barterProfile profileId="1879501119" name="Temple of Utug-bûr Rewards">
@@ -631,8 +632,6 @@ bool SkillLoader::getBarters(TravelInfo &info)
                 {
                     continue;
                 }
-                acquireIt->barters.push_back({});
-                auto &bartersList = acquireIt->barters.back();
                 for(xml_node<> *giveNode = brtrNode->first_node("give");
                         giveNode; giveNode = giveNode->next_sibling("give"))
                 {
@@ -649,17 +648,22 @@ bool SkillLoader::getBarters(TravelInfo &info)
                         token.amt = atoi(giveAttr->value());
                     }
 
-                    uint32_t bartererId = getBartererId(root, proNode);
-                    if(bartererId)
+                    auto barterIds = getBartererId(root, proNode);
+                    if(barterIds.empty())
                     {
-                        bartersList.bartererId = bartererId;
-                        auto npcIt = ranges::find(info.npcs, bartererId, &NPC::id);
+                        fmt::println("BARTER NOT FOUND");
+                    }
+                    for(auto barterId : barterIds)
+                    {
+                        Barter barter{barterId};
+                        auto npcIt = ranges::find(info.npcs, barterId, &NPC::id);
                         if(npcIt == info.npcs.end())
                         {
-                            info.npcs.push_back({bartererId});
+                            info.npcs.push_back({barterId});
                         }
+                        barter.currency.push_back(token);
+                        acquireIt->barters.push_back(barter);
                     }
-                    bartersList.currency.push_back(token);
 
                     auto tokenIt = ranges::find(info.currencies, token.id, &Currency::id);
                     if(tokenIt == info.currencies.end())

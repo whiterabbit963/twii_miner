@@ -161,7 +161,7 @@ static string outputOverlapIds(const vector<uint32_t> &ids)
     return out;
 }
 
-static string outputVendor(const string &locale, const NPC &npc, uint32_t bartererId)
+static string outputVendor(const string &locale, const NPC &npc, const Barter &barter)
 {
     if(!npc.titleKey.empty())
     {
@@ -171,7 +171,19 @@ static string outputVendor(const string &locale, const NPC &npc, uint32_t barter
         string_view title = npc.title.at(EN);
         if(title == "Delving Mission Giver"sv ||
                 title == "Ikorbâni Quartermaster"sv ||
-                title == "Iron Garrison Miners"sv)
+                title == "Iron Garrison Miners"sv ||
+                title == "Protector of the Vales"sv)
+        {
+            return npc.title.at(locale);
+        }
+
+        // mithril
+        if(title == "Hunter Trainer"sv && barter.currency[0].id == 1879255991)
+        {
+            return npc.title.at(locale);
+        }
+
+        if(title == "Warden Trainer"sv && barter.currency[0].id == 1879255991)
         {
             return npc.title.at(locale);
         }
@@ -188,17 +200,17 @@ static string outputVendor(const string &locale, const NPC &npc, uint32_t barter
     return npc.name.at(locale);
 }
 
-static string outputVendors(const TravelInfo &info, uint32_t id)
+static string outputVendors(const TravelInfo &info, const Barter &barter) //uint32_t id)
 {
     string buf;
-    auto it = ranges::find(info.npcs, id, &NPC::id);
+    auto it = ranges::find(info.npcs, barter.bartererId, &NPC::id);
     if(it == info.npcs.end())
         return buf;
     auto in = std::back_inserter(buf);
-    fmt::format_to(in, "                EN={{vendor=\"{}\" }},\n", outputVendor(EN, *it, id));
-    fmt::format_to(in, "                DE={{vendor=\"{}\" }},\n", outputVendor(DE, *it, id));
-    fmt::format_to(in, "                FR={{vendor=\"{}\" }},\n", outputVendor(FR, *it, id));
-    fmt::format_to(in, "                RU={{vendor=\"{}\" }} }}", outputVendor(RU, *it, id));
+    fmt::format_to(in, "                EN={{vendor=\"{}\"}},\n", outputVendor(EN, *it, barter));
+    fmt::format_to(in, "                DE={{vendor=\"{}\"}},\n", outputVendor(DE, *it, barter));
+    fmt::format_to(in, "                FR={{vendor=\"{}\"}},\n", outputVendor(FR, *it, barter));
+    fmt::format_to(in, "                RU={{vendor=\"{}\"}}}}", outputVendor(RU, *it, barter));
     return buf;
 }
 
@@ -242,13 +254,27 @@ static string outputAllegianceRank(const Skill &skill)
     return buf;
 }
 
+bool operator==(const vector<Token> &lhs, const vector<Token> &rhs)
+{
+    if(lhs.size() == rhs.size())
+    {
+        for(unsigned i = 0; i < lhs.size(); ++i)
+        {
+            if(lhs[i].amt != rhs[i].amt || lhs[i].id != rhs[i].id)
+                return false;
+        }
+        return true;
+    }
+    return false;
+}
+
 static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &skill)
 {
     if(skill.group == Skill::Type::Creep)
         return;
     if(skill.autoLevel)
     {
-        fmt::println(out, "        acquire={{ {{ autoLevel=true }} }},");
+        fmt::println(out, "        acquire={{{{autoLevel=true}}}},");
     }
     else if(!skill.acquireDesc.empty())
     {
@@ -257,22 +283,21 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
         fmt::println(out, "                EN={{desc=\"{}\"}},", skill.acquireDesc.at(EN));
         fmt::println(out, "                DE={{desc=\"{}\"}},", skill.acquireDesc.at(DE));
         fmt::println(out, "                FR={{desc=\"{}\"}},", skill.acquireDesc.at(FR));
-        fmt::println(out, "                RU={{desc=\"{}\"}} }} }},", skill.acquireDesc.at(RU));
+        fmt::println(out, "                RU={{desc=\"{}\"}}}}}},", skill.acquireDesc.at(RU));
     }
     else if(skill.acquireDeed)
     {
-        bool hasRank = skill.allegiance && skill.allegiance->rank;
         fmt::println(out, "        acquire={{");
         fmt::println(out, "            {{{}", outputAllegianceRank(skill));
         fmt::println(out, "                EN={{{}}},", outputDeed(EN, skill));
         fmt::println(out, "                DE={{{}}},", outputDeed(DE, skill));
         fmt::println(out, "                FR={{{}}},", outputDeed(FR, skill));
-        fmt::print(out, "                RU={{{}}} }}", outputDeed(RU, skill));
+        fmt::print(out, "                RU={{{}}}}}", outputDeed(RU, skill));
         if(skill.storeLP)
         {
-            fmt::println(out, ",\n            {{ store=true }}");
+            fmt::println(out, ",\n            {{store=true}}");
         }
-        fmt::println(out, " }},");
+        fmt::println(out, "}},");
     }
     else
     {
@@ -298,11 +323,22 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
                     fmt::format_to(in, "\n                DE={{{}}},", outputQuest(DE, skill, acquire));
                     fmt::format_to(in, "\n                FR={{{}}},", outputQuest(FR, skill, acquire));
                     fmt::format_to(in, "\n                RU={{{}}}", outputQuest(RU, skill, acquire));
-                    fmt::format_to(in, " }}");
+                    fmt::format_to(in, "}}");
                 }
 
+                unordered_map<string, vector<Token>> bartersDone;
                 for(auto &bartersList : acquire.barters)
                 {
+                    auto npcIt = ranges::find(info.npcs, bartersList.bartererId, &NPC::id);
+                    if(npcIt == info.npcs.end())
+                        continue;
+                    auto vendorName = outputVendor(EN, *npcIt, bartersList);
+                    auto done = bartersDone.find(vendorName);
+                    if(done != bartersDone.end() && done->second == bartersList.currency)
+                    {
+                        continue;
+                    }
+                    bartersDone.insert({std::move(vendorName), bartersList.currency});
                     fmt::format_to(in, "{}\n            {{cost={{", acquireFront ? "" : ",");
                     acquireFront = false;
 
@@ -348,22 +384,20 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
                         }
                     }
                     fmt::format_to(in, "}},\n");
-                    fmt::format_to(in, "{}", outputVendors(info, bartersList.bartererId));
+                    fmt::format_to(in, "{}", outputVendors(info, bartersList));
                 }
             }
-            firstEntry = acquireFront;
         }
         if(skill.storeLP)
         {
             bool addComma = !buf.empty();
-            fmt::format_to(in, "{}{} {{ store=true }}", addComma ? "," : "",
-                           firstEntry ? "" : "\n           ");
-            // firstEntry = false;
+            fmt::format_to(in, "{}{{store=true}}",
+                           addComma ? ",\n           " : "");
         }
 
         if(!buf.empty())
         {
-            fmt::println(out, "        acquire={{{} }},", buf);
+            fmt::println(out, "        acquire={{{}}},", buf);
         }
     }
 }
@@ -398,7 +432,7 @@ static string outputReputation(const Skill &skill, const TravelInfo &info)
 
 static string outputLabelTag(const LCLabel &tag)
 {
-    return fmt::format("{{EN=\"{}\", DE=\"{}\", FR=\"{}\", RU=\"{}\" }}",
+    return fmt::format("{{EN=\"{}\", DE=\"{}\", FR=\"{}\", RU=\"{}\"}}",
                        tag.at(EN), tag.at(DE), tag.at(FR), tag.at(RU));
 }
 
@@ -414,7 +448,7 @@ static string outputLabelField(std::optional<std::reference_wrapper<const LCLabe
         {
             if(name == "desc")
                 return fmt::format(", {}=[[{}]]", name, it->second);
-            return fmt::format("{} {}=\"{}\"", name == "name" ? "" : ",", name, it->second);
+            return fmt::format("{}{}=\"{}\"", name == "name" ? "" : ", ", name, it->second);
         }
     }
     return {};
@@ -444,10 +478,10 @@ void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill)
     if(skill.race)
         fmt::println(out, "        -- {}", *skill.race);
     fmt::println(out, "        id=\"0x{:08X}\",", skill.id);
-    fmt::println(out, "        EN={{{} }},", outputLabelFields(skill, EN));
-    fmt::println(out, "        DE={{{} }},", outputLabelFields(skill, DE));
-    fmt::println(out, "        FR={{{} }},", outputLabelFields(skill, FR));
-    fmt::println(out, "        RU={{{} }},", outputLabelFields(skill, RU));
+    fmt::println(out, "        EN={{{}}},", outputLabelFields(skill, EN));
+    fmt::println(out, "        DE={{{}}},", outputLabelFields(skill, DE));
+    fmt::println(out, "        FR={{{}}},", outputLabelFields(skill, FR));
+    fmt::println(out, "        RU={{{}}},", outputLabelFields(skill, RU));
     if(skill.skillTag)
         fmt::println(out, "        tag=\"{}\",", *skill.skillTag);
     fmt::println(out, "        map={},", outputMapList(skill.mapList));
@@ -600,14 +634,13 @@ void outputLocaleDataFile(const TravelInfo &info)
     fmt::println(out, "LC_DE.token.LOTRO_POINT = \"HdRO-Punkte\"");
     fmt::println(out, "LC_FR.token.LOTRO_POINT = \"Points SdAO\"");
     fmt::println(out, "LC_RU.token.LOTRO_POINT = \"ВКО марки\"");
-    fmt::println(out, "");
     for(const auto &currency : info.currencies)
     {
         auto title = convertToLuaGVarName(currency.name.at(EN), info.strip);
+        fmt::println(out, "");
         fmt::println(out, "LC_EN.token.{} = \"{}\"", title, currency.name.at(EN));
         fmt::println(out, "LC_DE.token.{} = \"{}\"", title, currency.name.at(DE));
         fmt::println(out, "LC_FR.token.{} = \"{}\"", title, currency.name.at(FR));
         fmt::println(out, "LC_RU.token.{} = \"{}\"", title, currency.name.at(RU));
-        fmt::println(out, "");
     }
 }
