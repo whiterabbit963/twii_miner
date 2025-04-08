@@ -9,12 +9,6 @@
 
 using namespace std;
 
-struct TravelOutputState
-{
-    //std::string_view groupName;
-    //std::map<std::string, unsigned> sortLevelNext;
-};
-
 string_view getGroupName(Skill::Type type)
 {
     switch(type)
@@ -444,7 +438,7 @@ static string outputLabelFields(const Skill &skill, std::string_view locale)
                        outputLabelField(skill.zone, lc, "zone"));
 }
 
-void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill, TravelOutputState &state)
+void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill)
 {
     fmt::println(out, "    self.{}:AddSkill({{", getGroupName(skill.group));
     if(skill.race)
@@ -489,7 +483,6 @@ void outputSkillDataFile(const TravelInfo &info)
 
     fmt::println(out, "---[[ auto-generated travel skills ]] --\n\n");
     fmt::println(out, "function TravelDictionary:CreateDictionaries()");
-    TravelOutputState state;
     auto groups = {Skill::Type::Hunter, Skill::Type::Warden, Skill::Type::Mariner,
         Skill::Type::Racial, Skill::Type::Gen, Skill::Type::Rep, Skill::Type::Creep};
     for(auto group : groups)
@@ -510,7 +503,7 @@ void outputSkillDataFile(const TravelInfo &info)
             if(skill.group != group)
                 continue;
 
-            outputSkill(out, info, skill, state);
+            outputSkill(out, info, skill);
         }
         if(group == Skill::Type::Creep)
             fmt::println(out, "end");
