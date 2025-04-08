@@ -1688,7 +1688,7 @@
     level=1
     [gen.acquire_desc]
         EN="Buy a House and earn the Novice trait"
-        DE="Kaufe ein Haus und verdiene dir die Eigenschaft \"Anfänger\""
+        DE="Kaufe ein Haus und verdiene dir die Eigenschaft \\\"Anfänger\\\""
         FR="Achetez une maison et gagnez le trait Novice"
         RU="Купите дом и получите талант новичка"
 
@@ -1702,7 +1702,7 @@
     level=1
     [gen.acquire_desc]
         EN="Buy a Premium House and earn the Novice trait"
-        DE="Kaufe ein Premiumheim und verdiene dir die Eigenschaft \"Anfänger\""
+        DE="Kaufe ein Premiumheim und verdiene dir die Eigenschaft \\\"Anfänger\\\""
         FR="Achetez une maison premium et gagnez le trait Novice"
         RU="Купите престижный дом и получите талант новичка"
 
@@ -1859,7 +1859,7 @@
     level=40.11
     [rep.acquire_desc]
         EN="Delving Reward Box (any tier)"
-        DE="Belohnungskiste \"Vertiefen\" (jede Stufe)"
+        DE="Belohnungskiste \\\"Vertiefen\\\" (jede Stufe)"
         FR="Boîte de récompenses de fouille (n'importe quel niveau)"
         RU="Ящик с наградами погружений (любой уровень)"
 
