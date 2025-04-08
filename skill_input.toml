@@ -1358,6 +1358,7 @@ name="Precise Map to Glân Vraig"
     FR={ name="Naviguer vers la Lothlorien", label="Lothlórien", detail="Egladil", zone="Lothlórien" }
     RU={ name="Отплытие в Лотлориэн",        label="Лотлориэн",  detail="Эгладил", zone="Лотлориэн" }
     map=[{type="RHOVANION", x=245, y=670}]
+    overlap=["0x70048C8C"]
     level=60
 
 [[mariner]]
