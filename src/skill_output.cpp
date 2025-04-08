@@ -64,7 +64,7 @@ std::string_view getRegionText(MapLoc::Region region)
     case MapLoc::Region::Haradwaith:
         return "HARADWAITH"sv;
     case MapLoc::Region::Creep:
-        return "CREEP"sv;
+        return "CREEPS"sv;
     default: return "NONE"sv;
     }
 }
