@@ -297,7 +297,7 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
         fmt::print(out, "                RU={{{}}}}}", outputDeed(RU, skill));
         if(skill.storeLP)
         {
-            fmt::println(out, ",\n            {{store=true}}");
+            fmt::print(out, ",\n            {{store=true}}");
         }
         fmt::println(out, "}},");
     }
@@ -496,7 +496,7 @@ void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill)
     {
         fmt::println(out, "        {}", outputReputation(skill, info));
     }
-    if(skill.minLevel)
+    if(skill.minLevel && skill.group != Skill::Type::Creep)
     {
         fmt::println(out, "        minLevel={},", skill.minLevel);
     }
