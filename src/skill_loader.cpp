@@ -605,6 +605,10 @@ bool SkillLoader::getBarters(TravelInfo &info)
     for(xml_node<> *proNode = root->first_node("barterProfile");
             proNode; proNode = proNode->next_sibling("barterProfile"))
     {
+        xml_attribute<> *attr = proNode->first_attribute("requiredFaction");
+        string_view factionKey;
+        if(attr)
+            factionKey = attr->value();
         for(xml_node<> *brtrNode = proNode->first_node("barterEntry");
                 brtrNode; brtrNode = brtrNode->next_sibling("barterEntry"))
         {
@@ -644,7 +648,7 @@ bool SkillLoader::getBarters(TravelInfo &info)
                     auto barterIds = getBartererId(root, proNode);
                     if(barterIds.empty())
                     {
-                        fmt::println("BARTER NOT FOUND");
+                        fmt::println("BARTER: NONE FOUND {}", skillIt->id);
                     }
                     for(auto barterId : barterIds)
                     {
@@ -662,6 +666,41 @@ bool SkillLoader::getBarters(TravelInfo &info)
                     if(tokenIt == info.currencies.end())
                     {
                         info.currencies.push_back({token.id});
+                    }
+
+                    if(!factionKey.empty())
+                    {
+                        uint32_t factionId = 0;
+                        uint32_t factionRank = 0;
+                        unsigned i = 0;
+                        string_view words{factionKey};
+                        for(const auto word : std::ranges::split_view(words, ";"sv))
+                        {
+                            switch(i)
+                            {
+                            case 0: factionId = atoi(word.data()); break;
+                            case 1: factionRank = atoi(word.data()); break;
+                            default: break;
+                            }
+                            ++i;
+                        }
+                        if(factionId)
+                        {
+                            if(skillIt->factionId)
+                            {
+                                if(skillIt->factionId != factionId)
+                                {
+                                    fmt::println("BARTER: FACTION ALREADY SET {}({}): {} : {}",
+                                                 skillIt->name[EN], skillIt->id, skillIt->factionId,
+                                                 factionId);
+                                }
+                            }
+                            else
+                            {
+                                skillIt->factionId = factionId;
+                                skillIt->factionRank = factionRank;
+                            }
+                        }
                     }
                 }
             }
