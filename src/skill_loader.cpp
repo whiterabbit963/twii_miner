@@ -1176,6 +1176,22 @@ bool SkillLoader::getDeeds(const unordered_map<string_view, Skill*> &traits,
                 {
                     uint32_t deedId = atoi(attr->value());
                     skill->acquireDeed = Deed{deedId};
+                    attr = node->first_attribute("minLevel");
+                    if(attr)
+                    {
+                        unsigned minLevel = skill->minLevel = atoi(attr->value());
+                        if(skill->minLevel)
+                        {
+                            if(skill->minLevel != minLevel)
+                            {
+                                fmt::println("DEED: minLevel already set!!!");
+                            }
+                        }
+                        else
+                        {
+                            skill->minLevel = minLevel;
+                        }
+                    }
                     break;
                 }
             }
