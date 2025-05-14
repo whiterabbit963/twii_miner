@@ -701,6 +701,14 @@ name="Precise Map to Glân Vraig"
     map=[{type="HARADWAITH", x=670, y=310}]
     level=150.5
 
+[[hunter]]
+    id="0x7006FD4F"
+    EN={ name="Guide to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    DE={ name="Guide to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    FR={ name="Guide to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    RU={ name="Guide to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    map=[{type="HARADWAITH", x=-1, y=-1}]
+    level=150.6
 
 [[warden]]
     id="0x70064F4D"
@@ -1295,6 +1303,14 @@ name="Precise Map to Glân Vraig"
     map=[{type="HARADWAITH", x=670, y=310}]
     level=150.5
 
+[[warden]]
+    id="0x7006FD50"
+    EN={ name="Muster at Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    DE={ name="Muster at Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    FR={ name="Muster at Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    RU={ name="Muster at Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    map=[{type="HARADWAITH", x=-1, y=-1}]
+    level=150.6
 
 [[mariner]]
     id="0x70066100"
@@ -1730,7 +1746,7 @@ name="Precise Map to Glân Vraig"
     level=1
     [gen.acquire_desc]
         EN="Buy a House and earn the Novice trait"
-        DE="Kaufe ein Haus und verdiene dir die Eigenschaft \\\"Anfänger\\\""
+        DE="Kaufe ein Haus und erlange die Eigenschaft \\\"Novize\\\""
         FR="Achetez une maison et gagnez le trait Novice"
         RU="Купите дом и получите талант новичка"
 
@@ -1744,7 +1760,7 @@ name="Precise Map to Glân Vraig"
     level=1
     [gen.acquire_desc]
         EN="Buy a Premium House and earn the Novice trait"
-        DE="Kaufe ein Premiumheim und verdiene dir die Eigenschaft \\\"Anfänger\\\""
+        DE="Kaufe ein Premiumhaus und erlange die Eigenschaft \\\"Novize\\\""
         FR="Achetez une maison premium et gagnez le trait Novice"
         RU="Купите престижный дом и получите талант новичка"
 
@@ -1758,7 +1774,7 @@ name="Precise Map to Glân Vraig"
     level=1
     [gen.acquire_desc]
         EN="Become a member of a kinship that has a kinship house"
-        DE="Werden Sie Mitglied einer Sippe, die ein Sippenhaus hat"
+        DE="Werde Mitglied einer Sippe, die ein Sippenhaus hat"
         FR="Devenez membre d’une confrérie qui a une maison de confrérie"
         RU="Станьте членом содружества, у которого есть дом"
 
@@ -1772,7 +1788,7 @@ name="Precise Map to Glân Vraig"
     level=1
     [gen.acquire_desc]
         EN="Become a member of a kinship"
-        DE="Werden Sie Mitglied einer Sippe"
+        DE="Werde Mitglied einer Sippe"
         FR="Devenir membre d’une confrérie"
         RU="Станьте членом содружества"
 
@@ -1901,7 +1917,7 @@ name="Precise Map to Glân Vraig"
     level=40.11
     [rep.acquire_desc]
         EN="Delving Reward Box (any tier)"
-        DE="Belohnungskiste \\\"Vertiefen\\\" (jede Stufe)"
+        DE="Erkunderbelohnungskiste (jede Stufe)"
         FR="Boîte de récompenses de fouille (n'importe quel niveau)"
         RU="Ящик с наградами погружений (любой уровень)"
 
@@ -2404,6 +2420,14 @@ name="Precise Map to Glân Vraig"
     map=[{type="HARADWAITH", x=700, y=310}]
     level=150.5
 
+[[rep]]
+    id="0x7006FD4B"
+    EN={ name="Return to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    DE={ name="Return to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    FR={ name="Return to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    RU={ name="Return to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
+    map=[{type="HARADWAITH", x=-1, y=-1}]
+    level=150.6
 
 # function TravelDictionary:CreateCreepDictionary()
 [[creep]]

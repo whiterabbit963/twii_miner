@@ -176,7 +176,7 @@ struct TravelInfo
     std::vector<RepRank> repRanks;
     std::vector<NPC> npcs;
     Utf8Map strip{{"á", "a"}, {"â", "a"}, {"ê", "e"}, {"ú", "u"},
-                  {"é", "e"}, {"ó", "o"}, {"í", "i"}};
+                  {"é", "e"}, {"ó", "o"}, {"í", "i"}, {"û", "u"}};
 };
 
 
