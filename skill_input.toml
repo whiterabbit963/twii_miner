@@ -707,7 +707,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Guide to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
     FR={ name="Guide to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
     RU={ name="Guide to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
-    map=[{type="HARADWAITH", x=-1, y=-1}]
+    map=[{type="HARADWAITH", x=620, y=445}]
     level=150.6
 
 [[warden]]
@@ -1309,7 +1309,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Muster at Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
     FR={ name="Muster at Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
     RU={ name="Muster at Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
-    map=[{type="HARADWAITH", x=-1, y=-1}]
+    map=[{type="HARADWAITH", x=620, y=445}]
     level=150.6
 
 [[mariner]]
@@ -2426,7 +2426,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Return to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
     FR={ name="Return to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
     RU={ name="Return to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
-    map=[{type="HARADWAITH", x=-1, y=-1}]
+    map=[{type="HARADWAITH", x=590, y=445}]
     level=150.6
 
 # function TravelDictionary:CreateCreepDictionary()
