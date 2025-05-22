@@ -534,6 +534,7 @@ bool SkillLoader::getCurrencyLabel(const string &locale, TravelInfo &info)
 // <paperItem identifier="1879416779" name="Silver Coin of Gundabad" itemClass="27" category="15" free="true" iconId="1092667064" cap="500"/>
 bool SkillLoader::getCurrencies(TravelInfo &info)
 {
+    info.currencies.push_back({1879255991}); // Mithril Coins
     if(!getBarters(info))
         return false;
 
