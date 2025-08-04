@@ -344,10 +344,10 @@ name="Precise Map to Glân Vraig"
 
 [[hunter]]
     id="0x70041197"
-    EN={ name="Guide to Dol Amroth",    desc="in western Gondor",   label="Dol Amroth", zone="Western Gondor" }
-    DE={ name="Führer nach Dol Amroth", desc="nach Dol Amroth.",    label="Dol Amroth", zone="West-Gondor" }
-    FR={ name="Guide vers Dol Amroth",  desc="l'Ouest du Gondor",   label="Dol Amroth", zone="Gondor de l'Ouest" }
-    RU={ name="Путь в Дол Амрот",       desc="в Западном Гондоре",  label="Дол Амрот",  zone="Западный Гондор" }
+    EN={ name="Guide to Dol Amroth",    label="Dol Amroth", zone="Western Gondor" }
+    DE={ name="Führer nach Dol Amroth", label="Dol Amroth", zone="West-Gondor" }
+    FR={ name="Guide vers Dol Amroth",  label="Dol Amroth", zone="Gondor de l'Ouest" }
+    RU={ name="Путь в Дол Амрот",       label="Дол Амрот",  zone="Западный Гондор" }
     map=[{type="GONDOR", x=225, y=550}]
     overlap=["0x700411AC"]
     level=98
@@ -584,10 +584,10 @@ name="Precise Map to Glân Vraig"
 
 [[hunter]]
     id="0x70068711"
-    EN={ name="Guide to Dol Amroth",    desc="King's Gondor",       label="King's Dol Amroth",      zlabel="Dol Amroth",    zone="King's Gondor" }
-    DE={ name="Führer nach Dol Amroth", desc="Königreich Gondor",   label="Königreich Dol Amroth",  zlabel="Dol Amroth",    zone="Königreich Gondor" }
-    FR={ name="Guide vers Dol Amroth",  desc="le Gondor royal",     label="Dol Amroth royal",       zlabel="Dol Amroth",    zone="Gondor royal" }
-    RU={ name="Путь в Дол Амрот",       desc="Королевский Гондор",  label="Королевский Дол Амрот",  zlabel="Дол Амрот",     zone="Королевский Гондор" }
+    EN={ name="Guide to Dol Amroth",    label="King's Dol Amroth",      zlabel="Dol Amroth",    zone="King's Gondor" }
+    DE={ name="Führer nach Dol Amroth", label="Königreich Dol Amroth",  zlabel="Dol Amroth",    zone="Königreich Gondor" }
+    FR={ name="Guide vers Dol Amroth",  label="Dol Amroth royal",       zlabel="Dol Amroth",    zone="Gondor royal" }
+    RU={ name="Путь в Дол Амрот",       label="Королевский Дол Амрот",  zlabel="Дол Амрот",     zone="Королевский Гондор" }
     map=[{type="GONDOR", x=210, y=485}, {type="HARADWAITH", x=325, y=70}]
     overlap=["0x70068700"]
     level=142
@@ -946,10 +946,10 @@ name="Precise Map to Glân Vraig"
 
 [[warden]]
     id="0x70041198"
-    EN={ name="Muster in Dol Amroth",       desc="in western Gondor",     label="Dol Amroth", zone="Western Gondor" }
-    DE={ name="Appell in Dol Amroth",       desc="West-Gondor zu reisen", label="Dol Amroth", zone="West-Gondor" }
-    FR={ name="Rassemblement : Dol Amroth", desc="l'Ouest du Gondor",     label="Dol Amroth", zone="Gondor de l'Ouest" }
-    RU={ name="Сбор в Дол Амроте",          desc="в Западном Гондоре",    label="Дол Амрот",  zone="Западный Гондор" }
+    EN={ name="Muster in Dol Amroth",       label="Dol Amroth", zone="Western Gondor" }
+    DE={ name="Appell in Dol Amroth",       label="Dol Amroth", zone="West-Gondor" }
+    FR={ name="Rassemblement : Dol Amroth", label="Dol Amroth", zone="Gondor de l'Ouest" }
+    RU={ name="Сбор в Дол Амроте",          label="Дол Амрот",  zone="Западный Гондор" }
     map=[{type="GONDOR", x=225, y=550}]
     overlap=["0x700411AC"]
     level=98
@@ -1186,10 +1186,10 @@ name="Precise Map to Glân Vraig"
 
 [[warden]]
     id="0x70068712"
-    EN={ name="Muster at Dol Amroth",       desc="King's Gondor",      label="King's Dol Amroth",      zlabel="Dol Amroth",    zone="King's Gondor" }
-    DE={ name="Appell in Dol Amroth",       desc="Königreich Gondor",  label="Königreich Dol Amroth",  zlabel="Dol Amroth",    zone="Königreich Gondor" }
-    FR={ name="Rassemblement à Dol Amroth", desc="le Gondor royal",    label="Dol Amroth royal",       zlabel="Dol Amroth",    zone="Gondor royal" }
-    RU={ name="Сбор в Дол Амроте",          desc="Королевский Гондор", label="Королевский Дол Амрот",  zlabel="Дол Амрот",     zone="Королевский Гондор" }
+    EN={ name="Muster at Dol Amroth",       label="King's Dol Amroth",      zlabel="Dol Amroth",    zone="King's Gondor" }
+    DE={ name="Appell in Dol Amroth",       label="Königreich Dol Amroth",  zlabel="Dol Amroth",    zone="Königreich Gondor" }
+    FR={ name="Rassemblement à Dol Amroth", label="Dol Amroth royal",       zlabel="Dol Amroth",    zone="Gondor royal" }
+    RU={ name="Сбор в Дол Амроте",          label="Королевский Дол Амрот",  zlabel="Дол Амрот",     zone="Королевский Гондор" }
     map=[{type="GONDOR", x=210, y=485}, {type="HARADWAITH", x=325, y=70}]
     overlap=["0x70068700"]
     level=142
@@ -1408,10 +1408,10 @@ name="Precise Map to Glân Vraig"
 
 [[mariner]]
     id="0x70066117"
-    EN={ name="Sail to Dol Amroth",       desc="Dol Amroth with nearby",     label="Dol Amroth", zone="Western Gondor" }
-    DE={ name="Segelt nach Dol Amroth",   desc="nach Dol Amroth.",           label="Dol Amroth", zone="West-Gondor" }
-    FR={ name="Naviguer vers Dol Amroth", desc="Amroth en bonne compagnie.", label="Dol Amroth", zone="Gondor de l'Ouest" }
-    RU={ name="Отплытие в Дол Амрот",       desc="в Дол Амрот",                 label="Дол Амрот",  zone="Западный Гондор" }
+    EN={ name="Sail to Dol Amroth",       label="Dol Amroth", zone="Western Gondor" }
+    DE={ name="Segelt nach Dol Amroth",   label="Dol Amroth", zone="West-Gondor" }
+    FR={ name="Naviguer vers Dol Amroth", label="Dol Amroth", zone="Gondor de l'Ouest" }
+    RU={ name="Отплытие в Дол Амрот",     label="Дол Амрот",  zone="Западный Гондор" }
     map=[{type="GONDOR", x=225, y=550}]
     overlap=["0x700411AC"]
     level=98
@@ -1448,10 +1448,10 @@ name="Precise Map to Glân Vraig"
 
 [[mariner]]
     id="0x700687C1"
-    EN={ name="Sail to Dol Amroth",       desc="King's Gondor",      label="King's Dol Amroth",      zlabel="Dol Amroth", zone="King's Gondor" }
-    DE={ name="Segelt nach Dol Amroth",   desc="Königreich Gondor",  label="Königreich Dol Amroth",  zlabel="Dol Amroth", zone="Königreich Gondor" }
-    FR={ name="Naviguer vers Dol Amroth", desc="le Gondor royal",    label="Dol Amroth royal",       zlabel="Dol Amroth", zone="Gondor royal" }
-    RU={ name="Отплытие в Дол Амрот",     desc="Королевский Гондор", label="Королевский Дол Амрот",  zlabel="Дол Амрот",  zone="Королевский Гондор" }
+    EN={ name="Sail to Dol Amroth",       label="King's Dol Amroth",      zlabel="Dol Amroth", zone="King's Gondor" }
+    DE={ name="Segelt nach Dol Amroth",   label="Königreich Dol Amroth",  zlabel="Dol Amroth", zone="Königreich Gondor" }
+    FR={ name="Naviguer vers Dol Amroth", label="Dol Amroth royal",       zlabel="Dol Amroth", zone="Gondor royal" }
+    RU={ name="Отплытие в Дол Амрот",     label="Королевский Дол Амрот",  zlabel="Дол Амрот",  zone="Королевский Гондор" }
     map=[{type="GONDOR", x=210, y=485}, {type="HARADWAITH", x=385, y=70}]
     overlap=["0x70068700"]
     level=142
@@ -2035,10 +2035,10 @@ name="Precise Map to Glân Vraig"
 
 [[rep]]
     id="0x700411AC"
-    EN={ name="Return to Dol Amroth",     desc="in western Gondor",        label="Dol Amroth", zone="Western Gondor" }
-    DE={ name="Rückkehr nach Dol Amroth", desc="West-Gondor zurückkehren", label="Dol Amroth", zone="West-Gondor" }
-    FR={ name="Retour à Dol Amroth",      desc="l'Ouest du Gondor",        label="Dol Amroth", zone="Gondor de l'Ouest" }
-    RU={ name="Возвращение в Дол Амрот",  desc="в Западный Гондор",        label="Дол Амрот",  zone="Западный Гондор" }
+    EN={ name="Return to Dol Amroth",     label="Dol Amroth", zone="Western Gondor" }
+    DE={ name="Rückkehr nach Dol Amroth", label="Dol Amroth", zone="West-Gondor" }
+    FR={ name="Retour à Dol Amroth",      label="Dol Amroth", zone="Gondor de l'Ouest" }
+    RU={ name="Возвращение в Дол Амрот",  label="Дол Амрот",  zone="Западный Гондор" }
     map=[{type="GONDOR", x=195, y=550}]
     level=98
 
@@ -2296,10 +2296,10 @@ name="Precise Map to Glân Vraig"
 
 [[rep]]
     id="0x70068700"
-    EN={ name="Return to Dol Amroth",     desc="King's Gondor",      label="King's Dol Amroth",     zlabel="Dol Amroth", zone="King's Gondor" }
-    DE={ name="Rückkehr nach Dol Amroth", desc="Königreich Gondor",  label="Königreich Dol Amroth", zlabel="Dol Amroth", zone="Königreich Gondor" }
-    FR={ name="Retour à Dol Amroth",      desc="le Gondor royal",    label="Dol Amroth royal",      zlabel="Dol Amroth", zone="Gondor royal" }
-    RU={ name="Возвращение в Дол Амрот",  desc="Королевский Гондор", label="Королевский Дол Амрот", zlabel="Дол Амрот",  zone="Королевский Гондор" }
+    EN={ name="Return to Dol Amroth",      label="King's Dol Amroth",     zlabel="Dol Amroth", zone="King's Gondor" }
+    DE={ name="Rückkehr nach Dol Amroth",  label="Königreich Dol Amroth", zlabel="Dol Amroth", zone="Königreich Gondor" }
+    FR={ name="Retour à Dol Amroth",       label="Dol Amroth royal",      zlabel="Dol Amroth", zone="Gondor royal" }
+    RU={ name="Возвращение в Дол Амрот",   label="Королевский Дол Амрот", zlabel="Дол Амрот",  zone="Королевский Гондор" }
     map=[{type="GONDOR", x=180, y=485}, {type="HARADWAITH", x=355, y=70}]
     level=142
 
