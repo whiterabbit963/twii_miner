@@ -518,7 +518,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Führer nach Annâk-khurfu",   label="Annâk-khurfu",   zone="Elderslade" }
     FR={ name="Guide vers Annâk-khurfu",    label="Annâk-khurfu",   zone="Elderslade" }
     RU={ name="Путь в Аннак-Курфу",         label="Аннак-Курфу",    zone="Долина предков" }
-    map=[{type="RHOVANION", x=530, y=90}]
+    map=[{type="RHOVANION", x=330, y=90}]
     overlap=["0x7005856F"]
     level=130.1
 
@@ -1120,7 +1120,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Appell in Annâk-khurfu",       label="Annâk-khurfu", zone="Elderslade" }
     FR={ name="Rassemblement : Annâk-khurfu", label="Annâk-khurfu", zone="Elderslade" }
     RU={ name="Сбор в Аннак-Курфу",           label="Аннак-Курфу",  zone="Долина предков" }
-    map=[{type="RHOVANION", x=530, y=90}]
+    map=[{type="RHOVANION", x=330, y=90}]
     overlap=["0x7005856F"]
     level=130.1
 
@@ -2228,7 +2228,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Rückkehr nach Annâk-khurfu", label="Annâk-khurfu", zone="Elderslade" }
     FR={ name="Retournez à Annâk-khurfu",   label="Annâk-khurfu", zone="Elderslade" }
     RU={ name="Возвращение в Аннак-Курфу",  label="Аннак-Курфу",  zone="Долина предков" }
-    map=[{type="RHOVANION", x=500, y=90}]
+    map=[{type="RHOVANION", x=300, y=90}]
     level=130.1
 
 [[rep]]
