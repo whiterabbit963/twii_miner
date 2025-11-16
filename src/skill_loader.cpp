@@ -1,6 +1,5 @@
 #include "skill_loader.h"
 
-#include <array>
 #include <ranges>
 #include <unordered_map>
 #include <regex>
@@ -8,11 +7,6 @@
 
 using namespace std;
 using namespace rapidxml;
-
-// <trait identifier="1879180386" name="Travel to Ost Guruth" iconId="1091404797" minLevel="25" category="29" nature="1" tooltip="key:620858129:191029568" description="key:620858129:54354734">
-// <skill id="1879180353" name="Return to Ost Guruth"/>
-// </trait>
-constexpr string_view s_traitsFn = "traits.xml";
 
 Skill::Type getGroupTypeFromName(string_view name)
 {
