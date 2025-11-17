@@ -164,7 +164,9 @@ bool SkillLoader::getSkillNames(const string &locale, vector<Skill> &skills)
             continue;
 
         auto it = std::ranges::find_if(skills, [&](auto &s) {
-            return skill.id != s.id && skill.name[locale] == s.name[locale];
+            return skill.id != s.id &&
+                   skill.name[locale] != "" &&
+                   skill.name[locale] == s.name[locale];
         });
 
         if(it == skills.end())

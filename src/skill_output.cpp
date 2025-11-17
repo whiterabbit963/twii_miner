@@ -445,8 +445,8 @@ static string outputLabelField(std::optional<std::reference_wrapper<const LCLabe
     if(labelsRef.has_value())
     {
         auto &labels = labelsRef.value().get();
-        auto it = labels.find(locale);
-        if(it != labels.end())
+        auto it = labels.data.find(locale);
+        if(it != labels.data.end())
         {
             if(name == "desc")
                 return fmt::format(", {}=[[{}]]", name, it->second);

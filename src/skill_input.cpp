@@ -245,7 +245,7 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
                     if(!lclPtr->has_value())
                         (*lclPtr) = std::make_optional<LCLabel>();
                     auto &lcl = *lclPtr;
-                    lcl->insert({lc, std::string{lblValue.value()}});
+                    lcl->data.insert({lc, std::string{lblValue.value()}});
                 }
             }
         }
@@ -304,7 +304,7 @@ bool loadSkillInputs(TravelInfo &info)
                     auto tag = label.second.value<std::string>();
                     if(!tag)
                         return false;
-                    tags.insert({std::string{locale}, *tag});
+                    tags.data.insert({std::string{locale}, *tag});
                 }
                 info.labelTags.insert({type, tags});
             }

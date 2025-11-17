@@ -16,7 +16,25 @@ constexpr auto DE = "de";
 constexpr auto FR = "fr";
 constexpr auto RU = "ru";
 
-using LCLabel = std::map<std::string, std::string, std::less<>>;
+using LCLabelMap = std::map<std::string, std::string, std::less<>>;
+
+struct LCLabel
+{
+    const std::string &at(const std::string &locale) const
+    {
+        static std::string s_empty{""};
+        if(data.contains(locale))
+            return data.at(locale);
+        if(locale != EN && data.contains(EN))
+            return data.at(EN);
+
+        return s_empty;
+    }
+    const size_t size() const { return data.size(); }
+    std::string &operator[](const std::string &name) { return data[name]; }
+    bool empty() const { return data.empty(); }
+    LCLabelMap data;
+};
 
 struct MapLoc
 {
