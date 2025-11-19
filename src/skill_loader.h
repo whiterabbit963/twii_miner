@@ -20,11 +20,15 @@ using LCLabelMap = std::map<std::string, std::string, std::less<>>;
 
 struct LCLabel
 {
-    const std::string &at(const std::string &locale) const
+    const std::string &at(std::string_view locale) const
     {
         static std::string s_empty{""};
         if(data.contains(locale))
-            return data.at(locale);
+        {
+            auto it = data.find(locale);
+            if(it != data.end() && it->second != s_empty)
+                return it->second;
+        }
         if(locale != EN && data.contains(EN))
             return data.at(EN);
 

@@ -2380,7 +2380,7 @@ name="Precise Map to Glân Vraig"
     EN={ name="Return to Iridír",     label="Iridír", zone="Ikorbân" }
     DE={ name="Rückkehr nach Iridír", label="Iridír", zone="Ikorbân" }
     FR={ name="Retour à Iridir",      label="Iridír", zone="Ikorbân" }
-    RU={ name="Return to Iridír",     label="Iridír", zone="" }
+    RU={ name="Return to Iridír",     label="Iridír", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=585, y=325}]
     level=150.1
 
