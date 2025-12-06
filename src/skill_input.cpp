@@ -356,3 +356,116 @@ bool mergeSkillInputs(TravelInfo &info,
     // TODO: verify overlaps against rep skills
     return true;
 }
+
+
+static std::string tomlMapLoc(const MapLoc &loc)
+{
+    return fmt::format("{{type={}, x={}, y={}}}", getRegionText(loc.region), loc.x, loc.y);
+}
+
+static std::string tomlMapList(const std::vector<MapLoc> &locs)
+{
+    std::string output;
+    for(auto it = locs.begin(); it != locs.end(); ++it)
+    {
+        if(std::next(it) != locs.end())
+            output += fmt::format("{},", tomlMapLoc(*it));
+        else
+            output += tomlMapLoc(*it);
+    }
+    return fmt::format("[{}]", output);
+}
+
+std::string_view getGroupNameDefault(Skill::Type type, Skill::Type def)
+{
+    if(type == Skill::Type::Unknown)
+        return getGroupName(def);
+    return getGroupName(type);
+}
+
+void printNewSkills(const TravelInfo &info)
+{
+    // verification
+    std::vector<const Skill*> newSkills;
+    for(auto &skill : info.skills)
+    {
+        auto it = info.inputs.find(skill.id);
+        if(it == info.inputs.end())
+        {
+            auto bit = std::ranges::find(info.blacklist, skill.id);
+            if(bit == info.blacklist.end())
+                newSkills.push_back(&skill);
+        }
+    }
+    fmt::println("Skills: {}:{}", info.skills.size(), info.inputs.size());
+    for(auto &skill : info.skills)
+    {
+        if(!std::any_of(info.inputs.begin(), info.inputs.end(), [&skill](auto &item)
+                         { return skill.id == item.second.id; }))
+        {
+            fmt::println("{}", skill.name.at(EN));
+        }
+        if(skill.name.size() != 4)
+            fmt::println("{}", skill.id);
+    }
+    for(auto &item : info.inputs)
+    {
+        if(!std::any_of(info.skills.begin(), info.skills.end(), [&item](auto &s)
+                         { return s.id == item.second.id; }))
+        {
+            fmt::println("{}", item.first);
+        }
+    }
+    fmt::println("\n\n");
+
+    unsigned next = 0;
+    unsigned digits = 1;
+    MapList dummy;
+    const MapList *mapList = nullptr;
+    for(auto &skill : info.skills)
+    {
+        // TODO: get maplist location from xml
+        mapList = &skill.mapList;
+        if(skill.mapList.empty())
+        {
+            dummy = {MapLoc{MapLoc::Region::Haradwaith, -1, -1}};
+            mapList = &dummy;
+        }
+        if(!std::any_of(info.inputs.begin(), info.inputs.end(), [&skill](auto &item)
+                         { return skill.id == item.second.id; }))
+        {
+            // TODO: figure out why the skill.group can be Unknown for Rep skills
+            fmt::println("[[{}]]", getGroupNameDefault(skill.group, Skill::Type::Rep));
+            fmt::println("    id=\"0x{:08X}\"", skill.id);
+            fmt::println("    EN={{ name=\"{}\" }}", skill.name.at(EN));
+            fmt::println("    DE={{ name=\"{}\" }}", skill.name.at(DE));
+            fmt::println("    FR={{ name=\"{}\" }}", skill.name.at(FR));
+            fmt::println("    RU={{ name=\"{}\" }}", skill.name.at(RU));
+
+            fmt::println("    map={}", tomlMapList(*mapList));
+            fmt::println("    level=150.{:0{}}", ++next, digits);
+            fmt::println("");
+        }
+    }
+}
+
+bool generateNewSkillInputFile(const TravelInfo &info)
+{
+    unsigned digits = 1;
+    unsigned next = 0;
+    for(auto &skill : info.skills)
+    {
+        // TODO: figure out why the skill.group can be Unknown for Rep skills
+        fmt::println("[[{}]]", getGroupNameDefault(skill.group, Skill::Type::Rep));
+        fmt::println("    id=\"0x{:08X}\"", skill.id);
+        fmt::println("    EN={{ name=\"{}\" }}", skill.name.at(EN));
+        fmt::println("    DE={{ name=\"{}\" }}", skill.name.at(DE));
+        fmt::println("    FR={{ name=\"{}\" }}", skill.name.at(FR));
+        fmt::println("    RU={{ name=\"{}\" }}", skill.name.at(RU));
+
+        fmt::println("    map={}", tomlMapList(skill.mapList));
+        fmt::println("    level=150.{:0{}}", ++next, digits);
+        fmt::println("");
+    }
+    return true;
+}

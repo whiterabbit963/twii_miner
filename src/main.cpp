@@ -6,61 +6,6 @@
 
 using namespace std;
 
-void printNewSkills(const TravelInfo &info)
-{
-    // verification
-    std::vector<const Skill*> newSkills;
-    for(auto &skill : info.skills)
-    {
-        auto it = info.inputs.find(skill.id);
-        if(it == info.inputs.end())
-        {
-            auto bit = ranges::find(info.blacklist, skill.id);
-            if(bit == info.blacklist.end())
-                newSkills.push_back(&skill);
-        }
-    }
-    fmt::println("Skills: {}:{}", info.skills.size(), info.inputs.size());
-    for(auto &skill : info.skills)
-    {
-        if(!std::any_of(info.inputs.begin(), info.inputs.end(), [&skill](auto &item)
-                         { return skill.id == item.second.id; }))
-        {
-            fmt::println("{}", skill.name.at(EN));
-        }
-        if(skill.name.size() != 4)
-            fmt::println("{}", skill.id);
-    }
-    for(auto &item : info.inputs)
-    {
-        if(!std::any_of(info.skills.begin(), info.skills.end(), [&item](auto &s)
-                         { return s.id == item.second.id; }))
-        {
-            fmt::println("{}", item.first);
-        }
-    }
-    fmt::println("\n\n");
-
-    unsigned next = 0;
-    for(auto &skill : info.skills)
-    {
-        if(!std::any_of(info.inputs.begin(), info.inputs.end(), [&skill](auto &item)
-                         { return skill.id == item.second.id; }))
-        {
-            // TODO: convert to toml and append to toml input file
-            fmt::println("id=\"0x{:08X}\",", skill.id);
-            fmt::println("EN={{ name=\"{}\", }},", skill.name.at(EN));
-            fmt::println("DE={{ name=\"{}\", }},", skill.name.at(DE));
-            fmt::println("FR={{ name=\"{}\", }},", skill.name.at(FR));
-            fmt::println("RU={{ name=\"{}\", }},", skill.name.at(RU));
-            fmt::println("map={{{{MapType.HARADWAITH, -1, -1}}}},");
-            fmt::println("minLevel=150,");
-            fmt::println("level=150.{}", ++next);
-            fmt::println("");
-        }
-    }
-}
-
 int main(int argc, const char **argv)
 {
 #if WIN32
