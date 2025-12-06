@@ -710,6 +710,50 @@ name="Precise Map to Glân Vraig"
     map=[{type="HARADWAITH", x=620, y=445}]
     level=150.6
 
+[[hunter]]
+    id="0x700706FA"
+    name="Guide to Sul Madásh"
+    EN={ label="Sul Madásh", zone="Harad" }
+    DE={ label="Sul Madásh", zone="Harad" }
+    FR={ label="Sul Madásh", zone="Harad" }
+    RU={ label="Sul Madásh", zone="Harad" }
+    map=[{type="HARADWAITH", x=810, y=470}]
+    overlap=["0x70070715"]
+    level=150.7
+
+[[hunter]]
+    id="0x700706FF"
+    name="Guide to Ahâba"
+    EN={ label="Ahâba", zone="Harad" }
+    DE={ label="Ahâba", zone="Harad" }
+    FR={ label="Ahâba", zone="Harad" }
+    RU={ label="Ahâba", zone="Harad" }
+    map=[{type="HARADWAITH", x=560, y=570}]
+    overlap=["0x70070710"]
+    level=150.71
+
+[[hunter]]
+    id="0x70070717"
+    name="Guide to Zajâna"
+    EN={ label="Zajâna", zone="Harad" }
+    DE={ label="Zajâna", zone="Harad" }
+    FR={ label="Zajâna", zone="Harad" }
+    RU={ label="Zajâna", zone="Harad" }
+    map=[{type="HARADWAITH", x=680, y=580}]
+    overlap=["0x70070702"]
+    level=150.72
+
+[[hunter]]
+    id="0x70070724"
+    name="Guide to Jiret-menêsh"
+    EN={ label="Jiret-menêsh", zone="Harad" }
+    DE={ label="Jiret-menêsh", zone="Harad" }
+    FR={ label="Jiret-menêsh", zone="Harad" }
+    RU={ label="Jiret-menêsh", zone="Harad" }
+    map=[{type="HARADWAITH", x=630, y=530}]
+    overlap=["0x700706F7"]
+    level=150.73
+
 [[warden]]
     id="0x70064F4D"
     EN={ name="Muster at Clegur",       label="Clegur", zone="Swanfleet" }
@@ -1312,6 +1356,50 @@ name="Precise Map to Glân Vraig"
     map=[{type="HARADWAITH", x=620, y=445}]
     level=150.6
 
+[[warden]]
+    id="0x700706FC"
+    name="Muster at Jiret-menêsh"
+    EN={ label="Jiret-menêsh", zone="Harad" }
+    DE={ label="Jiret-menêsh", zone="Harad" }
+    FR={ label="Jiret-menêsh", zone="Harad" }
+    RU={ label="Jiret-menêsh", zone="Harad" }
+    map=[{type="HARADWAITH", x=630, y=530}]
+    overlap=["0x700706F7"]
+    level=150.7
+
+[[warden]]
+    id="0x70070714"
+    name="Muster at Ahâba"
+    EN={ label="Ahâba", zone="Harad" }
+    DE={ label="Ahâba", zone="Harad" }
+    FR={ label="Ahâba", zone="Harad" }
+    RU={ label="Ahâba", zone="Harad" }
+    map=[{type="HARADWAITH", x=560, y=570}]
+    overlap=["0x70070710"]
+    level=150.71
+
+[[warden]]
+    id="0x70070719"
+    name="Muster at Sul Madásh"
+    EN={ label="Sul Madásh", zone="Harad" }
+    DE={ label="Sul Madásh", zone="Harad" }
+    FR={ label="Sul Madásh", zone="Harad" }
+    RU={ label="Sul Madásh", zone="Harad" }
+    map=[{type="HARADWAITH", x=810, y=470}]
+    overlap=["0x70070715"]
+    level=150.72
+
+[[warden]]
+    id="0x7007071F"
+    name="Muster at Zajâna"
+    EN={ label="Zajâna", zone="Harad" }
+    DE={ label="Zajâna", zone="Harad" }
+    FR={ label="Zajâna", zone="Harad" }
+    RU={ label="Zajâna", zone="Harad" }
+    map=[{type="HARADWAITH", x=680, y=580}]
+    overlap=["0x70070702"]
+    level=150.73
+
 [[mariner]]
     id="0x70066100"
     EN={ name="Sail to Celondim",       label="Celondim", zone="Ered Luin" }
@@ -1544,6 +1632,39 @@ name="Precise Map to Glân Vraig"
     RU={ name="Sail to Utug-bûr",         label="Utug-bûr", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=670, y=310}]
     level=150.4
+
+[[mariner]]
+    id="0x70070705"
+    name="Sail to Zajâna"
+    EN={ label="Zajâna", zone="Harad" }
+    DE={ label="Zajâna", zone="Harad" }
+    FR={ label="Zajâna", zone="Harad" }
+    RU={ label="Zajâna", zone="Harad" }
+    map=[{type="HARADWAITH", x=680, y=580}]
+    overlap=["0x70070702"]
+    level=150.5
+
+[[mariner]]
+    id="0x70070707"
+    name="Sail to Jiret-menêsh"
+    EN={ label="Jiret-menêsh", zone="Harad" }
+    DE={ label="Jiret-menêsh", zone="Harad" }
+    FR={ label="Jiret-menêsh", zone="Harad" }
+    RU={ label="Jiret-menêsh", zone="Harad" }
+    map=[{type="HARADWAITH", x=630, y=530}]
+    overlap=["0x700706F7"]
+    level=150.51
+
+[[mariner]]
+    id="0x70070713"
+    name="Sail to Sul Madásh"
+    EN={ label="Sul Madásh", zone="Harad" }
+    DE={ label="Sul Madásh", zone="Harad" }
+    FR={ label="Sul Madásh", zone="Harad" }
+    RU={ label="Sul Madásh", zone="Harad" }
+    map=[{type="HARADWAITH", x=810, y=470}]
+    overlap=["0x70070715"]
+    level=150.52
 
 
 [[racials]]
@@ -2428,6 +2549,46 @@ name="Precise Map to Glân Vraig"
     RU={ name="Return to Dun Shûma", label="Dun Shûma", zone="Ikorbân" }
     map=[{type="HARADWAITH", x=590, y=445}]
     level=150.6
+
+[[rep]]
+    id="0x70070710"
+    name="Return to Ahâba"
+    EN={ label="Ahâba", zone="Harad" }
+    DE={ label="Ahâba", zone="Harad" }
+    FR={ label="Ahâba", zone="Harad" }
+    RU={ label="Ahâba", zone="Harad" }
+    map=[{type="HARADWAITH", x=560, y=540}]
+    level=150.7
+
+[[rep]]
+    id="0x70070702"
+    name="Return to Zajâna"
+    EN={ label="Zajâna", zone="Harad" }
+    DE={ label="Zajâna", zone="Harad" }
+    FR={ label="Zajâna", zone="Harad" }
+    RU={ label="Zajâna", zone="Harad" }
+    map=[{type="HARADWAITH", x=650, y=580}]
+    level=150.71
+
+[[rep]]
+    id="0x700706F7"
+    name="Return to Jiret-menêsh"
+    EN={ label="Jiret-menêsh", zone="Harad" }
+    DE={ label="Jiret-menêsh", zone="Harad" }
+    FR={ label="Jiret-menêsh", zone="Harad" }
+    RU={ label="Jiret-menêsh", zone="Harad" }
+    map=[{type="HARADWAITH", x=600, y=530}]
+    level=150.72
+
+[[rep]]
+    id="0x70070715"
+    name="Return to Sul Madásh"
+    EN={ label="Sul Madásh", zone="Harad" }
+    DE={ label="Sul Madásh", zone="Harad" }
+    FR={ label="Sul Madásh", zone="Harad" }
+    RU={ label="Sul Madásh", zone="Harad" }
+    map=[{type="HARADWAITH", x=780, y=470}]
+    level=150.73
 
 # function TravelDictionary:CreateCreepDictionary()
 [[creep]]
