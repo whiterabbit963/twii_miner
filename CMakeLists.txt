@@ -13,6 +13,7 @@ set_target_properties(twii_miner PROPERTIES
 target_sources(twii_miner PRIVATE
     "src/main.cpp"
     "src/xml_loader.cpp"
+    "src/arg_parser.cpp"
     "src/skill_loader.cpp"
     "src/skill_input.cpp"
     "src/skill_output.cpp"
