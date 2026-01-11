@@ -570,6 +570,8 @@ static void addTomlSkill(std::ostream &out, const Skill &skill)
         fmt::println(out, "    map={}", tomlMapList(skill));
         if(!skill.overlapIds.empty())
             fmt::println(out, "    overlap=[{}]", tomlOverlapIds(skill.overlapIds));
+        else if(skill.isNew && skill.isClass)
+            fmt::println(out, "    overlap=[]");
         if(skill.storeLP)
             fmt::println(out, "    store=true");
         fmt::println(out, "    level={}",

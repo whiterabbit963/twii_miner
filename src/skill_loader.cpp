@@ -325,7 +325,11 @@ bool SkillLoader::getSkillItems(std::vector<Skill> &skills)
         if(attr = node->first_attribute("minLevel"); attr)
             skill.minLevel = atoi(attr->value());
         if(attr = node->first_attribute("requiredClass"); attr)
+        {
             skill.group = getGroupTypeFromName(attr->value());
+            if(skill.group != Skill::Type::Unknown)
+                skill.isClass = true;
+        }
         if(attr = node->first_attribute("requiredFaction"); attr)
         {
             unsigned i = 0;
