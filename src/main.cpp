@@ -82,12 +82,11 @@ int main(int argc, const char **argv)
     {
         return 1;
     }
-    printNewSkills(info);
+    getNewSkills(info);
     if(!mergeSkillInputs(info, info.inputs))
     {
         return 1;
     }
-    generateNewSkillInputFile(info);
     if(!loader.getCurrencies(info))
     {
         return 1;
@@ -97,6 +96,7 @@ int main(int argc, const char **argv)
         return 1;
     }
 
+    generateNewSkillInputFile(info);
     outputSkillDataFile(info);
     outputLocaleDataFile(info);
     return 0;
