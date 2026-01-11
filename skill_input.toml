@@ -45,7 +45,6 @@ name="Desperate Flight"
 id="0x7002A7B8"
 name="Precise Map to Glân Vraig"
 
-
 [[hunter]]
     id="0x7000A2C1"
     name="Return to Camp"
@@ -1666,7 +1665,6 @@ name="Precise Map to Glân Vraig"
     overlap=["0x70070715"]
     level=150.52
 
-
 [[racials]]
     race="man"
     id="0x700062F6"
@@ -2597,7 +2595,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Rückkehr nach Gramfuß" }
     FR={ name="Retournez au Pied de Gram" }
     RU={ name="Возвращение к Подножию Грэм" }
-    map=[{type="CREEP", x=180, y=120}]
+    map=[{type="CREEPS", x=180, y=120}]
     level=1
 
 [[creep]]
@@ -2606,7 +2604,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Karte zum Gramfuss" }
     FR={ name="Carte pour aller au Pied de Gram" }
     RU={ name="Карта пути к Подножию Грэм" }
-    map=[{type="CREEP", x=215, y=120}]
+    map=[{type="CREEPS", x=215, y=120}]
     hasSameText=["0x7002A7B9"]
     level=1
 
@@ -2616,7 +2614,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Karte zum Gramfuss" }
     FR={ name="Carte pour aller au Pied de Gram" }
     RU={ name="Карта пути к Подножию Грэм" }
-    map=[{type="CREEP", x=245, y=120}]
+    map=[{type="CREEPS", x=245, y=120}]
     hasSameText=["0x70028BC1"]
     level=1
 
@@ -2626,7 +2624,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Kartenskizze zur Isenbinge" }
     FR={ name="Carte grossière pour aller au Gouffre d'Isen" }
     RU={ name="Грубая карта пути в Изендип" }
-    map=[{type="CREEP", x=700, y=200}]
+    map=[{type="CREEPS", x=700, y=200}]
     level=1
 
 [[creep]]
@@ -2635,7 +2633,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Grobe Karte zur Feste Tol Ascarnen" }
     FR={ name="Carte grossière pour aller à Tol Ascarnen" }
     RU={ name="Грубая карта пути на Тол Аскарнен" }
-    map=[{type="CREEP", x=350, y=440}]
+    map=[{type="CREEPS", x=350, y=440}]
     level=1
 
 [[creep]]
@@ -2644,7 +2642,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Kartenskizze zur Feste Lugazag" }
     FR={ name="Carte grossière pour aller à Lugazag" }
     RU={ name="Грубая карта пути в Лугазаг" }
-    map=[{type="CREEP", x=180, y=380}]
+    map=[{type="CREEPS", x=180, y=380}]
     level=1
 
 [[creep]]
@@ -2653,7 +2651,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Grobe Karte zur Feste Tirith Rhaw" }
     FR={ name="Carte grossière pour aller à Tirith Rhaw" }
     RU={ name="Грубая карта пути в Тирит Роу" }
-    map=[{type="CREEP", x=500, y=295}]
+    map=[{type="CREEPS", x=500, y=295}]
     level=1
 
 [[creep]]
@@ -2662,7 +2660,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Kartenskizze zum Grimmwald" }
     FR={ name="Carte grossière pour aller au Bois Funeste" }
     RU={ name="Грубая карта пути в Мрачный лес" }
-    map=[{type="CREEP", x=340, y=510}]
+    map=[{type="CREEPS", x=340, y=510}]
     level=1
 
 [[creep]]
@@ -2671,7 +2669,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Minderwertige Karte zur Isenbinge" }
     FR={ name="Piètre carte pour aller au Gouffre d'Isen" }
     RU={ name="Неважная карта пути в Изендип" }
-    map=[{type="CREEP", x=610, y=300}]
+    map=[{type="CREEPS", x=610, y=300}]
     level=1
 
 [[creep]]
@@ -2680,7 +2678,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Minderwertige Karte zur Feste Tol Ascarnen" }
     FR={ name="Piètre carte pour aller à Tol Ascarnen" }
     RU={ name="Неважная карта пути на Тол Аскарнен" }
-    map=[{type="CREEP", x=435, y=365}]
+    map=[{type="CREEPS", x=435, y=365}]
     level=1
 
 [[creep]]
@@ -2689,7 +2687,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Minderwertige Karte zur Feste Lugazag" }
     FR={ name="Piètre carte pour aller à Lugazag" }
     RU={ name="Неважная карта пути в Лугазаг" }
-    map=[{type="CREEP", x=180, y=270}]
+    map=[{type="CREEPS", x=180, y=270}]
     level=1
 
 [[creep]]
@@ -2698,7 +2696,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Minderwertige Karte zur Feste Tirith Rhaw" }
     FR={ name="Piètre carte pour aller à Tirith Rhaw" }
     RU={ name="Неважная карта пути в Тирит Роу" }
-    map=[{type="CREEP", x=625, y=365}]
+    map=[{type="CREEPS", x=625, y=365}]
     level=1
 
 [[creep]]
@@ -2707,7 +2705,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Minderwertige Karte zum Grimmwald" }
     FR={ name="Piètre carte pour aller au Bois Funeste" }
     RU={ name="Неважная карта пути в Мрачный лес" }
-    map=[{type="CREEP", x=380, y=540}]
+    map=[{type="CREEPS", x=380, y=540}]
     level=1
 
 [[creep]]
@@ -2716,7 +2714,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Gute Karte zur Isenbinge" }
     FR={ name="Bonne carte pour aller au Gouffre d'Isen" }
     RU={ name="Хорошая карта пути в Изендип" }
-    map=[{type="CREEP", x=310, y=95}]
+    map=[{type="CREEPS", x=310, y=95}]
     hasSameText=["0x7002A7B7"]
     level=1
 
@@ -2726,7 +2724,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Gute Karte zur Isenbinge" }
     FR={ name="Bonne carte pour aller au Gouffre d'Isen" }
     RU={ name="Хорошая карта пути в Изендип" }
-    map=[{type="CREEP", x=340, y=95}]
+    map=[{type="CREEPS", x=340, y=95}]
     hasSameText=["0x70028BC0"]
     level=1
 
@@ -2736,7 +2734,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Gute Karte zur Feste Tol Ascarnen" }
     FR={ name="Bonne carte pour aller à Tol Ascarnen" }
     RU={ name="Хорошая карта пути в Тол Аскарнен" }
-    map=[{type="CREEP", x=375, y=480}]
+    map=[{type="CREEPS", x=375, y=480}]
     hasSameText=["0x7002A7B4"]
     level=1
 
@@ -2746,7 +2744,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Gute Karte zur Feste Tol Ascarnen" }
     FR={ name="Bonne carte pour aller à Tol Ascarnen" }
     RU={ name="Хорошая карта пути в Тол Аскарнен" }
-    map=[{type="CREEP", x=405, y=480}]
+    map=[{type="CREEPS", x=405, y=480}]
     hasSameText=["0x70028BC2"]
     level=1
 
@@ -2756,7 +2754,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Gute Karte zur Feste Lugazag" }
     FR={ name="Bonne carte pour aller à Lugazag" }
     RU={ name="Хорошая карта пути в Лугазаг" }
-    map=[{type="CREEP", x=305, y=275}]
+    map=[{type="CREEPS", x=305, y=275}]
     hasSameText=["0x7002A7B6"]
     level=1
 
@@ -2766,7 +2764,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Gute Karte zur Feste Lugazag" }
     FR={ name="Bonne carte pour aller à Lugazag" }
     RU={ name="Хорошая карта пути в Лугазаг" }
-    map=[{type="CREEP", x=335, y=275}]
+    map=[{type="CREEPS", x=335, y=275}]
     hasSameText=["0x70028BB5"]
     level=1
 
@@ -2776,7 +2774,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Gute Karte zur Feste Tirith Rhaw" }
     FR={ name="Bonne carte pour aller à Tirith Rhaw" }
     RU={ name="Хорошая карта пути в Тирит Роу" }
-    map=[{type="CREEP", x=555, y=470}]
+    map=[{type="CREEPS", x=555, y=470}]
     hasSameText=["0x7002A7B5"]
     level=1
 
@@ -2786,7 +2784,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Gute Karte zur Feste Tirith Rhaw" }
     FR={ name="Bonne carte pour aller à Tirith Rhaw" }
     RU={ name="Хорошая карта пути в Тирит Роу" }
-    map=[{type="CREEP", x=585, y=470}]
+    map=[{type="CREEPS", x=585, y=470}]
     hasSameText=["0x70028BB0"]
     level=1
 
@@ -2796,7 +2794,7 @@ name="Precise Map to Glân Vraig"
     DE={ name="Gute Karte zum Grimmwald" }
     FR={ name="Bonne carte pour aller au Bois Funeste" }
     RU={ name="Хорошая карта пути в Мрачный лес" }
-    map=[{type="CREEP", x=445, y=650}]
+    map=[{type="CREEPS", x=445, y=650}]
     hasSameText=["0x7002A7B3"]
     level=1
 
@@ -2806,6 +2804,6 @@ name="Precise Map to Glân Vraig"
     DE={ name="Gute Karte zum Grimmwald" }
     FR={ name="Bonne carte pour aller au Bois Funeste" }
     RU={ name="Хорошая карта пути в Мрачный лес" }
-    map=[{type="CREEP", x=475, y=650}]
+    map=[{type="CREEPS", x=475, y=650}]
     hasSameText=["0x70028BBD"]
     level=1

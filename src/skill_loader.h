@@ -128,6 +128,7 @@ struct Skill
     };
 
     uint32_t id;
+    std::string nameId;
     std::optional<std::string> race;
     SearchStatus status{SearchStatus::NotFound};
     Type group{Type::Unknown}; // parseable?

@@ -87,6 +87,7 @@ int main(int argc, const char **argv)
     {
         return 1;
     }
+    generateNewSkillInputFile(info);
     if(!loader.getCurrencies(info))
     {
         return 1;

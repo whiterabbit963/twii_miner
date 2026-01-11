@@ -20,6 +20,7 @@ string_view getGroupName(Skill::Type type)
     case Skill::Type::Rep: return "rep";
     case Skill::Type::Creep: return "creep";
     case Skill::Type::Racial: return "racials";
+    case Skill::Type::Ignore: return "ignore";
     default: return "UNKNOWN";
     }
 }

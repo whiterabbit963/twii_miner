@@ -6,8 +6,17 @@
 #define TOML_IMPLEMENTATION
 #include <toml++/toml.hpp>
 #include <fmt/format.h>
+#include <fmt/ostream.h>
+#include <regex>
 
 #include "skill_output.h"
+
+static std::string escQuote(const std::string &in)
+{
+    std::string out;
+    out = std::regex_replace(in, std::regex("\""), "\\\"");
+    return out;
+}
 
 MapLoc::Region getMapLocRegion(std::string_view name)
 {
@@ -21,7 +30,7 @@ MapLoc::Region getMapLocRegion(std::string_view name)
         return MapLoc::Region::Gondor;
     if(name == "HARADWAITH"sv)
         return MapLoc::Region::Haradwaith;
-    if(name == "CREEP"sv)
+    if(name == "CREEPS"sv)
         return MapLoc::Region::Creep;
     if(name == "NONE"sv)
         return MapLoc::Region::None;
@@ -111,7 +120,7 @@ std::optional<LCLabel> loadAcquireInput(toml::table *tbl)
         auto descOpt = item.second.as_string();
         if(!descOpt)
             return std::nullopt;
-        input[lc] = descOpt->get();
+        input[lc] = escQuote(descOpt->get());
     }
     return input;
 }
@@ -149,7 +158,14 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
                 return false;
             skill.id = strtol((*value)->c_str(), nullptr, 16);
         }
-        if(name == "race")
+        else if(name == "name")
+        {
+            auto value = item.second.as_string();
+            if(!value)
+                return false;
+            skill.nameId = value->get();
+        }
+        else if(name == "race")
         {
             auto value = item.second.as_string();
             if(!value)
@@ -349,6 +365,10 @@ bool mergeSkillInputs(TravelInfo &info,
             it->tag = skillInput.tag;
             it->skillTag = skillInput.skillTag;
             // TODO: copy other skill input values
+
+            // ensure skillInput has a name
+            if(skillInput.nameId.empty())
+                skillInput.nameId = it->name.at(EN);
         }
         info.skills.push_back(std::move(*it));
     }
@@ -357,10 +377,9 @@ bool mergeSkillInputs(TravelInfo &info,
     return true;
 }
 
-
 static std::string tomlMapLoc(const MapLoc &loc)
 {
-    return fmt::format("{{type={}, x={}, y={}}}", getRegionText(loc.region), loc.x, loc.y);
+    return fmt::format("{{type=\"{}\", x={}, y={}}}", getRegionText(loc.region), loc.x, loc.y);
 }
 
 static std::string tomlMapList(const std::vector<MapLoc> &locs)
@@ -449,23 +468,110 @@ void printNewSkills(const TravelInfo &info)
     }
 }
 
+static std::string tomlLabelField(
+        std::optional<std::reference_wrapper<const LCLabel>> labelsRef,
+        std::string_view locale,
+        std::string_view name,
+        bool &comma)
+{
+    std::string ret;
+    if(labelsRef.has_value())
+    {
+        auto &labels = labelsRef.value().get();
+        auto lclName = labels.at(locale);
+        if(lclName != "")
+        {
+            ret = fmt::format("{}{}=\"{}\"", comma ? ", " : "", name, lclName);
+            comma = true;
+        }
+    }
+    return ret;
+}
+
+static std::string tomlLabelFields(const Skill &skill, std::string_view locale)
+{
+    bool comma = false;
+    std::string ret;
+    std::string lc;
+    std::transform(locale.begin(), locale.end(), std::back_inserter(lc), ::tolower);
+    ret.append(tomlLabelField(skill.label, lc, "label", comma));
+    ret.append(tomlLabelField(skill.tag, lc, "tag", comma));
+    ret.append(tomlLabelField(skill.detail, lc, "detail", comma));
+    ret.append(tomlLabelField(skill.zlabel, lc, "zlabel", comma));
+    ret.append(tomlLabelField(skill.zone, lc, "zone", comma));
+    return ret;
+}
+
+static std::string tomlOverlapIds(const std::vector<uint32_t> &ids)
+{
+    std::string out;
+    std::string inner;
+    for(auto it = ids.begin(); it != ids.end(); ++it)
+    {
+        if(std::next(it) == ids.end())
+            fmt::format_to(std::back_inserter(inner), "\"0x{:08X}\"", *it);
+        else
+            fmt::format_to(std::back_inserter(inner), "\"0x{:08X}\", ", *it);
+    }
+    fmt::format_to(std::back_inserter(out), "{}", inner);
+    return out;
+}
+
 bool generateNewSkillInputFile(const TravelInfo &info)
 {
-    unsigned digits = 1;
-    unsigned next = 0;
-    for(auto &skill : info.skills)
-    {
-        // TODO: figure out why the skill.group can be Unknown for Rep skills
-        fmt::println("[[{}]]", getGroupNameDefault(skill.group, Skill::Type::Rep));
-        fmt::println("    id=\"0x{:08X}\"", skill.id);
-        fmt::println("    EN={{ name=\"{}\" }}", skill.name.at(EN));
-        fmt::println("    DE={{ name=\"{}\" }}", skill.name.at(DE));
-        fmt::println("    FR={{ name=\"{}\" }}", skill.name.at(FR));
-        fmt::println("    RU={{ name=\"{}\" }}", skill.name.at(RU));
+    std::ofstream out("test.toml", std::ios::out | std::ios::binary);
+    fmt::println(out, "[labels]");
+    fmt::println(out, "    hunter={{EN=\"Guide\", DE=\"Führer\", FR=\"Guide\", RU=\"Путь\" }}");
+    fmt::println(out, "    warden={{EN=\"Muster\", DE=\"Appell\", FR=\"Rassemblement\", RU=\"Сбор\" }}");
+    fmt::println(out, "    mariner={{EN=\"Sail\", DE=\"Segeln\", FR=\"Naviguer\", RU=\"Плаванье\" }}");
+    fmt::println(out, "    racials={{EN=\"Racial\", DE=\"Rasse\", FR=\"Race\", RU=\"Расовые\" }}");
+    fmt::println(out, "    rep={{EN=\"Rep\", DE=\"Ruf\", FR=\"Rep\", RU=\"Репутация\" }}");
+    fmt::println(out, "");
 
-        fmt::println("    map={}", tomlMapList(skill.mapList));
-        fmt::println("    level=150.{:0{}}", ++next, digits);
-        fmt::println("");
+    for(auto &[line, skill] : info.inputs)
+    {
+        if(line != info.inputs.begin()->first)
+            fmt::println(out, "");
+
+        auto groupName = getGroupNameDefault(skill.group, Skill::Type::Rep);
+        fmt::println(out, "[[{}]]", groupName);
+        if(skill.race.has_value())
+            fmt::println(out, "    race=\"{}\"", *skill.race);
+        fmt::println(out, "    id=\"0x{:08X}\"", skill.id);
+        if(!skill.name.at(EN).empty())
+            fmt::println(out, "    name=\"{}\"", skill.name.at(EN));
+        else
+            fmt::println(out, "    name=\"{}\"", skill.nameId);
+
+        if(skill.group != Skill::Type::Ignore)
+        {
+            if(skill.nameId != "Return to Camp" &&
+                    skill.group != Skill::Type::Creep)
+            {
+                fmt::println(out, "    EN={{{}}}", tomlLabelFields(skill, EN));
+                fmt::println(out, "    DE={{{}}}", tomlLabelFields(skill, DE));
+                fmt::println(out, "    FR={{{}}}", tomlLabelFields(skill, FR));
+                fmt::println(out, "    RU={{{}}}", tomlLabelFields(skill, RU));
+            }
+            if(skill.skillTag.has_value())
+                fmt::println(out, "    tag=\"{}\"", *skill.skillTag);
+            fmt::println(out, "    map={}", tomlMapList(skill.mapList));
+            if(!skill.overlapIds.empty())
+                fmt::println(out, "    overlap=[{}]", tomlOverlapIds(skill.overlapIds));
+            if(skill.storeLP)
+                fmt::println(out, "    store=true");
+            fmt::println(out, "    level={}", skill.sortLevel);
+
+            if(!skill.acquireDesc.empty())
+            {
+                fmt::println(out, "    [{}.acquire_desc]", groupName);
+                fmt::println(out, "        EN=\"{}\"", skill.acquireDesc.at(EN));
+                fmt::println(out, "        DE=\"{}\"", skill.acquireDesc.at(DE));
+                fmt::println(out, "        FR=\"{}\"", skill.acquireDesc.at(FR));
+                fmt::println(out, "        RU=\"{}\"", skill.acquireDesc.at(RU));
+            }
+        }
     }
+    out.flush();
     return true;
 }
