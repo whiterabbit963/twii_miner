@@ -695,6 +695,10 @@ bool SkillLoader::getBarters(TravelInfo &info)
                                                  skillIt->name[EN], skillIt->id, skillIt->factionId,
                                                  factionId);
                                 }
+                                else if(factionRank > skillIt->factionRank)
+                                {
+                                    skillIt->factionRank = factionRank;
+                                }
                             }
                             else
                             {
