@@ -314,6 +314,7 @@
     FR={label="Galtrev", zone="Pays de Dun"}
     RU={label="Галтрев", zone="Дунланд"}
     map=[{type="ERIADOR", x=810, y=715}]
+    overlap=["0x7002C647"]
     level=65
 
 [[hunter]]
@@ -764,6 +765,7 @@
     FR={label="Utug-bûr", zone="Ikorbân"}
     RU={label="Utug-bûr", zone="Ikorbân"}
     map=[{type="HARADWAITH", x=670, y=310}]
+    overlap=["0x7006EA1C"]
     level=150.5
 
 [[hunter]]
@@ -774,6 +776,7 @@
     FR={label="Dun Shûma", zone="Ikorbân"}
     RU={label="Dun Shûma", zone="Ikorbân"}
     map=[{type="HARADWAITH", x=620, y=445}]
+    overlap=["0x7006FD4B"]
     level=150.6
 
 [[hunter]]
@@ -1471,6 +1474,7 @@
     FR={label="Utug-bûr", zone="Ikorbân"}
     RU={label="Utug-bûr", zone="Ikorbân"}
     map=[{type="HARADWAITH", x=670, y=310}]
+    overlap=["0x7006EA1C"]
     level=150.5
 
 [[warden]]
@@ -1481,6 +1485,7 @@
     FR={label="Dun Shûma", zone="Ikorbân"}
     RU={label="Dun Shûma", zone="Ikorbân"}
     map=[{type="HARADWAITH", x=620, y=445}]
+    overlap=["0x7006FD4B"]
     level=150.6
 
 [[warden]]
@@ -1782,6 +1787,7 @@
     FR={label="Utug-bûr", zone="Ikorbân"}
     RU={label="Utug-bûr", zone="Ikorbân"}
     map=[{type="HARADWAITH", x=670, y=310}]
+    overlap=["0x7006EA1C"]
     level=150.4
 
 [[mariner]]
