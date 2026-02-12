@@ -242,7 +242,7 @@
     DE={label="West-Angmar", detail="Aughaire", zone="Angmar"}
     FR={label="Angmar ouest", detail="Aughaire", zone="Angmar"}
     RU={label="Западный Ангмар", detail="Огайр", zone="Ангмар"}
-    map=[{type="ERIADOR", x=825, y=185}]
+    map=[{type="ERIADOR", x=705, y=180}]
     level=45
 
 [[hunter]]
@@ -252,7 +252,7 @@
     DE={label="East-Angmar", detail="Gath Forthnír", zone="Angmar"}
     FR={label="Angmar est", detail="Gath Forthnír", zone="Angmar"}
     RU={label="Восточный Ангмар", detail="Гат Фортнир", zone="Ангмар"}
-    map=[{type="ERIADOR", x=705, y=180}]
+    map=[{type="ERIADOR", x=825, y=185}]
     level=49
 
 [[hunter]]
