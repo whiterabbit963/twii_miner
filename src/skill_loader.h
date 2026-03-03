@@ -6,6 +6,7 @@
 #include <string>
 #include <map>
 #include <unordered_map>
+#include <functional>
 
 #include "xml_loader.h"
 
@@ -147,6 +148,7 @@ struct Skill
     std::vector<Acquire> acquire; // parse
     LCLabel acquireDesc;
     std::optional<Deed> acquireDeed;
+    std::optional<Deed> barterDeed; // parse
     std::optional<Allegiance> allegiance;
     uint32_t factionId{0}; // parse
     unsigned factionRank{0}; // parse
@@ -208,6 +210,8 @@ struct TravelInfo
 class SkillLoader
 {
 public:
+    using GetDeedFunc = std::function<Deed*(Skill&)>;
+
     SkillLoader(std::string_view root);
 
     std::vector<Skill> getSkills();
@@ -223,8 +227,9 @@ public:
     bool getTraits(std::vector<Skill> &skills);
     bool getDeeds(const std::unordered_map<std::string_view, Skill*> &traits,
                   const std::unordered_map<uint32_t, Skill*> &skills);
-    bool getDeedLabels(std::vector<Skill> &skills);
-    bool getDeedLabel(const std::string &locale, std::vector<Skill> &skills);
+    bool getDeedLabels(std::vector<Skill> &skills, GetDeedFunc getDeed);
+    bool getDeedLabel(const std::string &locale, std::vector<Skill> &skills,
+                      GetDeedFunc getDeed);
 
     bool getAllegiance(std::vector<Skill> &skills);
     bool getAllegianceLabels(std::vector<Skill> &skills);
@@ -244,6 +249,12 @@ public:
     bool getNPCLabels(TravelInfo &info);
     bool getNPCLabel(const std::string &locale, TravelInfo &info);
     uint32_t getValueTableValue(const Acquire &item);
+
+private:
+    std::optional<Deed> getBarterRequiredDeed(uint32_t reqDeedId);
+    void addRequiredDeed(std::string_view questKey, Skill &skill);
+    void addRequiredFaction(std::string_view factionKey, Skill &skill);
+    void parseBarterRequired(rapidxml::xml_node<> *root, rapidxml::xml_node<> *proNode, TravelInfo &info);
 
 private:
     std::string m_path;

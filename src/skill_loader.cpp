@@ -95,7 +95,7 @@ std::vector<Skill> SkillLoader::getSkills()
     getClassInfo(skills);
     getQuests(skills);
     getTraits(skills);
-
+    getAllegiance(skills);
     return skills;
 }
 
@@ -550,6 +550,8 @@ bool SkillLoader::getCurrencies(TravelInfo &info)
     if(!getCurrencyLabels(info))
        return false;
 
+    getDeedLabels(info.skills, [](Skill &skill)
+            { return skill.barterDeed ? &skill.barterDeed.value() : nullptr; });
     return true;
 }
 
@@ -584,6 +586,175 @@ static vector<uint32_t> getBartererId(xml_node<> *root, xml_node<> *proNode)
     return barterIds;
 }
 
+std::optional<Deed> SkillLoader::getBarterRequiredDeed(uint32_t reqDeedId)
+{
+    XMLLoader xml;
+    string fp = fmt::format("{}\\lotro-data\\lore\\deeds.xml", m_path);
+    if(!xml.load(fp))
+        return nullopt;
+
+    xml_node<> *root = xml.doc().first_node("deeds");
+    if(!root)
+        return nullopt;
+    for(xml_node<> *node = root->first_node("deed");
+         node; node = node->next_sibling("deed"))
+    {
+        xml_attribute<> *attr = node->first_attribute("id");
+        if(!attr)
+            continue;
+        uint32_t deedId = strtoul(attr->value(), nullptr, 10);
+        if(deedId != reqDeedId)
+            continue;
+
+        return Deed{deedId};
+    }
+    return nullopt;
+}
+
+void SkillLoader::addRequiredDeed(string_view questKey, Skill &skill)
+{
+    uint32_t deedId = 0;
+    for(const auto item : std::ranges::split_view(string_view{questKey}, ";"sv))
+    {
+        deedId = strtoul(item.data(), nullptr, 10);
+        break;
+    }
+    if(!deedId)
+        return;
+
+    if(skill.barterDeed)
+    {
+        if(skill.barterDeed->id != deedId)
+        {
+            fmt::println("BARTER: DEED ALREADY SET {}({}): {} : {}",
+                         skill.name[EN], skill.id, skill.barterDeed->id,
+                         deedId);
+        }
+    }
+    else
+    {
+        skill.barterDeed = getBarterRequiredDeed(deedId);
+    }
+}
+
+void SkillLoader::addRequiredFaction(string_view factionKey, Skill &skill)
+{
+    uint32_t factionId = 0;
+    uint32_t factionRank = 0;
+    unsigned i = 0;
+    string_view words{factionKey};
+    for(const auto word : std::ranges::split_view(words, ";"sv))
+    {
+        switch(i)
+        {
+        case 0: factionId = atoi(word.data()); break;
+        case 1: factionRank = atoi(word.data()); break;
+        default: break;
+        }
+        ++i;
+    }
+    if(!factionId)
+        return;
+
+    if(skill.factionId)
+    {
+        if(skill.factionId != factionId)
+        {
+            fmt::println("BARTER: FACTION ALREADY SET {}({}): {} : {}",
+                         skill.name[EN], skill.id, skill.factionId,
+                         factionId);
+        }
+        else if(factionRank > skill.factionRank)
+        {
+            skill.factionRank = factionRank;
+        }
+    }
+    else
+    {
+        skill.factionId = factionId;
+        skill.factionRank = factionRank;
+    }
+}
+
+void SkillLoader::parseBarterRequired(xml_node<> *root, xml_node<> *proNode, TravelInfo &info)
+{
+    string_view factionKey;
+    string_view questKey;
+    xml_attribute<> *attr = proNode->first_attribute("requiredFaction");
+    if(attr)
+        factionKey = attr->value();
+    attr = proNode->first_attribute("requiredQuest");
+    if(attr)
+        questKey = attr->value();
+
+    for(xml_node<> *brtrNode = proNode->first_node("barterEntry");
+         brtrNode; brtrNode = brtrNode->next_sibling("barterEntry"))
+    {
+        for(xml_node<> *recvNode = brtrNode->first_node("receive");
+             recvNode; recvNode = recvNode->next_sibling("receive"))
+        {
+            xml_attribute<> *recvAttr = recvNode->first_attribute("id");
+            if(!recvAttr)
+                continue;
+            uint32_t itemId = atoi(recvAttr->value());
+            std::vector<Acquire>::iterator acquireIt{};
+            auto skillIt = ranges::find_if(info.skills, [&acquireIt, itemId](auto &skill)
+            {
+                acquireIt = ranges::find(skill.acquire, itemId, &Acquire::itemId);
+                return acquireIt != skill.acquire.end();
+            });
+            if(skillIt == info.skills.end())
+            {
+                continue;
+            }
+            for(xml_node<> *giveNode = brtrNode->first_node("give");
+                 giveNode; giveNode = giveNode->next_sibling("give"))
+            {
+                xml_attribute<> *giveAttr = giveNode->first_attribute("id");
+                if(!giveAttr)
+                    continue;
+                Token token;
+                token.amt = 1;
+                token.id = atoi(giveAttr->value());
+
+                giveAttr = giveNode->first_attribute("quantity");
+                if(giveAttr)
+                {
+                    token.amt = atoi(giveAttr->value());
+                }
+
+                auto barterIds = getBartererId(root, proNode);
+                if(barterIds.empty())
+                {
+                    fmt::println("BARTER: NONE FOUND {}", skillIt->id);
+                }
+                for(auto barterId : barterIds)
+                {
+                    Barter barter{barterId};
+                    auto npcIt = ranges::find(info.npcs, barterId, &NPC::id);
+                    if(npcIt == info.npcs.end())
+                    {
+                        info.npcs.push_back({barterId});
+                    }
+                    barter.currency.push_back(token);
+                    acquireIt->barters.push_back(barter);
+                }
+
+                auto tokenIt = ranges::find(info.currencies, token.id, &Currency::id);
+                if(tokenIt == info.currencies.end())
+                {
+                    info.currencies.push_back({token.id});
+                }
+
+                if(!factionKey.empty())
+                    addRequiredFaction(factionKey, *skillIt);
+                if(!questKey.empty())
+                    addRequiredDeed(questKey, *skillIt);
+            }
+        }
+    }
+}
+
 // <barterProfile profileId="1879501119" name="Temple of Utug-bûr Rewards">
 // ...
 // <barterEntry>
@@ -606,110 +777,7 @@ bool SkillLoader::getBarters(TravelInfo &info)
     for(xml_node<> *proNode = root->first_node("barterProfile");
             proNode; proNode = proNode->next_sibling("barterProfile"))
     {
-        xml_attribute<> *attr = proNode->first_attribute("requiredFaction");
-        string_view factionKey;
-        if(attr)
-            factionKey = attr->value();
-        for(xml_node<> *brtrNode = proNode->first_node("barterEntry");
-                brtrNode; brtrNode = brtrNode->next_sibling("barterEntry"))
-        {
-            for(xml_node<> *recvNode = brtrNode->first_node("receive");
-                    recvNode; recvNode = recvNode->next_sibling("receive"))
-            {
-                xml_attribute<> *recvAttr = recvNode->first_attribute("id");
-                if(!recvAttr)
-                    continue;
-                uint32_t itemId = atoi(recvAttr->value());
-                std::vector<Acquire>::iterator acquireIt{};
-                auto skillIt = ranges::find_if(info.skills, [&acquireIt, itemId](auto &skill)
-                {
-                    acquireIt = ranges::find(skill.acquire, itemId, &Acquire::itemId);
-                    return acquireIt != skill.acquire.end();
-                });
-                if(skillIt == info.skills.end())
-                {
-                    continue;
-                }
-                for(xml_node<> *giveNode = brtrNode->first_node("give");
-                        giveNode; giveNode = giveNode->next_sibling("give"))
-                {
-                    xml_attribute<> *giveAttr = giveNode->first_attribute("id");
-                    if(!giveAttr)
-                        continue;
-                    Token token;
-                    token.amt = 1;
-                    token.id = atoi(giveAttr->value());
-
-                    giveAttr = giveNode->first_attribute("quantity");
-                    if(giveAttr)
-                    {
-                        token.amt = atoi(giveAttr->value());
-                    }
-
-                    auto barterIds = getBartererId(root, proNode);
-                    if(barterIds.empty())
-                    {
-                        fmt::println("BARTER: NONE FOUND {}", skillIt->id);
-                    }
-                    for(auto barterId : barterIds)
-                    {
-                        Barter barter{barterId};
-                        auto npcIt = ranges::find(info.npcs, barterId, &NPC::id);
-                        if(npcIt == info.npcs.end())
-                        {
-                            info.npcs.push_back({barterId});
-                        }
-                        barter.currency.push_back(token);
-                        acquireIt->barters.push_back(barter);
-                    }
-
-                    auto tokenIt = ranges::find(info.currencies, token.id, &Currency::id);
-                    if(tokenIt == info.currencies.end())
-                    {
-                        info.currencies.push_back({token.id});
-                    }
-
-                    if(!factionKey.empty())
-                    {
-                        uint32_t factionId = 0;
-                        uint32_t factionRank = 0;
-                        unsigned i = 0;
-                        string_view words{factionKey};
-                        for(const auto word : std::ranges::split_view(words, ";"sv))
-                        {
-                            switch(i)
-                            {
-                            case 0: factionId = atoi(word.data()); break;
-                            case 1: factionRank = atoi(word.data()); break;
-                            default: break;
-                            }
-                            ++i;
-                        }
-                        if(factionId)
-                        {
-                            if(skillIt->factionId)
-                            {
-                                if(skillIt->factionId != factionId)
-                                {
-                                    fmt::println("BARTER: FACTION ALREADY SET {}({}): {} : {}",
-                                                 skillIt->name[EN], skillIt->id, skillIt->factionId,
-                                                 factionId);
-                                }
-                                else if(factionRank > skillIt->factionRank)
-                                {
-                                    skillIt->factionRank = factionRank;
-                                }
-                            }
-                            else
-                            {
-                                skillIt->factionId = factionId;
-                                skillIt->factionRank = factionRank;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        parseBarterRequired(root, proNode, info);
     }
     return true;
 }
@@ -1154,6 +1222,7 @@ bool SkillLoader::getAllegiance(std::vector<Skill> &skills)
             }
         }
     }
+    getAllegianceLabels(skills);
     return true;
 }
 
@@ -1289,26 +1358,25 @@ bool SkillLoader::getTraits(std::vector<Skill> &skills)
         }
     }
     getDeeds(traits, items);
-    getDeedLabels(skills);
-    getAllegiance(skills);
-    getAllegianceLabels(skills);
+    getDeedLabels(skills, [](Skill &skill)
+            { return skill.acquireDeed ? &skill.acquireDeed.value() : nullptr; });
     return true;
 }
 
-bool SkillLoader::getDeedLabels(std::vector<Skill> &skills)
+bool SkillLoader::getDeedLabels(std::vector<Skill> &skills, GetDeedFunc getDeed)
 {
-    if(!getDeedLabel(EN, skills))
+    if(!getDeedLabel(EN, skills, getDeed))
         return false;
-    if(!getDeedLabel(DE, skills))
+    if(!getDeedLabel(DE, skills, getDeed))
         return false;
-    if(!getDeedLabel(FR, skills))
+    if(!getDeedLabel(FR, skills, getDeed))
         return false;
-    if(!getDeedLabel(RU, skills))
+    if(!getDeedLabel(RU, skills, getDeed))
         return false;
     return true;
 }
 
-bool SkillLoader::getDeedLabel(const string &locale, std::vector<Skill> &skills)
+bool SkillLoader::getDeedLabel(const string &locale, std::vector<Skill> &skills, GetDeedFunc getDeed)
 {
     string fp = fmt::format("{}\\lotro-data\\lore\\labels\\{}\\deeds.xml", m_path, locale);
     if(!m_xml.load(fp))
@@ -1321,10 +1389,9 @@ bool SkillLoader::getDeedLabel(const string &locale, std::vector<Skill> &skills)
     std::unordered_map<uint32_t, Deed*> deedInfo;
     for(auto &skill : skills)
     {
-        auto &deed = skill.acquireDeed;
-        if(!deed)
-            continue;
-        deedInfo.insert({deed->id, &deed.value()});
+        auto *deed = getDeed(skill);
+        if(deed)
+            deedInfo.insert({deed->id, deed});
     }
     for(xml_node<> *node = root->first_node("label");
             node; node = node->next_sibling("label"))

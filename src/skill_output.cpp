@@ -203,17 +203,22 @@ static string outputVendor(const string &locale, const NPC &npc, const Barter &b
     return npc.name.at(locale);
 }
 
-static string outputVendors(const TravelInfo &info, const Barter &barter) //uint32_t id)
+static string outputDeed(const string &locale, const Skill &skill);
+static string outputVendors(const TravelInfo &info, const Barter &barter, const Skill &skill)
 {
     string buf;
     auto it = ranges::find(info.npcs, barter.bartererId, &NPC::id);
     if(it == info.npcs.end())
         return buf;
     auto in = std::back_inserter(buf);
-    fmt::format_to(in, "                EN={{vendor=\"{}\"}},\n", outputVendor(EN, *it, barter));
-    fmt::format_to(in, "                DE={{vendor=\"{}\"}},\n", outputVendor(DE, *it, barter));
-    fmt::format_to(in, "                FR={{vendor=\"{}\"}},\n", outputVendor(FR, *it, barter));
-    fmt::format_to(in, "                RU={{vendor=\"{}\"}}}}", outputVendor(RU, *it, barter));
+    fmt::format_to(in, "                EN={{vendor=\"{}\"{}}},\n",
+                   outputVendor(EN, *it, barter), outputDeed(EN, skill));
+    fmt::format_to(in, "                DE={{vendor=\"{}\"{}}},\n",
+                   outputVendor(DE, *it, barter), outputDeed(DE, skill));
+    fmt::format_to(in, "                FR={{vendor=\"{}\"{}}},\n",
+                   outputVendor(FR, *it, barter), outputDeed(FR, skill));
+    fmt::format_to(in, "                RU={{vendor=\"{}\"{}}}}}",
+                   outputVendor(RU, *it, barter), outputDeed(RU, skill));
     return buf;
 }
 
@@ -244,6 +249,11 @@ static string outputDeed(const string &locale, const Skill &skill)
         fmt::format_to(out, "{}deed=\"{}\"",
                        buf.empty() ? "" : ", ",
                        skill.acquireDeed->name.at(locale));
+    }
+    if(skill.barterDeed)
+    {
+        fmt::format_to(out, ", deed=\"{}\"",
+                       skill.barterDeed->name.at(locale));
     }
     return buf;
 }
@@ -387,7 +397,7 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
                         }
                     }
                     fmt::format_to(in, "}},\n");
-                    fmt::format_to(in, "{}", outputVendors(info, bartersList));
+                    fmt::format_to(in, "{}", outputVendors(info, bartersList, skill));
                 }
             }
         }
