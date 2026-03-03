@@ -1386,7 +1386,7 @@ bool SkillLoader::getDeedLabel(const string &locale, std::vector<Skill> &skills,
     if(!root)
         return false;
 
-    std::unordered_map<uint32_t, Deed*> deedInfo;
+    std::unordered_multimap<uint32_t, Deed*> deedInfo;
     for(auto &skill : skills)
     {
         auto *deed = getDeed(skill);
@@ -1403,15 +1403,16 @@ bool SkillLoader::getDeedLabel(const string &locale, std::vector<Skill> &skills,
         string_view key = attr->value();
         if(key.starts_with("key"))
             continue;
-        auto it = deedInfo.find(atoi(key.data()));
-        if(it == deedInfo.end())
-            continue;
 
         attr = node->first_attribute("value");
         if(!attr)
             return false;
 
-        it->second->name[locale] = attr->value();
+        auto found = deedInfo.equal_range(strtoul(key.data(), nullptr, 10));
+        for(auto it = found.first; it != found.second; ++it)
+        {
+            it->second->name[locale] = attr->value();
+        }
     }
     return true;
 }
