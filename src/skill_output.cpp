@@ -197,8 +197,12 @@ static string outputVendor(const string &locale, const NPC &npc, const Barter &b
         {
             return npc.name.at(locale);
         }
-
-        return fmt::format("{} ({})", npc.name.at(locale), npc.title.at(locale));
+        string_view localeTitle = npc.title.at(locale);
+        if(locale == RU && localeTitle == "Quartermaster")
+        {
+            localeTitle = "Интендант";
+        }
+        return fmt::format("{} ({})", npc.name.at(locale), localeTitle);
     }
     return npc.name.at(locale);
 }
