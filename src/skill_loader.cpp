@@ -409,7 +409,13 @@ bool SkillLoader::getFactionLabel(const std::string &locale, TravelInfo &info)
             auto it = ranges::find(info.factions, factionId, &Faction::id);
             if(it != info.factions.end())
             {
-                it->name[locale] = attr->value();
+                string_view factionName = attr->value();
+                if(!factionName.empty() && factionName.back() == ']')
+                {
+                    // remove in-game output transformation hints
+                    factionName = {factionName.data(), factionName.find_last_of('[')};
+                }
+                it->name[locale] = factionName;
             }
         }
     }
