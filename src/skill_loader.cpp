@@ -101,26 +101,21 @@ std::vector<Skill> SkillLoader::getSkills()
 
 bool SkillLoader::getSkillNames(vector<Skill> &skills)
 {
-    if(!getSkillNames(EN, skills))
-        return false;
-    if(!getSkillNames(DE, skills))
-        return false;
-    if(!getSkillNames(FR, skills))
-        return false;
-    if(!getSkillNames(RU, skills))
-        return false;
+    for(const auto &lc : g_lcLabels)
+    {
+        if(!getSkillNames(lc, skills))
+            return false;
+    }
 
     // NOTE: these steps are broken up since
     //       some languages have different
     //       sets of identical names
-    if(!getSkillDesc(EN, skills))
-        return false;
-    if(!getSkillDesc(DE, skills))
-        return false;
-    if(!getSkillDesc(FR, skills))
-        return false;
-    if(!getSkillDesc(RU, skills))
-        return false;
+    for(const auto &lc : g_lcLabels)
+    {
+        if(!getSkillDesc(lc, skills))
+            return false;
+    }
+
     return true;
 }
 
@@ -358,14 +353,11 @@ bool SkillLoader::getSkillItems(std::vector<Skill> &skills)
 
 bool SkillLoader::getFactionLabels(TravelInfo &info)
 {
-    if(!getFactionLabel(EN, info))
-        return false;
-    if(!getFactionLabel(DE, info))
-        return false;
-    if(!getFactionLabel(FR, info))
-        return false;
-    if(!getFactionLabel(RU, info))
-        return false;
+    for(const auto &lc : g_lcLabels)
+    {
+        if(!getFactionLabel(lc, info))
+            return false;
+    }
     return true;
 }
 
@@ -493,14 +485,11 @@ bool SkillLoader::getFactions(TravelInfo &info)
 
 bool SkillLoader::getCurrencyLabels(TravelInfo &info)
 {
-    if(!getCurrencyLabel(EN, info))
-        return false;
-    if(!getCurrencyLabel(DE, info))
-        return false;
-    if(!getCurrencyLabel(FR, info))
-        return false;
-    if(!getCurrencyLabel(RU, info))
-        return false;
+    for(const auto &lc : g_lcLabels)
+    {
+        if(!getCurrencyLabel(lc, info))
+            return false;
+    }
     return true;
 }
 
@@ -828,14 +817,11 @@ bool SkillLoader::getNPCTitleKeys(TravelInfo &info)
 
 bool SkillLoader::getNPCLabels(TravelInfo &info)
 {
-    if(!getNPCLabel(EN, info))
-        return false;
-    if(!getNPCLabel(DE, info))
-        return false;
-    if(!getNPCLabel(FR, info))
-        return false;
-    if(!getNPCLabel(RU, info))
-        return false;
+    for(const auto &lc : g_lcLabels)
+    {
+        if(!getNPCLabel(lc, info))
+            return false;
+    }
     return true;
 }
 
@@ -1081,14 +1067,11 @@ bool SkillLoader::getQuests(std::vector<Skill> &skills)
 
 bool SkillLoader::getQuestLabels(std::vector<Skill> &skills)
 {
-    if(!getQuestLabel(EN, skills))
-        return false;
-    if(!getQuestLabel(DE, skills))
-        return false;
-    if(!getQuestLabel(FR, skills))
-        return false;
-    if(!getQuestLabel(RU, skills))
-        return false;
+    for(const auto &lc : g_lcLabels)
+    {
+        if(!getQuestLabel(lc, skills))
+            return false;
+    }
     return true;
 }
 
@@ -1171,14 +1154,11 @@ bool SkillLoader::getAllegianceLabel(const string &locale,
 
 bool SkillLoader::getAllegianceLabels(std::vector<Skill> &skills)
 {
-    if(!getAllegianceLabel(EN, skills))
-        return false;
-    if(!getAllegianceLabel(DE, skills))
-        return false;
-    if(!getAllegianceLabel(FR, skills))
-        return false;
-    if(!getAllegianceLabel(RU, skills))
-        return false;
+    for(const auto &lc : g_lcLabels)
+    {
+        if(!getAllegianceLabel(lc, skills))
+            return false;
+    }
     return true;
 }
 
@@ -1371,14 +1351,11 @@ bool SkillLoader::getTraits(std::vector<Skill> &skills)
 
 bool SkillLoader::getDeedLabels(std::vector<Skill> &skills, GetDeedFunc getDeed)
 {
-    if(!getDeedLabel(EN, skills, getDeed))
-        return false;
-    if(!getDeedLabel(DE, skills, getDeed))
-        return false;
-    if(!getDeedLabel(FR, skills, getDeed))
-        return false;
-    if(!getDeedLabel(RU, skills, getDeed))
-        return false;
+    for(const auto &lc : g_lcLabels)
+    {
+        if(!getDeedLabel(lc, skills, getDeed))
+            return false;
+    }
     return true;
 }
 

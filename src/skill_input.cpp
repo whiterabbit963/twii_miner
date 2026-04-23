@@ -39,9 +39,9 @@ MapLoc::Region getMapLocRegion(std::string_view name)
 
 bool validLocaleLabel(std::string_view locale)
 {
-    if(locale == EN || locale == DE || locale == FR || locale == RU)
-        return true;
-    return false;
+    if(std::ranges::find(g_lcLabels, locale) == g_lcLabels.end())
+        return false;
+    return true;
 }
 
 std::optional<MapList> loadMapInput(toml::array *arr)
@@ -108,10 +108,7 @@ std::optional<LCLabel> loadAcquireInput(toml::table *tbl)
         return std::nullopt;
     for(auto &item : *tbl)
     {
-        if(item.first != "EN" &&
-                item.first != "DE" &&
-                item.first != "FR" &&
-                item.first != "RU")
+        if(std::ranges::find(g_lcOutLabels, item.first.str()) == g_lcOutLabels.end())
             return std::nullopt;
 
         std::string lc;
@@ -221,7 +218,7 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
                 return false;
             skill.acquireDesc = std::move(*acquire);
         }
-        else if(name == "EN" || name == "DE" || name == "FR" || name == "RU")
+        else if(std::ranges::find(g_lcOutLabels, name) != g_lcOutLabels.end())
         {
             auto value = item.second.as_table();
             if(!value)
@@ -560,10 +557,11 @@ static void addTomlSkill(std::ostream &out, const Skill &skill)
         if(skill.nameId != "Return to Camp" &&
                 skill.group != Skill::Type::Creep)
         {
-            fmt::println(out, "    EN={{{}}}", tomlLabelFields(skill, EN));
-            fmt::println(out, "    DE={{{}}}", tomlLabelFields(skill, DE));
-            fmt::println(out, "    FR={{{}}}", tomlLabelFields(skill, FR));
-            fmt::println(out, "    RU={{{}}}", tomlLabelFields(skill, RU));
+            for(auto lcIt = g_lcLabels.begin(); lcIt != g_lcLabels.end(); ++lcIt)
+            {
+                const std::string &lc = *lcIt;
+                fmt::println(out, "    {}={{{}}}", g_lcMap.at(lc), tomlLabelFields(skill, lc));
+            }
         }
         if(skill.skillTag.has_value())
             fmt::println(out, "    tag=\"{}\"", *skill.skillTag);
@@ -580,10 +578,11 @@ static void addTomlSkill(std::ostream &out, const Skill &skill)
         if(!skill.acquireDesc.empty())
         {
             fmt::println(out, "    [{}.acquire_desc]", groupName);
-            fmt::println(out, "        EN=\"{}\"", skill.acquireDesc.at(EN));
-            fmt::println(out, "        DE=\"{}\"", skill.acquireDesc.at(DE));
-            fmt::println(out, "        FR=\"{}\"", skill.acquireDesc.at(FR));
-            fmt::println(out, "        RU=\"{}\"", skill.acquireDesc.at(RU));
+            for(auto lcIt = g_lcLabels.begin(); lcIt != g_lcLabels.end(); ++lcIt)
+            {
+                const std::string &lc = *lcIt;
+                fmt::println(out, "        {}=\"{}\"", g_lcMap.at(lc), skill.acquireDesc.at(lc));
+            }
         }
     }
 }

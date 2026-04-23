@@ -215,14 +215,13 @@ static string outputVendors(const TravelInfo &info, const Barter &barter, const 
     if(it == info.npcs.end())
         return buf;
     auto in = std::back_inserter(buf);
-    fmt::format_to(in, "                EN={{vendor=\"{}\"{}}},\n",
-                   outputVendor(EN, *it, barter), outputDeed(EN, skill));
-    fmt::format_to(in, "                DE={{vendor=\"{}\"{}}},\n",
-                   outputVendor(DE, *it, barter), outputDeed(DE, skill));
-    fmt::format_to(in, "                FR={{vendor=\"{}\"{}}},\n",
-                   outputVendor(FR, *it, barter), outputDeed(FR, skill));
-    fmt::format_to(in, "                RU={{vendor=\"{}\"{}}}}}",
-                   outputVendor(RU, *it, barter), outputDeed(RU, skill));
+    for(auto lcIt = g_lcLabels.begin(); lcIt != g_lcLabels.end(); ++lcIt)
+    {
+        const std::string &lc = *lcIt;
+        const char *end = std::next(lcIt) != g_lcLabels.end() ? ",\n" : "}";
+        fmt::format_to(in, "                {}={{vendor=\"{}\"{}}}{}",
+                g_lcMap.at(lc), outputVendor(lc, *it, barter), outputDeed(lc, skill), end);
+    }
     return buf;
 }
 
@@ -297,19 +296,24 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
     {
         fmt::println(out, "        acquire={{");
         fmt::println(out, "            {{");
-        fmt::println(out, "                EN={{desc=\"{}\"}},", skill.acquireDesc.at(EN));
-        fmt::println(out, "                DE={{desc=\"{}\"}},", skill.acquireDesc.at(DE));
-        fmt::println(out, "                FR={{desc=\"{}\"}},", skill.acquireDesc.at(FR));
-        fmt::println(out, "                RU={{desc=\"{}\"}}}}}},", skill.acquireDesc.at(RU));
+        for(auto it = g_lcLabels.begin(); it != g_lcLabels.end(); ++it)
+        {
+            const std::string &lc = *it;
+            const char *end = std::next(it) != g_lcLabels.end() ? "," : "}},";
+            fmt::println(out, "                {}={{desc=\"{}\"}}{}",
+                    g_lcMap.at(lc), skill.acquireDesc.at(lc), end);
+        }
     }
     else if(skill.acquireDeed)
     {
         fmt::println(out, "        acquire={{");
         fmt::println(out, "            {{{}", outputAllegianceRank(skill));
-        fmt::println(out, "                EN={{{}}},", outputDeed(EN, skill));
-        fmt::println(out, "                DE={{{}}},", outputDeed(DE, skill));
-        fmt::println(out, "                FR={{{}}},", outputDeed(FR, skill));
-        fmt::print(out, "                RU={{{}}}}}", outputDeed(RU, skill));
+        for(auto it = g_lcLabels.begin(); it != g_lcLabels.end(); ++it)
+        {
+            const std::string &lc = *it;
+            const char *end = std::next(it) != g_lcLabels.end() ? ",\n" : "}";
+            fmt::print(out, "                {}={{{}}}{}", g_lcMap.at(lc), outputDeed(lc, skill), end);
+        }
         if(skill.storeLP)
         {
             fmt::print(out, ",\n            {{store=true}}");
@@ -335,12 +339,13 @@ static void outputAcquire(ostream &out, const TravelInfo &info, const Skill &ski
                 {
                     fmt::format_to(in, "{}\n            {{", acquireFront ? "" : ",");
                     acquireFront = false;
-
-                    fmt::format_to(in, "\n                EN={{{}}},", outputQuest(EN, skill, acquire));
-                    fmt::format_to(in, "\n                DE={{{}}},", outputQuest(DE, skill, acquire));
-                    fmt::format_to(in, "\n                FR={{{}}},", outputQuest(FR, skill, acquire));
-                    fmt::format_to(in, "\n                RU={{{}}}", outputQuest(RU, skill, acquire));
-                    fmt::format_to(in, "}}");
+                    for(auto it = g_lcLabels.begin(); it != g_lcLabels.end(); ++it)
+                    {
+                        const std::string &lc = *it;
+                        const char *end = std::next(it) != g_lcLabels.end() ? "," : "}";
+                        fmt::format_to(in, "\n                {}={{{}}}{}",
+                                g_lcMap.at(lc), outputQuest(lc, skill, acquire), end);
+                    }
                 }
 
                 unordered_map<string, vector<Token>> bartersDone;
@@ -449,8 +454,15 @@ static string outputReputation(const Skill &skill, const TravelInfo &info)
 
 static string outputLabelTag(const LCLabel &tag)
 {
-    return fmt::format("{{EN=\"{}\", DE=\"{}\", FR=\"{}\", RU=\"{}\"}}",
-                       tag.at(EN), tag.at(DE), tag.at(FR), tag.at(RU));
+    std::string buf{"{"};
+    auto out = std::back_inserter(buf);
+    for(auto it = g_lcLabels.begin(); it != g_lcLabels.end(); ++it)
+    {
+        const auto &lc = *it;
+        const char *end = std::next(it) != g_lcLabels.end() ? ", " : "}";
+        fmt::format_to(out, "{}=\"{}\"{}", g_lcMap.at(lc), tag.at(lc), end);
+    }
+    return buf;
 }
 
 static string outputLabelField(std::optional<std::reference_wrapper<const LCLabel>> labelsRef,
@@ -493,10 +505,11 @@ void outputSkill(ostream &out, const TravelInfo &info, const Skill &skill)
     if(skill.race)
         fmt::println(out, "        -- {}", *skill.race);
     fmt::println(out, "        id=\"0x{:08X}\",", skill.id);
-    fmt::println(out, "        EN={{{}}},", outputLabelFields(skill, EN));
-    fmt::println(out, "        DE={{{}}},", outputLabelFields(skill, DE));
-    fmt::println(out, "        FR={{{}}},", outputLabelFields(skill, FR));
-    fmt::println(out, "        RU={{{}}},", outputLabelFields(skill, RU));
+    for(auto lcIt = g_lcLabels.begin(); lcIt != g_lcLabels.end(); ++lcIt)
+    {
+        const std::string &lc = *lcIt;
+        fmt::println(out, "        {}={{{}}},", g_lcMap.at(lc), outputLabelFields(skill, lc));
+    }
     if(skill.skillTag)
         fmt::println(out, "        tag=\"{}\",", *skill.skillTag);
     fmt::println(out, "        map={},", outputMapList(skill.mapList));

@@ -17,6 +17,12 @@ constexpr auto DE = "de";
 constexpr auto FR = "fr";
 constexpr auto RU = "ru";
 
+const std::vector<std::string> g_lcLabels{ EN, DE, FR, RU };
+const std::vector<std::string> g_lcOutLabels{ "EN", "DE", "FR", "RU" };
+const std::map<std::string, const char *, std::less<>> g_lcMap{
+    { EN, "EN" }, { DE, "DE" }, { FR, "FR" }, { RU, "RU"}
+};
+
 using LCLabelMap = std::map<std::string, std::string, std::less<>>;
 
 struct LCLabel
