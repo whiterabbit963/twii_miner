@@ -15,12 +15,13 @@ using namespace std::literals;
 constexpr auto EN = "en";
 constexpr auto DE = "de";
 constexpr auto FR = "fr";
+constexpr auto ES = "es";
 constexpr auto RU = "ru";
 
-const std::vector<std::string> g_lcLabels{ EN, DE, FR, RU };
-const std::vector<std::string> g_lcOutLabels{ "EN", "DE", "FR", "RU" };
+const std::vector<std::string> g_lcLabels{ EN, DE, FR, ES, RU };
+const std::vector<std::string> g_lcOutLabels{ "EN", "DE", "FR", "ES", "RU" };
 const std::map<std::string, const char *, std::less<>> g_lcMap{
-    { EN, "EN" }, { DE, "DE" }, { FR, "FR" }, { RU, "RU"}
+    { EN, "EN" }, { DE, "DE" }, { FR, "FR" }, { ES, "ES" }, { RU, "RU"}
 };
 
 using LCLabelMap = std::map<std::string, std::string, std::less<>>;

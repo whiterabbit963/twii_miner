@@ -591,11 +591,11 @@ bool generateNewSkillInputFile(const TravelInfo &info)
 {
     std::ofstream out("skill_input.toml", std::ios::out | std::ios::binary);
     fmt::println(out, "[labels]");
-    fmt::println(out, "    hunter={{EN=\"Guide\", DE=\"Führer\", FR=\"Guide\", RU=\"Путь\" }}");
-    fmt::println(out, "    warden={{EN=\"Muster\", DE=\"Appell\", FR=\"Rassemblement\", RU=\"Сбор\" }}");
-    fmt::println(out, "    mariner={{EN=\"Sail\", DE=\"Segeln\", FR=\"Naviguer\", RU=\"Плаванье\" }}");
-    fmt::println(out, "    racials={{EN=\"Racial\", DE=\"Rasse\", FR=\"Race\", RU=\"Расовые\" }}");
-    fmt::println(out, "    rep={{EN=\"Rep\", DE=\"Ruf\", FR=\"Rep\", RU=\"Репутация\" }}");
+    fmt::println(out, "    hunter={{EN=\"Guide\", DE=\"Führer\", FR=\"Guide\", ES=\"Guiar\", RU=\"Путь\" }}");
+    fmt::println(out, "    warden={{EN=\"Muster\", DE=\"Appell\", FR=\"Rassemblement\", ES=\"Reunión\", RU=\"Сбор\" }}");
+    fmt::println(out, "    mariner={{EN=\"Sail\", DE=\"Segeln\", FR=\"Naviguer\", ES=\"Navegar\", RU=\"Плаванье\" }}");
+    fmt::println(out, "    racials={{EN=\"Racial\", DE=\"Rasse\", FR=\"Race\", ES=\"Raza\", RU=\"Расовые\" }}");
+    fmt::println(out, "    rep={{EN=\"Rep\", DE=\"Ruf\", FR=\"Rep\", ES=\"Rep\", RU=\"Репутация\" }}");
     fmt::println(out, "");
 
     auto lastType = Skill::Type::Unknown;
