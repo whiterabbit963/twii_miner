@@ -586,16 +586,20 @@ void outputLocaleDataFile(const TravelInfo &info)
                       "    [Turbine.Language.English] = {{}},\n"
                       "    [Turbine.Language.German] = {{}},\n"
                       "    [Turbine.Language.French] = {{}},\n"
+                      "    [Turbine.Language.Spanish] = {{}},\n"
                       "    [Turbine.Language.Russian] = {{}}\n"
                       "}}\n"
                       "local LC_EN = Locale[Turbine.Language.English]\n"
                       "local LC_DE = Locale[Turbine.Language.German]\n"
                       "local LC_FR = Locale[Turbine.Language.French]\n"
+                      "local LC_ES = Locale[Turbine.Language.Spanish]\n"
                       "local LC_RU = Locale[Turbine.Language.Russian]\n");
     fmt::println(out, "if GLocale == Turbine.Language.German then\n"
                       "    LC_DE = LC\n"
                       "elseif GLocale == Turbine.Language.French then\n"
                       "    LC_FR = LC\n"
+                      "elseif GLocale == Turbine.Language.Spanish then\n"
+                      "    LC_ES = LC\n"
                       "elseif GLocale == Turbine.Language.Russian then\n"
                       "    LC_RU = LC\n"
                       "else\n"
@@ -605,6 +609,7 @@ void outputLocaleDataFile(const TravelInfo &info)
     fmt::println(out, "LC_EN.repLevel = {{}}");
     fmt::println(out, "LC_DE.repLevel = {{}}");
     fmt::println(out, "LC_FR.repLevel = {{}}");
+    fmt::println(out, "LC_ES.repLevel = {{}}");
     fmt::println(out, "LC_RU.repLevel = {{}}");
     fmt::println(out, "");
 
@@ -617,6 +622,8 @@ void outputLocaleDataFile(const TravelInfo &info)
                      title, extractNameAttr(rank.name.at(DE)));
         fmt::println(out, "LC_FR.repLevel.{} = \"{}\"",
                      title, extractNameAttr(rank.name.at(FR)));
+        fmt::println(out, "LC_ES.repLevel.{} = \"{}\"",
+                     title, extractNameAttr(rank.name.at(ES)));
         fmt::println(out, "LC_RU.repLevel.{} = \"{}\"",
                      title, extractNameAttr(rank.name.at(RU)));
         fmt::println(out, "");
@@ -625,6 +632,7 @@ void outputLocaleDataFile(const TravelInfo &info)
     fmt::println(out, "LC_EN.rep = {{}}");
     fmt::println(out, "LC_DE.rep = {{}}");
     fmt::println(out, "LC_FR.rep = {{}}");
+    fmt::println(out, "LC_ES.rep = {{}}");
     fmt::println(out, "LC_RU.rep = {{}}");
     fmt::println(out, "");
 
@@ -634,6 +642,7 @@ void outputLocaleDataFile(const TravelInfo &info)
         fmt::println(out, "LC_EN.rep.{} = \"{}\"", title, faction.name.at(EN));
         fmt::println(out, "LC_DE.rep.{} = \"{}\"", title, faction.name.at(DE));
         fmt::println(out, "LC_FR.rep.{} = \"{}\"", title, faction.name.at(FR));
+        fmt::println(out, "LC_ES.rep.{} = \"{}\"", title, faction.name.at(ES));
         fmt::println(out, "LC_RU.rep.{} = \"{}\"", title, faction.name.at(RU));
         fmt::println(out, "");
     }
@@ -641,26 +650,31 @@ void outputLocaleDataFile(const TravelInfo &info)
     fmt::println(out, "LC_EN.token = {{}}");
     fmt::println(out, "LC_DE.token = {{}}");
     fmt::println(out, "LC_FR.token = {{}}");
+    fmt::println(out, "LC_ES.token = {{}}");
     fmt::println(out, "LC_RU.token = {{}}");
     fmt::println(out, "");
     fmt::println(out, "LC_EN.token.COPPER = \"Copper\"");
     fmt::println(out, "LC_DE.token.COPPER = \"Kupfer\"");
     fmt::println(out, "LC_FR.token.COPPER = \"Cuivre\"");
+    fmt::println(out, "LC_ES.token.COPPER = \"Cobre\"");
     fmt::println(out, "LC_RU.token.COPPER = \"Медь\"");
     fmt::println(out, "");
     fmt::println(out, "LC_EN.token.SILVER = \"Silver\"");
     fmt::println(out, "LC_DE.token.SILVER = \"Silber\"");
     fmt::println(out, "LC_FR.token.SILVER = \"Argent\"");
+    fmt::println(out, "LC_ES.token.SILVER = \"Plata\"");
     fmt::println(out, "LC_RU.token.SILVER = \"Серебро\"");
     fmt::println(out, "");
     fmt::println(out, "LC_EN.token.GOLD = \"Gold\"");
     fmt::println(out, "LC_DE.token.GOLD = \"Gold\"");
     fmt::println(out, "LC_FR.token.GOLD = \"Or\"");
+    fmt::println(out, "LC_ES.token.GOLD = \"Oro\"");
     fmt::println(out, "LC_RU.token.GOLD = \"Золото\"");
     fmt::println(out, "");
     fmt::println(out, "LC_EN.token.LOTRO_POINT = \"LOTRO Points\"");
     fmt::println(out, "LC_DE.token.LOTRO_POINT = \"HdRO-Punkte\"");
     fmt::println(out, "LC_FR.token.LOTRO_POINT = \"Points SdAO\"");
+    fmt::println(out, "LC_ES.token.LOTRO_POINT = \"Puntos LOTRO\"");
     fmt::println(out, "LC_RU.token.LOTRO_POINT = \"ВКО марки\"");
     for(const auto &currency : info.currencies)
     {
@@ -669,6 +683,7 @@ void outputLocaleDataFile(const TravelInfo &info)
         fmt::println(out, "LC_EN.token.{} = \"{}\"", title, currency.name.at(EN));
         fmt::println(out, "LC_DE.token.{} = \"{}\"", title, currency.name.at(DE));
         fmt::println(out, "LC_FR.token.{} = \"{}\"", title, currency.name.at(FR));
+        fmt::println(out, "LC_ES.token.{} = \"{}\"", title, currency.name.at(ES));
         fmt::println(out, "LC_RU.token.{} = \"{}\"", title, currency.name.at(RU));
     }
 }
