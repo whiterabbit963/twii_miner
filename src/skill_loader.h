@@ -219,7 +219,9 @@ class SkillLoader
 public:
     using GetDeedFunc = std::function<Deed*(Skill&)>;
 
-    SkillLoader(std::string_view root);
+    SkillLoader(std::string_view root, std::string_view twiiRoot);
+
+    std::string getTwiiRoot() const;
 
     std::vector<Skill> getSkills();
 
@@ -265,6 +267,7 @@ private:
 
 private:
     std::string m_path;
+    std::string m_twiiPath;
     XMLLoader m_xml;
 };
 

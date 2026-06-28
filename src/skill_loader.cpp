@@ -29,7 +29,14 @@ static string fixXmlStr(string_view str)
 }
 
 
-SkillLoader::SkillLoader(std::string_view root) : m_path(root) {}
+SkillLoader::SkillLoader(std::string_view root, string_view twiiRoot) :
+    m_path(root),
+    m_twiiPath(twiiRoot) {}
+
+std::string SkillLoader::getTwiiRoot() const
+{
+    return fmt::format("{}/data/skill_input.toml", m_twiiPath);
+}
 
 std::vector<Skill> SkillLoader::getSkills()
 {

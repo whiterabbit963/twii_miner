@@ -266,9 +266,9 @@ bool loadSkillInput(toml::table *itemTable, Skill &skill)
     return true;
 }
 
-bool loadSkillInputs(TravelInfo &info)
+bool loadSkillInputs(SkillLoader &loader, TravelInfo &info)
 {
-    toml::parse_result result = toml::parse_file("C:\\projects\\twii_miner\\skill_input.toml");
+    toml::parse_result result = toml::parse_file(loader.getTwiiRoot());
 
     if(!result)
     {

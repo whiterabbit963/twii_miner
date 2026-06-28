@@ -7,6 +7,7 @@
 struct ParsedArgs
 {
     std::string dataRoot;
+    std::string twiiRoot;
     bool helpRequested{false};
 };
 

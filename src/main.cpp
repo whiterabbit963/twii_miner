@@ -7,9 +7,37 @@
 #include "skill_input.h"
 #include "skill_output.h"
 
+#if defined(_WIN32)
+#include <ShlObj_core.h>
+#include <Windows.h>
+#endif
+
 using namespace std;
 
-static bool validateDataDirectories(const std::string &rootPath)
+static std::string getHomeDir()
+{
+    std::string homeDirPath;
+#if defined(_WIN32)
+    PWSTR homeDir = nullptr;
+    HRESULT hr = SHGetKnownFolderPath(FOLDERID_Profile, KF_FLAG_DEFAULT, nullptr, &homeDir);
+    if(SUCCEEDED(hr))
+    {
+        std::filesystem::path result{ homeDir };
+        CoTaskMemFree(homeDir);
+        homeDirPath = result.string();
+    }
+#else
+    // TODO:
+#endif
+    return homeDirPath;
+}
+
+std::string getDefaultTwIIFolder()
+{
+    return fmt::format("{}/Documents/The Lord of the Rings Online/Plugins/TravelWindowII", getHomeDir());
+}
+
+static bool validateDataDirectories(std::string_view rootPath, std::string_view twiiRoot)
 {
     namespace fsys = std::filesystem;
 
@@ -29,7 +57,8 @@ static bool validateDataDirectories(const std::string &rootPath)
         {
             "lotro-data",
             "lotro-data/lore",
-            "lotro-items-db"
+            "lotro-items-db",
+            std::string{twiiRoot}
         };
 
     for(const auto &subdir : requiredDirs)
@@ -70,15 +99,21 @@ int main(int argc, const char **argv)
         return 0;
     }
 
-    if(!validateDataDirectories(args->dataRoot))
+    if(args->twiiRoot.empty())
+    {
+        args->twiiRoot = getDefaultTwIIFolder();
+        if(args->twiiRoot.empty())
+            return 1;
+    }
+    if(!validateDataDirectories(args->dataRoot, args->twiiRoot))
     {
         return 1;
     }
 
     TravelInfo info;
-    SkillLoader loader(args->dataRoot);
+    SkillLoader loader(args->dataRoot, args->twiiRoot);
     info.skills = loader.getSkills();
-    if(!loadSkillInputs(info))
+    if(!loadSkillInputs(loader, info))
     {
         return 1;
     }

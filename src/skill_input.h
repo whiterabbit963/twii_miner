@@ -4,7 +4,7 @@
 #include "skill_loader.h"
 
 class TravelInfo;
-bool loadSkillInputs(TravelInfo &info);
+bool loadSkillInputs(SkillLoader &loader, TravelInfo &info);
 bool mergeSkillInputs(TravelInfo &info,
                       std::map<unsigned, Skill> &skillInputs);
 
